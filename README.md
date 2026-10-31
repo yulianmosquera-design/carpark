@@ -86,7 +86,7 @@ YULIAN/
 ---
 
 ## 👥 Autores y Créditos
-- **Autor:** Yulian Germayoni Mosquera Cetre
-- **Materia:** Ingenieria de Software
-- **Institución:** IUDIGITAL
-- **Fecha:** 31 de octubre de 2026
+- **Autores:** Yulian & Equipo de Trabajo
+- **Materia:** Electiva I – Diseño Sistema de Información
+- **Institución:** Universidad / Institución de Educación Superior
+- **Año:** 2026
