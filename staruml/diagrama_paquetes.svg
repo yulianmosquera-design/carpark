@@ -1,0 +1,100 @@
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 620" width="100%" height="100%">
+  <defs>
+    <style>
+      .bg { fill: #f8fafc; }
+      .pkg-tab { fill: #1e40af; rx: 3; }
+      .pkg-box { fill: #ffffff; stroke: #1e3a8a; stroke-width: 2; rx: 8; filter: drop-shadow(0 4px 6px rgba(0,0,0,0.06)); }
+      .pkg-title { font-family: 'Segoe UI', Arial, sans-serif; font-size: 13px; font-weight: 700; fill: #1e40af; }
+      .pkg-desc { font-family: 'Segoe UI', Arial, sans-serif; font-size: 11px; fill: #475569; }
+      .pkg-class { font-family: 'Consolas', monospace; font-size: 11px; fill: #0f172a; }
+      .dep-arrow { stroke: #2563eb; stroke-width: 2; stroke-dasharray: 6,4; fill: none; }
+    </style>
+    <marker id="dep-marker" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#2563eb" />
+    </marker>
+  </defs>
+
+  <rect width="100%" height="100%" class="bg" />
+
+  <text x="460" y="32" text-anchor="middle" font-family="'Segoe UI', Arial, sans-serif" font-size="18" font-weight="700" fill="#0f172a">
+    Diagrama de Paquetes por Capas (Arquitectura N-Capas) - Autos Colombia
+  </text>
+
+  <!-- PAQUETE 1: PRESENTATION LAYER -->
+  <g transform="translate(60, 60)">
+    <rect x="0" y="0" width="80" height="20" class="pkg-tab" />
+    <rect x="0" y="16" width="360" height="110" class="pkg-box" />
+    <text x="18" y="42" class="pkg-title">co.com.autoscolombia.presentation (UI)</text>
+    <text x="18" y="62" class="pkg-desc">Interfaz Gráfica Web y Vistas de Usuario</text>
+    <text x="18" y="86" class="pkg-class">• DashboardView.html / styles.css</text>
+    <text x="18" y="104" class="pkg-class">• EntradaVehiculoComponent.js / TicketPrinter</text>
+  </g>
+
+  <!-- PAQUETE 2: CONTROLLER LAYER -->
+  <g transform="translate(500, 60)">
+    <rect x="0" y="0" width="80" height="20" class="pkg-tab" />
+    <rect x="0" y="16" width="360" height="110" class="pkg-box" />
+    <text x="18" y="42" class="pkg-title">co.com.autoscolombia.controllers (API)</text>
+    <text x="18" y="62" class="pkg-desc">Controladores REST y Enrutamiento HTTP</text>
+    <text x="18" y="86" class="pkg-class">• ParqueaderoController.js</text>
+    <text x="18" y="104" class="pkg-class">• CeldasController.js / ReportesController.js</text>
+  </g>
+
+  <!-- PAQUETE 3: SERVICE LAYER -->
+  <g transform="translate(500, 240)">
+    <rect x="0" y="0" width="80" height="20" class="pkg-tab" />
+    <rect x="0" y="16" width="360" height="115" class="pkg-box" />
+    <text x="18" y="42" class="pkg-title">co.com.autoscolombia.services (Lógica)</text>
+    <text x="18" y="62" class="pkg-desc">Reglas de Negocio, Cálculo de Tarifas y Liquidación</text>
+    <text x="18" y="86" class="pkg-class">• ParqueaderoService.js (Entrada/Salida)</text>
+    <text x="18" y="104" class="pkg-class">• ValidacionMensualidadService.js</text>
+  </g>
+
+  <!-- PAQUETE 4: REPOSITORY LAYER -->
+  <g transform="translate(60, 240)">
+    <rect x="0" y="0" width="80" height="20" class="pkg-tab" />
+    <rect x="0" y="16" width="360" height="115" class="pkg-box" />
+    <text x="18" y="42" class="pkg-title">co.com.autoscolombia.repositories (Acceso a Datos)</text>
+    <text x="18" y="62" class="pkg-desc">Abstracción de Persistencia y Consultas</text>
+    <text x="18" y="86" class="pkg-class">• ParqueaderoRepository.js</text>
+    <text x="18" y="104" class="pkg-class">• CeldaRepository.js / NovedadRepository.js</text>
+  </g>
+
+  <!-- PAQUETE 5: DOMAIN / ENTITY LAYER -->
+  <g transform="translate(60, 430)">
+    <rect x="0" y="0" width="80" height="20" class="pkg-tab" />
+    <rect x="0" y="16" width="360" height="120" class="pkg-box" />
+    <text x="18" y="42" class="pkg-title">co.com.autoscolombia.domain.models</text>
+    <text x="18" y="62" class="pkg-desc">Entidades de Negocio y Objetos de Transferencia (DTO)</text>
+    <text x="18" y="86" class="pkg-class">• Vehiculo.js / RegistroEstadia.js</text>
+    <text x="18" y="104" class="pkg-class">• Celda.js / NovedadVehiculo.js / Mensualidad.js</text>
+  </g>
+
+  <!-- PAQUETE 6: DATABASE ENGINE -->
+  <g transform="translate(500, 430)">
+    <rect x="0" y="0" width="80" height="20" class="pkg-tab" />
+    <rect x="0" y="16" width="360" height="120" class="pkg-box" />
+    <text x="18" y="42" class="pkg-title">co.com.autoscolombia.database (Persistencia)</text>
+    <text x="18" y="62" class="pkg-desc">Motor SQL y Esquema Relacional</text>
+    <text x="18" y="86" class="pkg-class">• SQLite 3 / PostgreSQL DDL & Triggers</text>
+    <text x="18" y="104" class="pkg-class">• Tablas: registros_estadia, celdas, vehiculos</text>
+  </g>
+
+  <!-- DEPENDENCIAS ENTRE PAQUETES (FLECHAS DASHED) -->
+  <!-- UI -> Controllers -->
+  <path d="M 420,90 L 500,90" class="dep-arrow" marker-end="url(#dep-marker)" />
+  <text x="460" y="82" font-family="'Segoe UI', Arial" font-size="10" fill="#2563eb" text-anchor="middle">&lt;&lt;use&gt;&gt;</text>
+
+  <!-- Controllers -> Services -->
+  <path d="M 680,186 L 680,240" class="dep-arrow" marker-end="url(#dep-marker)" />
+
+  <!-- Services -> Repositories -->
+  <path d="M 500,300 L 420,300" class="dep-arrow" marker-end="url(#dep-marker)" />
+
+  <!-- Repositories -> Models -->
+  <path d="M 240,371 L 240,430" class="dep-arrow" marker-end="url(#dep-marker)" />
+
+  <!-- Repositories -> Database -->
+  <path d="M 420,320 L 680,320 L 680,430" class="dep-arrow" marker-end="url(#dep-marker)" />
+</svg>
