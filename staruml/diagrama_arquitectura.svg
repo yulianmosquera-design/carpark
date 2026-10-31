@@ -1,0 +1,119 @@
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 950 640" width="100%" height="100%">
+  <defs>
+    <style>
+      .bg { fill: #f8fafc; }
+      .layer-box { fill: #ffffff; stroke: #94a3b8; stroke-width: 1.5; rx: 10; }
+      .layer-title { font-family: 'Segoe UI', Arial, sans-serif; font-size: 14px; font-weight: 700; fill: #1e3a8a; }
+      .comp-box { fill: #eff6ff; stroke: #3b82f6; stroke-width: 1.8; rx: 6; }
+      .comp-title { font-family: 'Segoe UI', Arial, sans-serif; font-size: 12px; font-weight: 700; fill: #1e40af; }
+      .comp-sub { font-family: 'Segoe UI', Arial, sans-serif; font-size: 10px; fill: #475569; }
+      .flow-arrow { stroke: #0f172a; stroke-width: 2; fill: none; }
+      .protocol-pill { font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 600; fill: #2563eb; }
+    </style>
+    <marker id="arch-arrow" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#0f172a" />
+    </marker>
+  </defs>
+
+  <rect width="100%" height="100%" class="bg" />
+
+  <text x="475" y="32" text-anchor="middle" font-family="'Segoe UI', Arial, sans-serif" font-size="18" font-weight="700" fill="#0f172a">
+    Arquitectura del Sistema en Capas (C4 Layered View) - Autos Colombia
+  </text>
+
+  <!-- CAPA 1: CLIENTE / PRESENTACIÓN -->
+  <g transform="translate(60, 55)">
+    <rect width="830" height="110" class="layer-box" />
+    <text x="20" y="24" class="layer-title">1. Capa de Presentación (Frontend / Single Page Application)</text>
+    
+    <g transform="translate(30, 38)">
+      <rect width="230" height="58" class="comp-box" />
+      <text x="14" y="24" class="comp-title">Módulo de Entrada y Ticket</text>
+      <text x="14" y="42" class="comp-sub">Formulario validado, escáner e impresora</text>
+    </g>
+
+    <g transform="translate(300, 38)">
+      <rect width="230" height="58" class="comp-box" />
+      <text x="14" y="24" class="comp-title">Módulo de Salida y Cobro</text>
+      <text x="14" y="42" class="comp-sub">Liquidación tiempo y validación mensualidad</text>
+    </g>
+
+    <g transform="translate(570, 38)">
+      <rect width="230" height="58" class="comp-box" />
+      <text x="14" y="24" class="comp-title">Mapa de Celdas y Novedades</text>
+      <text x="14" y="42" class="comp-sub">Tablero interactivo en vivo de ocupación</text>
+    </g>
+  </g>
+
+  <!-- FLECHA CONEXIÓN HTTP REST -->
+  <path d="M 475,165 L 475,205" class="flow-arrow" marker-end="url(#arch-arrow)" />
+  <rect x="420" y="175" width="110" height="20" fill="#ffffff" stroke="#2563eb" rx="4" />
+  <text x="475" y="189" class="protocol-pill" text-anchor="middle">HTTP / JSON REST</text>
+
+  <!-- CAPA 2: SERVICIOS Y CONTROLADORES (BACKEND) -->
+  <g transform="translate(60, 215)">
+    <rect width="830" height="135" class="layer-box" />
+    <text x="20" y="24" class="layer-title">2. Capa de Lógica del Negocio (Backend Node.js Core Services)</text>
+
+    <g transform="translate(30, 42)">
+      <rect width="230" height="75" class="comp-box" />
+      <text x="14" y="24" class="comp-title">API Routing & Controller</text>
+      <text x="14" y="42" class="comp-sub">ParqueaderoController.js</text>
+      <text x="14" y="58" class="comp-sub">Manejo de peticiones y validación</text>
+    </g>
+
+    <g transform="translate(300, 42)">
+      <rect width="230" height="75" class="comp-box" />
+      <text x="14" y="24" class="comp-title">Service: ParqueaderoService</text>
+      <text x="14" y="42" class="comp-sub">Cálculo de minutos, tarifas,</text>
+      <text x="14" y="58" class="comp-sub">regla de mensualidades y liberación celda</text>
+    </g>
+
+    <g transform="translate(570, 42)">
+      <rect width="230" height="75" class="comp-box" />
+      <text x="14" y="24" class="comp-title">Service: Novedades & Celdas</text>
+      <text x="14" y="42" class="comp-sub">Inspección de daños vehiculares</text>
+      <text x="14" y="58" class="comp-sub">y auditoría de disponibilidad</text>
+    </g>
+  </g>
+
+  <!-- FLECHA CONEXIÓN REPOSITORIOS -->
+  <path d="M 475,350 L 475,390" class="flow-arrow" marker-end="url(#arch-arrow)" />
+  <text x="510" y="374" class="comp-sub" font-weight="600">Invocación DAO</text>
+
+  <!-- CAPA 3: ACCESO A DATOS (DATA ACCESS LAYER) -->
+  <g transform="translate(60, 395)">
+    <rect width="830" height="95" class="layer-box" />
+    <text x="20" y="24" class="layer-title">3. Capa de Acceso a Datos (Repository Pattern)</text>
+
+    <g transform="translate(30, 35)">
+      <rect width="360" height="46" class="comp-box" />
+      <text x="14" y="22" class="comp-title">ParqueaderoRepository</text>
+      <text x="14" y="38" class="comp-sub">Consultas SQL parametrizadas, findByPlaca, createTicket</text>
+    </g>
+
+    <g transform="translate(440, 35)">
+      <rect width="360" height="46" class="comp-box" />
+      <text x="14" y="22" class="comp-title">DatabaseSync Connection Pool</text>
+      <text x="14" y="38" class="comp-sub">Transaccionalidad ACID y bloqueo de celdas concurrentes</text>
+    </g>
+  </g>
+
+  <!-- FLECHA PERSISTENCIA -->
+  <path d="M 475,490 L 475,525" class="flow-arrow" marker-end="url(#arch-arrow)" />
+
+  <!-- CAPA 4: MOTOR DE BASE DE DATOS -->
+  <g transform="translate(60, 530)">
+    <rect width="830" height="90" style="fill: #f1f5f9; stroke: #334155; stroke-width: 2; rx: 10;" />
+    <text x="20" y="24" class="layer-title">4. Capa de Persistencia y Almacenamiento Físico</text>
+
+    <g transform="translate(30, 34)">
+      <rect width="770" height="42" fill="#ffffff" stroke="#64748b" rx="6" />
+      <text x="18" y="26" font-family="'Segoe UI', Arial" font-size="12" font-weight="700" fill="#0f172a">
+        Base de Datos Relacional: SQLite 3 / MySQL / PostgreSQL (Esquema DDL 3FN)
+      </text>
+      <text x="560" y="26" class="comp-sub">Tablas: celdas, registros_estadia, mensualidades, novedades</text>
+    </g>
+  </g>
+</svg>
