@@ -1,0 +1,839 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CarPark - Parqueadero Autos Colombia</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="app-layout">
+    <!-- BARRA LATERAL (SIDEBAR) -->
+    <aside class="sidebar">
+      <div class="brand-box">
+        <div class="brand-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.6 16 10 16 10s-1.3-1.4-2.2-2.3c-.5-.4-1.1-.7-1.8-.7H5c-.6 0-1.1.4-1.4.9l-1.4 2.9A3.7 3.7 0 0 0 2 12v4c0 .6.4 1 1 1h2"/>
+            <circle cx="7" cy="17" r="2"/>
+            <path d="M9 17h6"/>
+            <circle cx="17" cy="17" r="2"/>
+          </svg>
+        </div>
+        <div>
+          <h1 class="brand-title">Car<span>Park</span></h1>
+          <span class="brand-subtitle">Autos Colombia</span>
+        </div>
+      </div>
+
+      <nav class="nav-menu">
+        <button class="nav-btn active" data-tab="dashboard">
+          <span class="nav-icon">⊞</span>
+          <span>Dashboard</span>
+        </button>
+        <button class="nav-btn" data-tab="entrada">
+          <span class="nav-icon">🚗</span>
+          <span>Registrar Entrada</span>
+        </button>
+        <button class="nav-btn" data-tab="salida">
+          <span class="nav-icon">🚙</span>
+          <span>Registrar Salida</span>
+        </button>
+        <button class="nav-btn" data-tab="celdas">
+          <span class="nav-icon">🅿️</span>
+          <span>Mapa de Celdas</span>
+        </button>
+        <button class="nav-btn" data-tab="novedades">
+          <span class="nav-icon">⚠️</span>
+          <span>Novedades / Daños</span>
+        </button>
+        <button class="nav-btn" data-tab="mensualidades">
+          <span class="nav-icon">📅</span>
+          <span>Mensualidades</span>
+        </button>
+      </nav>
+
+      <div class="operator-card">
+        <div class="operator-avatar">LM</div>
+        <div class="operator-info">
+          <p class="operator-name">Laura Martínez</p>
+          <span class="operator-role">Operador de Turno</span>
+        </div>
+      </div>
+    </aside>
+
+    <!-- CONTENEDOR PRINCIPAL -->
+    <main class="main-content">
+      <!-- CABECERA SUPERIOR (TOPBAR ESTILO CARPARK) -->
+      <header class="topbar">
+        <div class="search-box-top">
+          <span class="search-icon">🔍</span>
+          <input type="text" id="top-search-input" placeholder="Buscar por placa, celda o cliente...">
+        </div>
+
+        <div class="topbar-actions">
+          <div class="live-clock" id="live-clock">--:--:--</div>
+          <div class="status-indicator online">
+            <span class="status-dot"></span>
+            <span>Sistema Conectado</span>
+          </div>
+          <button class="btn btn-secondary" onclick="app.refreshAll()">
+            🔄 Actualizar
+          </button>
+        </div>
+      </header>
+
+      <!-- SECCIONES DE CONTENIDO -->
+      <div class="content-body">
+        
+        <!-- SECCIÓN 1: DASHBOARD -->
+        <section id="tab-dashboard" class="tab-pane active">
+          
+          <!-- 4 TARJETAS DE MÉTRICAS (ESTILO EXACTO MOCKUP CARPARK) -->
+          <div class="metrics-grid">
+            <!-- TARJETA 1: TOTAL REGISTROS -->
+            <div class="metric-card">
+              <div class="metric-left">
+                <div class="metric-value" id="metric-total-reg">10k</div>
+                <div class="metric-title">Total Registros</div>
+                <div class="metric-pill green">
+                  <span>▲</span> 4% (30 days)
+                </div>
+              </div>
+              <div class="metric-icon-circle red-circle">
+                📈
+              </div>
+            </div>
+
+            <!-- TARJETA 2: USUARIOS ACTIVOS / MENSUALIDADES -->
+            <div class="metric-card">
+              <div class="metric-left">
+                <div class="metric-value" id="metric-active-users">357</div>
+                <div class="metric-title">Usuarios Activos (Mes)</div>
+                <div class="metric-pill green">
+                  <span>▲</span> 6% (1 day)
+                </div>
+              </div>
+              <div class="metric-icon-circle gold-circle">
+                👥
+              </div>
+            </div>
+
+            <!-- TARJETA 3: CELDAS DISPONIBLES -->
+            <div class="metric-card">
+              <div class="metric-left">
+                <div class="metric-value" id="metric-available-spots" style="color: var(--gold);">10</div>
+                <div class="metric-title">Celdas Disponibles</div>
+                <div class="metric-pill gold">
+                  <span>⏱️</span> Tiempo Real
+                </div>
+              </div>
+              <div class="metric-icon-circle red-circle">
+                📅
+              </div>
+            </div>
+
+            <!-- TARJETA 4: VEHÍCULOS ESTACIONADOS -->
+            <div class="metric-card">
+              <div class="metric-left">
+                <div class="metric-value text-primary" id="metric-estacionados" style="color: var(--primary);">15</div>
+                <div class="metric-title">Vehículos en Sitio</div>
+                <div class="metric-pill red">
+                  <span>●</span> En Ocupación
+                </div>
+              </div>
+              <div class="metric-icon-circle gold-circle">
+                🎯
+              </div>
+            </div>
+          </div>
+
+          <!-- FILA MEDIA: RATE OF PARKING SPOTS + POPULAR USED SPOTS -->
+          <div class="middle-grid">
+            
+            <!-- PANEL IZQUIERDO: RATE OF PARKING SPOTS (GRÁFICA DE ONDAS EN ROJO) -->
+            <div class="card chart-card">
+              <div class="chart-header">
+                <div class="chart-title-box">
+                  <h3>Tasa de Ocupación por Día (Rate of Parking Spots)</h3>
+                  <p>Comportamiento del flujo vehicular durante la semana actual</p>
+                </div>
+                <button class="btn-report" onclick="window.print()">
+                  ⬇ Guardar Reporte
+                </button>
+              </div>
+
+              <!-- SVG GRÁFICA DE ONDAS CON ACENTO ROJO #FF0000 -->
+              <div class="svg-chart-container">
+                <svg viewBox="0 0 600 180" width="100%" height="100%">
+                  <defs>
+                    <linearGradient id="redWaveGrad" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="0%" stop-color="#FF0000" stop-opacity="0.4" />
+                      <stop offset="100%" stop-color="#FF0000" stop-opacity="0.0" />
+                    </linearGradient>
+                  </defs>
+
+                  <!-- Líneas guía horizontales tenues -->
+                  <line x1="20" y1="30" x2="580" y2="30" stroke="#2a3040" stroke-width="1" stroke-dasharray="3,3" />
+                  <line x1="20" y1="80" x2="580" y2="80" stroke="#2a3040" stroke-width="1" stroke-dasharray="3,3" />
+                  <line x1="20" y1="130" x2="580" y2="130" stroke="#2a3040" stroke-width="1" stroke-dasharray="3,3" />
+
+                  <!-- Área degradada bajo la curva -->
+                  <path d="M 30,130 C 90,80 140,150 200,90 C 260,30 310,130 380,80 C 440,40 500,120 570,90 L 570,160 L 30,160 Z" fill="url(#redWaveGrad)" />
+
+                  <!-- Curva en Rojo #FF0000 -->
+                  <path d="M 30,130 C 90,80 140,150 200,90 C 260,30 310,130 380,80 C 440,40 500,120 570,90" fill="none" stroke="#FF0000" stroke-width="3" filter="drop-shadow(0 0 8px rgba(255,0,0,0.6))" />
+
+                  <!-- Tooltip de punto activo (40 Parking Spots) -->
+                  <g transform="translate(230, 48)">
+                    <!-- Globo tooltip -->
+                    <rect x="-60" y="-32" width="120" height="26" rx="6" fill="#1f232f" stroke="#FF0000" stroke-width="1.2" />
+                    <text x="0" y="-15" text-anchor="middle" font-family="'Inter', sans-serif" font-size="9" font-weight="700" fill="#ffffff">40 Celdas Ocupadas</text>
+                    <!-- Punto iluminado -->
+                    <circle cx="0" cy="0" r="6" fill="#FF0000" stroke="#ffffff" stroke-width="2" filter="drop-shadow(0 0 6px #FF0000)" />
+                  </g>
+
+                  <!-- Días de la semana X-Axis -->
+                  <text x="30" y="172" font-family="'Inter', sans-serif" font-size="9.5" fill="#8c93a8">Domingo</text>
+                  <text x="120" y="172" font-family="'Inter', sans-serif" font-size="9.5" fill="#8c93a8">Lunes</text>
+                  <text x="210" y="172" font-family="'Inter', sans-serif" font-size="9.5" fill="#8c93a8">Martes</text>
+                  <text x="300" y="172" font-family="'Inter', sans-serif" font-size="9.5" fill="#8c93a8">Miércoles</text>
+                  <text x="390" y="172" font-family="'Inter', sans-serif" font-size="9.5" fill="#8c93a8">Jueves</text>
+                  <text x="480" y="172" font-family="'Inter', sans-serif" font-size="9.5" fill="#8c93a8">Viernes</text>
+                  <text x="545" y="172" font-family="'Inter', sans-serif" font-size="9.5" fill="#8c93a8">Sábado</text>
+                </svg>
+              </div>
+            </div>
+
+            <!-- PANEL DERECHO: POPULAR USED SPOTS (AUTOS VISTOS DESDE ARRIBA) -->
+            <div class="card spots-card">
+              <div class="chart-header">
+                <div class="chart-title-box">
+                  <h3>Celdas en Uso (Popular Used Spots)</h3>
+                  <p>Disponibilidad y distribución física de bahías</p>
+                </div>
+                <div class="spots-legend">
+                  <span><span class="legend-dot red"></span> Ocupada</span>
+                  <span><span class="legend-dot gold"></span> Reservada</span>
+                  <span><span class="legend-dot green"></span> Libre</span>
+                </div>
+              </div>
+
+              <!-- CARRILES DE PARQUEO VISUAL CON SILUETAS -->
+              <div class="parking-road-visual">
+                <div class="spot-lane">
+                  <div class="spot-car-item">
+                    <div class="car-silhouette occupied">🚗</div>
+                    <span class="spot-code-badge red-badge">A-01</span>
+                  </div>
+                  <div class="spot-car-item">
+                    <div class="car-silhouette occupied">🚙</div>
+                    <span class="spot-code-badge red-badge">A-03</span>
+                  </div>
+                  <div class="spot-car-item">
+                    <div class="car-silhouette available">⚪</div>
+                    <span class="spot-code-badge green-badge">A-02</span>
+                  </div>
+                  <div class="spot-car-item">
+                    <div class="car-silhouette occupied">🏍️</div>
+                    <span class="spot-code-badge gold-badge">M-01</span>
+                  </div>
+                </div>
+
+                <div class="spot-lane">
+                  <div class="spot-car-item">
+                    <div class="car-silhouette occupied">🚙</div>
+                    <span class="spot-code-badge red-badge">C-01</span>
+                  </div>
+                  <div class="spot-car-item">
+                    <div class="car-silhouette available">⚪</div>
+                    <span class="spot-code-badge green-badge">C-02</span>
+                  </div>
+                  <div class="spot-car-item">
+                    <div class="car-silhouette occupied">🚗</div>
+                    <span class="spot-code-badge red-badge">A-04</span>
+                  </div>
+                  <div class="spot-car-item">
+                    <div class="car-silhouette available">⚪</div>
+                    <span class="spot-code-badge green-badge">M-02</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- FILA INFERIOR: TOTAL REVENUE + PARKING DURATION -->
+          <div class="bottom-grid">
+            
+            <!-- PANEL IZQUIERDO: TOTAL REVENUE (DOBLE CURVA: ROJO 2026 VS ORO 2025) -->
+            <div class="card chart-card">
+              <div class="chart-header">
+                <div class="chart-title-box">
+                  <h3>Ingresos Totales (Total Revenue)</h3>
+                  <p>Comparativo mensual de recaudación por estancias</p>
+                </div>
+                <div class="revenue-legend">
+                  <span><span class="legend-dot red"></span> 2026 (Actual)</span>
+                  <span><span class="legend-dot gold"></span> 2025 (Anterior)</span>
+                </div>
+              </div>
+
+              <div class="svg-chart-container">
+                <svg viewBox="0 0 600 180" width="100%" height="100%">
+                  <!-- Eje Y etiquetas -->
+                  <text x="15" y="30" font-family="'Inter', sans-serif" font-size="8.5" fill="#8c93a8">$40k</text>
+                  <text x="15" y="70" font-family="'Inter', sans-serif" font-size="8.5" fill="#8c93a8">$30k</text>
+                  <text x="15" y="110" font-family="'Inter', sans-serif" font-size="8.5" fill="#8c93a8">$20k</text>
+
+                  <!-- Líneas verticales de meses -->
+                  <line x1="50" y1="20" x2="50" y2="140" stroke="#242938" stroke-width="1" />
+                  <line x1="100" y1="20" x2="100" y2="140" stroke="#242938" stroke-width="1" />
+                  <line x1="150" y1="20" x2="150" y2="140" stroke="#242938" stroke-width="1" />
+                  <line x1="200" y1="20" x2="200" y2="140" stroke="#242938" stroke-width="1" />
+                  <line x1="250" y1="20" x2="250" y2="140" stroke="#242938" stroke-width="1" />
+                  <line x1="300" y1="20" x2="300" y2="140" stroke="#242938" stroke-width="1" />
+                  <line x1="350" y1="20" x2="350" y2="140" stroke="#242938" stroke-width="1" />
+                  <line x1="400" y1="20" x2="400" y2="140" stroke="#242938" stroke-width="1" />
+                  <line x1="450" y1="20" x2="450" y2="140" stroke="#242938" stroke-width="1" />
+                  <line x1="500" y1="20" x2="500" y2="140" stroke="#242938" stroke-width="1" />
+                  <line x1="550" y1="20" x2="550" y2="140" stroke="#242938" stroke-width="1" />
+
+                  <!-- Curva Oro #D4AF37 (2025) -->
+                  <path d="M 50,110 C 100,60 150,130 200,90 C 250,50 300,120 350,55 C 400,90 450,120 500,70 L 550,85" fill="none" stroke="#D4AF37" stroke-width="2.5" filter="drop-shadow(0 0 6px rgba(212,175,55,0.5))" />
+
+                  <!-- Curva Roja #FF0000 (2026) -->
+                  <path d="M 50,125 C 100,110 150,75 200,85 C 250,95 300,45 350,50 C 400,95 450,80 500,88 L 550,92" fill="none" stroke="#FF0000" stroke-width="2.5" filter="drop-shadow(0 0 6px rgba(255,0,0,0.5))" />
+
+                  <!-- Punto pico en Julio -->
+                  <circle cx="350" cy="50" r="5" fill="#FF0000" stroke="#fff" stroke-width="2" />
+                  <rect x="315" y="24" width="70" height="20" rx="4" fill="#1f232f" stroke="#FF0000" stroke-width="1" />
+                  <text x="350" y="38" text-anchor="middle" font-family="'Inter', sans-serif" font-size="8.5" font-weight="700" fill="#fff">$38,750.00</text>
+
+                  <!-- Punto en Oro en Nov -->
+                  <circle cx="500" cy="70" r="4" fill="#D4AF37" stroke="#fff" stroke-width="1.5" />
+
+                  <!-- Meses X-Axis -->
+                  <text x="50" y="160" text-anchor="middle" font-family="'Inter', sans-serif" font-size="9" fill="#8c93a8">Ene</text>
+                  <text x="100" y="160" text-anchor="middle" font-family="'Inter', sans-serif" font-size="9" fill="#8c93a8">Feb</text>
+                  <text x="150" y="160" text-anchor="middle" font-family="'Inter', sans-serif" font-size="9" fill="#8c93a8">Mar</text>
+                  <text x="200" y="160" text-anchor="middle" font-family="'Inter', sans-serif" font-size="9" fill="#8c93a8">Abr</text>
+                  <text x="250" y="160" text-anchor="middle" font-family="'Inter', sans-serif" font-size="9" fill="#8c93a8">May</text>
+                  <text x="300" y="160" text-anchor="middle" font-family="'Inter', sans-serif" font-size="9" fill="#8c93a8">Jun</text>
+                  <text x="350" y="160" text-anchor="middle" font-family="'Inter', sans-serif" font-size="9" fill="#8c93a8">Jul</text>
+                  <text x="400" y="160" text-anchor="middle" font-family="'Inter', sans-serif" font-size="9" fill="#8c93a8">Ago</text>
+                  <text x="450" y="160" text-anchor="middle" font-family="'Inter', sans-serif" font-size="9" fill="#8c93a8">Sep</text>
+                  <text x="500" y="160" text-anchor="middle" font-family="'Inter', sans-serif" font-size="9" fill="#8c93a8">Oct</text>
+                  <text x="550" y="160" text-anchor="middle" font-family="'Inter', sans-serif" font-size="9" fill="#8c93a8">Nov</text>
+                </svg>
+              </div>
+            </div>
+
+            <!-- PANEL DERECHO: PARKING DURATION (GRÁFICA DE BARRAS EN ROJO) -->
+            <div class="card chart-card">
+              <div class="chart-header">
+                <div class="chart-title-box">
+                  <h3>Duración de Estancia (Parking Duration)</h3>
+                  <p>Promedio de horas estacionadas por día</p>
+                </div>
+                <div class="metric-pill red">Semanal ▾</div>
+              </div>
+
+              <div class="svg-chart-container">
+                <svg viewBox="0 0 350 180" width="100%" height="100%">
+                  <!-- Eje Y horas -->
+                  <text x="10" y="30" font-family="'Inter', sans-serif" font-size="8.5" fill="#8c93a8">8hr</text>
+                  <text x="10" y="65" font-family="'Inter', sans-serif" font-size="8.5" fill="#8c93a8">6hr</text>
+                  <text x="10" y="100" font-family="'Inter', sans-serif" font-size="8.5" fill="#8c93a8">4hr</text>
+                  <text x="10" y="135" font-family="'Inter', sans-serif" font-size="8.5" fill="#8c93a8">2hr</text>
+
+                  <!-- Barras verticales en Rojo #FF0000 -->
+                  <!-- Sáb -->
+                  <rect x="40" y="30" width="12" height="110" rx="3" fill="#FF0000" filter="drop-shadow(0 0 6px rgba(255,0,0,0.4))" />
+                  <text x="46" y="160" text-anchor="middle" font-family="'Inter', sans-serif" font-size="9" fill="#8c93a8">Sáb</text>
+
+                  <!-- Dom -->
+                  <rect x="85" y="50" width="12" height="90" rx="3" fill="#FF0000" filter="drop-shadow(0 0 6px rgba(255,0,0,0.4))" />
+                  <text x="91" y="160" text-anchor="middle" font-family="'Inter', sans-serif" font-size="9" fill="#8c93a8">Dom</text>
+
+                  <!-- Lun -->
+                  <rect x="130" y="80" width="12" height="60" rx="3" fill="#D4AF37" filter="drop-shadow(0 0 6px rgba(212,175,55,0.4))" />
+                  <text x="136" y="160" text-anchor="middle" font-family="'Inter', sans-serif" font-size="9" fill="#8c93a8">Lun</text>
+
+                  <!-- Mar -->
+                  <rect x="175" y="40" width="12" height="100" rx="3" fill="#FF0000" filter="drop-shadow(0 0 6px rgba(255,0,0,0.4))" />
+                  <text x="181" y="160" text-anchor="middle" font-family="'Inter', sans-serif" font-size="9" fill="#8c93a8">Mar</text>
+
+                  <!-- Mié -->
+                  <rect x="220" y="45" width="12" height="95" rx="3" fill="#FF0000" filter="drop-shadow(0 0 6px rgba(255,0,0,0.4))" />
+                  <text x="226" y="160" text-anchor="middle" font-family="'Inter', sans-serif" font-size="9" fill="#8c93a8">Mié</text>
+
+                  <!-- Jue -->
+                  <rect x="265" y="90" width="12" height="50" rx="3" fill="#D4AF37" filter="drop-shadow(0 0 6px rgba(212,175,55,0.4))" />
+                  <text x="271" y="160" text-anchor="middle" font-family="'Inter', sans-serif" font-size="9" fill="#8c93a8">Jue</text>
+
+                  <!-- Vie -->
+                  <rect x="310" y="35" width="12" height="105" rx="3" fill="#FF0000" filter="drop-shadow(0 0 6px rgba(255,0,0,0.4))" />
+                  <text x="316" y="160" text-anchor="middle" font-family="'Inter', sans-serif" font-size="9" fill="#8c93a8">Vie</text>
+                </svg>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- VEHÍCULOS EN PARQUEADERO (TABLA EN TIEMPO REAL) -->
+          <div class="card table-card">
+            <div class="card-header">
+              <div>
+                <h3>Vehículos en Parqueadero (En Tiempo Real)</h3>
+                <p>Monitoreo activo de vehículos y celdas asignadas</p>
+              </div>
+              <div class="card-tools">
+                <input type="text" id="filter-estacionados" placeholder="Filtrar por placa o celda..." class="input-search">
+              </div>
+            </div>
+            <div class="table-responsive">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>Placa</th>
+                    <th>Tipo</th>
+                    <th>Celda</th>
+                    <th>Ingreso</th>
+                    <th>Modalidad</th>
+                    <th>Novedades</th>
+                    <th>Acción</th>
+                  </tr>
+                </thead>
+                <tbody id="tbody-estacionados">
+                  <tr><td colspan="7" class="text-center" style="padding: 24px; color: var(--text-muted);">Cargando registros...</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- SECCIÓN 2: REGISTRAR ENTRADA -->
+        <section id="tab-entrada" class="tab-pane">
+          <div class="split-grid">
+            <!-- FORMULARIO DE INGRESO -->
+            <div class="card">
+              <div class="card-header">
+                <h3>🚗 Registro de Entrada de Vehículo</h3>
+                <p>Capture la información del vehículo para expedir ticket y asignar celda</p>
+              </div>
+              <form id="form-entrada" class="custom-form">
+                <div class="form-group highlight-group">
+                  <label for="ent-placa">Placa del Vehículo <span class="required">*</span></label>
+                  <div class="input-action-row">
+                    <input type="text" id="ent-placa" name="placa" class="input-lg uppercase-input" placeholder="Ej: ABC123" maxlength="7" required autocomplete="off">
+                    <button type="button" class="btn btn-secondary" id="btn-verificar-placa" onclick="app.verificarPlaca()">
+                      🔍 Verificar
+                    </button>
+                  </div>
+                  <div id="placa-feedback" class="feedback-msg"></div>
+                </div>
+
+                <div class="form-row">
+                  <div class="form-group">
+                    <label for="ent-tipo">Tipo de Vehículo <span class="required">*</span></label>
+                    <select id="ent-tipo" name="tipo_vehiculo_id" required onchange="app.cargarCeldasDisponibles()">
+                      <option value="1">Automóvil ($4.500 / hr)</option>
+                      <option value="2">Motocicleta ($2.500 / hr)</option>
+                      <option value="3">Camioneta / SUV ($6.000 / hr)</option>
+                    </select>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="ent-celda">Celda Asignada <span class="required">*</span></label>
+                    <select id="ent-celda" name="celda_id" required>
+                      <option value="">Seleccione una celda...</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="form-row">
+                  <div class="form-group">
+                    <label for="ent-marca">Marca / Línea</label>
+                    <input type="text" id="ent-marca" placeholder="Ej: Mazda 3 / Chevrolet Onix">
+                  </div>
+                  <div class="form-group">
+                    <label for="ent-color">Color</label>
+                    <input type="text" id="ent-color" placeholder="Ej: Blanco, Gris Plata">
+                  </div>
+                </div>
+
+                <!-- CHECKLIST DE NOVEDADES PREEXISTENTES -->
+                <div class="accordion-box">
+                  <div class="accordion-header" onclick="app.toggleNovedadSection()">
+                    <span>⚠️ ¿Presenta rayones, golpes u objetos de valor al ingreso? (Opcional)</span>
+                    <span id="accordion-arrow">▼</span>
+                  </div>
+                  <div id="accordion-body" class="accordion-body hidden">
+                    <div class="form-row">
+                      <div class="form-group">
+                        <label>Tipo de Novedad</label>
+                        <select id="ent-nov-tipo">
+                          <option value="RAYON">Rayón o Raspadura</option>
+                          <option value="GOLPE">Golpe / Abolladura</option>
+                          <option value="OBJETO_VALOR">Objeto de Valor Dejado</option>
+                          <option value="SIN_RETROVISOR">Retrovisor Roto / Ausente</option>
+                          <option value="FALLA_MECANICA">Fuga o Falla Mecánica</option>
+                          <option value="OTRA">Otra Observación</option>
+                        </select>
+                      </div>
+                      <div class="form-group">
+                        <label>Ubicación del Daño</label>
+                        <input type="text" id="ent-nov-ubicacion" placeholder="Ej: Lateral derecho, bómper delantero">
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label>Descripción detallada de la novedad</label>
+                      <textarea id="ent-nov-desc" rows="2" placeholder="Especifique con precisión para deslindar responsabilidad del parqueadero..."></textarea>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="form-actions">
+                  <button type="submit" class="btn btn-primary btn-lg btn-full" id="btn-submit-entrada">
+                    🎫 Generar Ticket y Registrar Entrada
+                  </button>
+                </div>
+              </form>
+            </div>
+
+            <!-- VISTA PREVIA RÁPIDA DE TARIFAS Y CONDICIONES -->
+            <div class="card info-card">
+              <div class="card-header">
+                <h3>ℹ️ Políticas del Parqueadero</h3>
+                <p>Reglas de operación y tarifas vigentes</p>
+              </div>
+              <div class="policy-item">
+                <span class="policy-icon">💵</span>
+                <div>
+                  <strong>Tarifas Fracción y Hora</strong>
+                  <p>Mínimo de cobro: 1 hora. Luego de los primeros 60 minutos se factura proporcional.</p>
+                </div>
+              </div>
+              <div class="policy-item">
+                <span class="policy-icon">📅</span>
+                <div>
+                  <strong>Abonados a Mensualidad</strong>
+                  <p>Vehículos afiliados con mensualidad vigente pagan $0 al salir tras validación de placa.</p>
+                </div>
+              </div>
+              <div class="policy-item">
+                <span class="policy-icon">🛡️</span>
+                <div>
+                  <strong>Inspección Preventiva de Daños</strong>
+                  <p>Todo rayón o golpe preexistente debe registrarse en la entrada para proteger al establecimiento.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- SECCIÓN 3: REGISTRAR SALIDA -->
+        <section id="tab-salida" class="tab-pane">
+          <div class="split-grid">
+            <!-- BÚSQUEDA Y LIQUIDACIÓN -->
+            <div class="card">
+              <div class="card-header">
+                <h3>🚙 Liquidación y Salida de Vehículo</h3>
+                <p>Ingrese la placa o el código del ticket para liquidar y liberar la celda</p>
+              </div>
+
+              <div class="search-salida-box">
+                <div class="form-group">
+                  <label for="sal-criterio">Placa o Número de Ticket <span class="required">*</span></label>
+                  <div class="input-action-row">
+                    <input type="text" id="sal-criterio" class="input-lg uppercase-input" placeholder="Ej: KLT452 o TCK-20261030-001">
+                    <button type="button" class="btn btn-primary" onclick="app.liquidarSalida()">
+                      💰 Calcular Cobro
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- PANEL DE RESULTADOS DE LIQUIDACIÓN -->
+              <div id="panel-liquidacion" class="hidden">
+                <div class="receipt-summary">
+                  <div class="summary-header">
+                    <span class="summary-placa" id="liq-placa">---</span>
+                    <span class="badge" id="liq-tipo-servicio">---</span>
+                  </div>
+
+                  <div class="summary-details">
+                    <div class="detail-row">
+                      <span>Tipo de Vehículo:</span>
+                      <strong id="liq-tipo-vehiculo">---</strong>
+                    </div>
+                    <div class="detail-row">
+                      <span>Celda Ocupada:</span>
+                      <strong id="liq-celda">---</strong>
+                    </div>
+                    <div class="detail-row">
+                      <span>Fecha y Hora de Ingreso:</span>
+                      <span id="liq-entrada">---</span>
+                    </div>
+                    <div class="detail-row">
+                      <span>Fecha y Hora de Salida:</span>
+                      <span id="liq-salida">---</span>
+                    </div>
+                    <div class="detail-row">
+                      <span>Tiempo Total Transcurrido:</span>
+                      <strong id="liq-tiempo">0 minutos (0 horas)</strong>
+                    </div>
+                    <div class="detail-row">
+                      <span>Tarifa por Hora:</span>
+                      <span id="liq-tarifa">$0</span>
+                    </div>
+                  </div>
+
+                  <div class="total-box">
+                    <div class="total-label">TOTAL A PAGAR:</div>
+                    <div class="total-amount" id="liq-total">$0</div>
+                    <small id="liq-nota" class="text-muted"></small>
+                  </div>
+
+                  <!-- FORMA DE PAGO -->
+                  <div class="payment-selection" id="payment-selection-box">
+                    <label>Forma de Pago:</label>
+                    <div class="payment-methods">
+                      <label class="radio-pill">
+                        <input type="radio" name="metodo_pago" value="EFECTIVO" checked>
+                        <span>💵 Efectivo</span>
+                      </label>
+                      <label class="radio-pill">
+                        <input type="radio" name="metodo_pago" value="TARJETA">
+                        <span>💳 Tarjeta</span>
+                      </label>
+                      <label class="radio-pill">
+                        <input type="radio" name="metodo_pago" value="TRANSFERENCIA">
+                        <span>📱 Nequi / Daviplata</span>
+                      </label>
+                    </div>
+                  </div>
+
+                  <div class="mt-4" style="margin-top: 18px;">
+                    <button class="btn btn-primary btn-lg btn-full" id="btn-confirmar-salida" onclick="app.confirmarSalida()">
+                      ✅ Registrar Salida, Cobrar y Liberar Celda
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- VEHÍCULOS POR SALIR (CLICK RÁPIDO) -->
+            <div class="card">
+              <div class="card-header">
+                <h3>⏱️ Acceso Rápido para Salida</h3>
+                <p>Haga clic en cualquier vehículo activo para liquidar inmediatamente</p>
+              </div>
+              <div class="quick-exit-list" id="quick-exit-list">
+                <!-- Se llena dinámicamente -->
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- SECCIÓN 4: MAPA DE CELDAS -->
+        <section id="tab-celdas" class="tab-pane">
+          <div class="card">
+            <div class="card-header">
+              <div>
+                <h3>🅿️ Mapa y Distribución de Celdas</h3>
+                <p>Visualización gráfica del estado de cada celda del parqueadero</p>
+              </div>
+              <div class="celda-legend">
+                <span class="legend-item"><span class="badge-dot disponible"></span> Disponible</span>
+                <span class="legend-item"><span class="badge-dot ocupada"></span> Ocupada (Rojo)</span>
+                <span class="legend-item"><span class="badge-dot mantenimiento"></span> Mantenimiento (Oro)</span>
+              </div>
+            </div>
+
+            <div class="celdas-container" id="celdas-grid">
+              <!-- Se renderizan las celdas agrupadas por zona -->
+            </div>
+          </div>
+        </section>
+
+        <!-- SECCIÓN 5: NOVEDADES -->
+        <section id="tab-novedades" class="tab-pane">
+          <div class="card table-card">
+            <div class="card-header">
+              <div>
+                <h3>⚠️ Bitácora de Novedades e Inspección de Vehículos</h3>
+                <p>Registro histórico de novedades, rayones y observaciones</p>
+              </div>
+              <button class="btn btn-primary" onclick="app.abrirModalNovedad()">
+                ➕ Registrar Nueva Novedad
+              </button>
+            </div>
+            <div class="table-responsive">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>Fecha / Hora</th>
+                    <th>Placa</th>
+                    <th>Ticket</th>
+                    <th>Tipo de Novedad</th>
+                    <th>Gravedad</th>
+                    <th>Ubicación / Detalle</th>
+                    <th>Operador</th>
+                  </tr>
+                </thead>
+                <tbody id="tbody-novedades">
+                  <!-- Se llena dinámicamente -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- SECCIÓN 6: MENSUALIDADES -->
+        <section id="tab-mensualidades" class="tab-pane">
+          <div class="card table-card">
+            <div class="card-header">
+              <div>
+                <h3>📅 Control de Clientes Abonados a Mensualidad</h3>
+                <p>Listado de mensualidades activas y estado de vigencia</p>
+              </div>
+            </div>
+            <div class="table-responsive">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>Documento</th>
+                    <th>Titular</th>
+                    <th>Contacto</th>
+                    <th>Placa Asociada</th>
+                    <th>Vigencia Desde</th>
+                    <th>Vigencia Hasta</th>
+                    <th>Estado</th>
+                  </tr>
+                </thead>
+                <tbody id="tbody-mensualidades">
+                  <!-- Se llena dinámicamente -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+      </div>
+    </main>
+  </div>
+
+  <!-- MODAL: TICKET DE ENTRADA (IMPRIMIBLE) -->
+  <div class="modal-overlay hidden" id="modal-ticket">
+    <div class="modal-content ticket-modal">
+      <div class="thermal-ticket" id="thermal-ticket-content">
+        <div class="ticket-center">
+          <h2 class="ticket-brand">CARPARK AUTOS COLOMBIA</h2>
+          <p class="ticket-sub">NIT: 900.852.147-3</p>
+          <p class="ticket-sub">Servicio de Parqueadero & Custodia</p>
+          <p class="ticket-sub">Cra 45 # 50-20, Medellín - Colombia</p>
+          <div class="ticket-divider">--------------------------------</div>
+          <h3 class="ticket-title">TICKET DE ENTRADA</h3>
+          <p class="ticket-number" id="tck-codigo">TCK-000000</p>
+        </div>
+
+        <div class="ticket-body">
+          <div class="tck-row">
+            <span>PLACA:</span>
+            <strong id="tck-placa">---</strong>
+          </div>
+          <div class="tck-row">
+            <span>CELDA:</span>
+            <strong id="tck-celda">---</strong>
+          </div>
+          <div class="tck-row">
+            <span>TIPO:</span>
+            <span id="tck-tipo">---</span>
+          </div>
+          <div class="tck-row">
+            <span>INGRESO:</span>
+            <span id="tck-fecha">---</span>
+          </div>
+          <div class="tck-row">
+            <span>MODALIDAD:</span>
+            <strong id="tck-modalidad">---</strong>
+          </div>
+          <div id="tck-novedades-box" class="tck-nov-box hidden">
+            <span>NOVEDAD REGISTRADA:</span>
+            <p id="tck-novedad-txt"></p>
+          </div>
+        </div>
+
+        <div class="ticket-center">
+          <div class="ticket-divider">--------------------------------</div>
+          <div class="barcode-sim">||| | ||||| || |||| |||||| || | |||</div>
+          <p class="ticket-legal">
+            Conserve este ticket para la entrega del vehículo. No respondemos por objetos de valor no declarados en el ingreso.
+          </p>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn btn-secondary" onclick="app.cerrarModal('modal-ticket')">Cerrar</button>
+        <button class="btn btn-primary" onclick="window.print()">🖨️ Imprimir Ticket</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: REGISTRAR NOVEDAD MANUAL -->
+  <div class="modal-overlay hidden" id="modal-nueva-novedad">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>Registrar Novedad sobre Vehículo Estacionado</h3>
+        <button class="close-btn" onclick="app.cerrarModal('modal-nueva-novedad')">&times;</button>
+      </div>
+      <form id="form-nueva-novedad" onsubmit="app.guardarNovedadManual(event)">
+        <div class="form-group">
+          <label>Seleccionar Vehículo en Parqueadero <span class="required">*</span></label>
+          <select id="nov-select-estadia" required>
+            <!-- Llenado dinámico -->
+          </select>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Tipo de Novedad</label>
+            <select id="nov-modal-tipo" required>
+              <option value="RAYON">Rayón</option>
+              <option value="GOLPE">Golpe / Abolladura</option>
+              <option value="OBJETO_VALOR">Objeto de Valor</option>
+              <option value="FALLA_MECANICA">Falla Mecánica</option>
+              <option value="OTRA">Otra</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Gravedad</label>
+            <select id="nov-modal-gravedad">
+              <option value="LEVE">Leve</option>
+              <option value="MEDIA">Media</option>
+              <option value="ALTA">Alta</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Ubicación del Daño / Detalle</label>
+          <input type="text" id="nov-modal-ubicacion" placeholder="Ej: Puerta conductor, techo, interior">
+        </div>
+        <div class="form-group">
+          <label>Descripción detallada</label>
+          <textarea id="nov-modal-desc" rows="3" required placeholder="Escriba el detalle de lo ocurrido..."></textarea>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" onclick="app.cerrarModal('modal-nueva-novedad')">Cancelar</button>
+          <button type="submit" class="btn btn-primary">Guardar Novedad</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
