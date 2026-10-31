@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Evidencia de Aprendizaje 1 - Parqueadero Autos Colombia - IU Digital</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap');
+    
+    @page {
+      size: letter;
+      margin: 2cm 1.8cm;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      color: #1e293b;
+      line-height: 1.6;
+      background: #f8fafc;
+      padding: 30px 15px;
+    }
+
+    .doc-container {
+      max-width: 920px;
+      margin: 0 auto;
+      background: #ffffff;
+      padding: 50px 60px;
+      border-radius: 8px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    }
+
+    .cover-page {
+      text-align: center;
+      padding: 50px 20px;
+      page-break-after: always;
+      border-bottom: 2px solid #e2e8f0;
+      margin-bottom: 40px;
+    }
+
+    .cover-institution {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: #1e3a8a;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 6px;
+    }
+
+    .cover-faculty {
+      font-size: 0.95rem;
+      color: #64748b;
+      margin-bottom: 24px;
+    }
+
+    .cover-badge {
+      display: inline-block;
+      padding: 6px 16px;
+      background: #eff6ff;
+      color: #2563eb;
+      font-weight: 700;
+      font-size: 0.85rem;
+      border-radius: 20px;
+      margin-bottom: 24px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .cover-title {
+      font-size: 2.1rem;
+      font-weight: 800;
+      color: #0f172a;
+      line-height: 1.25;
+      margin-bottom: 12px;
+    }
+
+    .cover-subtitle {
+      font-size: 1.25rem;
+      color: #2563eb;
+      font-weight: 600;
+      margin-bottom: 40px;
+    }
+
+    .cover-meta {
+      margin-top: 40px;
+      display: inline-block;
+      text-align: left;
+      background: #f8fafc;
+      padding: 24px 32px;
+      border-radius: 8px;
+      border: 1px solid #e2e8f0;
+      font-size: 0.95rem;
+    }
+
+    .cover-meta p {
+      margin: 6px 0;
+    }
+
+    .cover-meta strong {
+      color: #0f172a;
+      display: inline-block;
+      width: 150px;
+    }
+
+    h1, h2, h3, h4 {
+      color: #0f172a;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+
+    h1 { font-size: 1.6rem; border-bottom: 2px solid #2563eb; padding-bottom: 8px; margin-top: 40px; margin-bottom: 16px; }
+    h2 { font-size: 1.3rem; color: #1e40af; margin-top: 26px; margin-bottom: 12px; }
+    h3 { font-size: 1.05rem; margin-top: 18px; margin-bottom: 10px; }
+
+    p, li {
+      font-size: 0.94rem;
+      color: #334155;
+      text-align: justify;
+    }
+
+    ul, ol {
+      padding-left: 24px;
+      margin-bottom: 16px;
+    }
+
+    li {
+      margin-bottom: 6px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 18px 0 24px 0;
+      font-size: 0.86rem;
+    }
+
+    table th {
+      background: #f1f5f9;
+      color: #0f172a;
+      padding: 10px 12px;
+      border: 1px solid #cbd5e1;
+      font-weight: 700;
+      text-align: left;
+    }
+
+    table td {
+      padding: 9px 12px;
+      border: 1px solid #cbd5e1;
+      color: #334155;
+    }
+
+    table tr:nth-child(even) td {
+      background: #f8fafc;
+    }
+
+    .diagram-box {
+      background: #ffffff;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      padding: 16px;
+      margin: 22px 0;
+      text-align: center;
+    }
+
+    .diagram-box img, .diagram-box svg {
+      max-width: 100%;
+      height: auto;
+      border-radius: 4px;
+    }
+
+    .diagram-caption {
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: #64748b;
+      margin-top: 10px;
+    }
+
+    pre, code {
+      font-family: 'JetBrains Mono', Consolas, monospace;
+    }
+
+    pre {
+      background: #0f172a;
+      color: #f8fafc;
+      padding: 14px;
+      border-radius: 6px;
+      overflow-x: auto;
+      font-size: 0.8rem;
+      margin: 14px 0;
+    }
+
+    .story-card {
+      background: #f8fafc;
+      border-left: 4px solid #2563eb;
+      padding: 16px;
+      border-radius: 0 8px 8px 0;
+      margin-bottom: 18px;
+      border-top: 1px solid #e2e8f0;
+      border-right: 1px solid #e2e8f0;
+      border-bottom: 1px solid #e2e8f0;
+    }
+
+    .story-title {
+      font-weight: 700;
+      color: #1e40af;
+      font-size: 1rem;
+      margin-bottom: 8px;
+    }
+
+    .badge-test {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 12px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      background: #dcfce7;
+      color: #15803d;
+    }
+
+    .print-btn-bar {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: #0f172a;
+      padding: 12px 20px;
+      border-radius: 30px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.25);
+      z-index: 1000;
+    }
+
+    .print-btn-bar button {
+      background: #2563eb;
+      color: #fff;
+      border: none;
+      padding: 10px 18px;
+      font-weight: 700;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 0.9rem;
+    }
+
+    .print-btn-bar button:hover {
+      background: #1d4ed8;
+    }
+
+    @media print {
+      .print-btn-bar { display: none; }
+      body { padding: 0; background: #fff; }
+      .doc-container { box-shadow: none; padding: 0; max-width: 100%; }
+      .page-break { page-break-before: always; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="print-btn-bar">
+    <button onclick="window.print()">🖨️ Exportar a PDF / Imprimir Documento</button>
+  </div>
+
+  <div class="doc-container">
+    
+    <!-- PORTADA FORMAL IU DIGITAL -->
+    <div class="cover-page">
+      <div class="cover-institution">Institución Universitaria Digital de Antioquia (IU Digital)</div>
+      <div class="cover-faculty">Facultad de Ingeniería – Programa de Ingeniería de Software</div>
+      <span class="cover-badge">S20 – Evidencia de Aprendizaje 1 (Iteración 1)</span>
+      <h1 class="cover-title">DISEÑO DEL SISTEMA DE INFORMACIÓN "AUTOS COLOMBIA"</h1>
+      <div class="cover-subtitle">Iteración 1: Gestión de la Entrada y Salida de Vehículos</div>
+      
+      <div class="cover-meta">
+        <p><strong>Asignatura:</strong> Electiva I – Diseño Sistema de Información</p>
+        <p><strong>Unidad de Aprendizaje:</strong> Unidad 1 y Unidad 2 (Ingeniería de Software)</p>
+        <p><strong>Estudiante(s):</strong> Yulian & Equipo de Trabajo</p>
+        <p><strong>Docente Asesor:</strong> Docente de Cátedra</p>
+        <p><strong>Calificación Máxima:</strong> 100 Puntos</p>
+        <p><strong>Fecha de Entrega:</strong> Octubre de 2026</p>
+      </div>
+    </div>
+
+    <!-- 1. INTRODUCCIÓN -->
+    <h1>1. INTRODUCCIÓN</h1>
+    <p>
+      El Parqueadero <strong>"Autos Colombia"</strong> es una organización dedicada a la prestación de servicios de estacionamiento por rotación horaria y por mensualidad para automóviles, motocicletas y camionetas. Para superar las limitaciones del registro manual y garantizar altos niveles de agilidad, confiabilidad financiera y protección patrimonial, se proyecta el desarrollo de un sistema de información empresarial.
+    </p>
+    <p>
+      El presente informe formaliza la entrega de la <strong>Iteración 1: Gestión de la entrada y salida de vehículos</strong>, integrando plenamente los núcleos temáticos de la <strong>Unidad 1</strong> (Modelos de Proceso de Software, CMMI, Métricas e Ingeniería de Requerimientos) y de la <strong>Unidad 2</strong> (Modelado Estándar UML 2.2 en StarUML y Pruebas de Software Estáticas y Dinámicas) del programa curricular de la <strong>IU Digital de Antioquia</strong>.
+    </p>
+
+    <!-- 2. MARCO METODOLÓGICO Y MODELOS DE PROCESO (UNIDAD 1) -->
+    <div class="page-break"></div>
+    <h1>2. MARCO METODOLÓGICO Y MODELOS DE PROCESO DE SOFTWARE (UNIDAD 1)</h1>
+    <p>
+      En concordancia con los contenidos vistos en la Unidad 1, se realizó un análisis riguroso de los modelos clásicos y modernos de ciclo de vida del software:
+    </p>
+
+    <h3>2.1 Análisis Comparativo de Modelos</h3>
+    <ul>
+      <li><strong>Modelo de Cascada (Waterfall):</strong> Proceso estrictamente secuencial y lineal. Resulta inapropiado para el parqueadero debido a su rigidez ante cambios de reglas de negocio en la asignación de celdas.</li>
+      <li><strong>Modelo en V (Verificación y Validación):</strong> Plantea una relación simétrica entre cada fase de especificación y su correspondiente nivel de prueba (Requerimientos $\leftrightarrow$ Pruebas de Sistema; Diseño $\leftrightarrow$ Pruebas Unitarias). Es adoptado en este proyecto para fundamentar la suite de pruebas.</li>
+      <li><strong>Modelo en Flor:</strong> Estructura concéntrica de desarrollo por capas que permite la realimentación continua entre módulos.</li>
+      <li><strong>Modelo por Prototipos y su Problemática:</strong> Muy útil para el diseño de mockups con el operador, pero con el riesgo latente de crear expectativas irreales o degradar la calidad arquitectónica si el prototipo no se formaliza bajo estándares de ingeniería.</li>
+      <li><strong>Modelo en Espiral (Barry Boehm):</strong> Integra el prototipado con la evaluación constante de riesgos a través de sus cuatro cuadrantes:
+        <ol>
+          <li><em>Determinar objetivos y alternativas.</em></li>
+          <li><em>Identificar y resolver riesgos</em> (ej. riesgo de colisión de celdas o cobros erróneos).</li>
+          <li><em>Desarrollar y verificar el producto de la etapa.</em></li>
+          <li><em>Planear la siguiente iteración</em> (Iteración 2: Pagos y Facturación).</li>
+        </ol>
+      </li>
+    </ul>
+
+    <h3>2.2 Justificación del Modelo Seleccionado</h3>
+    <p>
+      Se determinó utilizar un <strong>Modelo Híbrido Iterativo-Incremental (Espiral + Modelo en V)</strong>. Permite liberar incrementos operativos (Iteración 1), mitigar los riesgos más críticos en la ocupación y cobros, asegurando que cada requerimiento funcional cuente con su correspondiente caso de prueba automatizado.
+    </p>
+
+    <h3>2.3 Integración de Modelos de Madurez de Capacidad (CMMI)</h3>
+    <p>
+      El proyecto adopta prácticas correspondientes a los <strong>Niveles de Madurez 2 (Gestionado) y 3 (Definido) de CMMI-DEV</strong>:
+    </p>
+    <ul>
+      <li><strong>Gestión de Requerimientos (REQM):</strong> Matriz de trazabilidad entre Requerimientos Funcionales, Historias de Usuario, Diagramas UML y Tests.</li>
+      <li><strong>Aseguramiento de Calidad de Procesos y Productos (PPQA):</strong> Pruebas dinámicas automatizadas con cobertura del 100%.</li>
+      <li><strong>Gestión de Configuración (CM):</strong> Control de versiones distribuido en GitHub.</li>
+    </ul>
+
+    <!-- 3. INGENIERÍA DE REQUERIMIENTOS -->
+    <div class="page-break"></div>
+    <h1>3. INGENIERÍA DE REQUERIMIENTOS Y ANÁLISIS OO (UNIDAD 1 AA2)</h1>
+    <p>
+      Se ejecutaron las fases de elicitación, análisis, especificación y validación de requerimientos con métricas de producto asociadas:
+    </p>
+
+    <h3>Requerimientos Funcionales (RF)</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Código</th>
+          <th>Nombre del Requerimiento</th>
+          <th>Descripción</th>
+          <th>Prioridad</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>RF01</strong></td>
+          <td>Registro de Entrada</td>
+          <td>Capturar placa, tipo vehicular, marca, color y asignar celda generando ticket con código y hora oficial.</td>
+          <td>Alta (Must)</td>
+        </tr>
+        <tr>
+          <td><strong>RF02</strong></td>
+          <td>Validación de Mensualidad</td>
+          <td>Verificar si la placa pertenece a un cliente con mensualidad vigente; exonerar el cobro y marcar servicio como 'MENSUALIDAD'.</td>
+          <td>Alta (Must)</td>
+        </tr>
+        <tr>
+          <td><strong>RF03</strong></td>
+          <td>Asignación de Celdas</td>
+          <td>Filtrar celdas disponibles según tipo (Autos, Motos, Camionetas) y bloquear la celda elegida (estado OCUPADA).</td>
+          <td>Alta (Must)</td>
+        </tr>
+        <tr>
+          <td><strong>RF04</strong></td>
+          <td>Registro de Novedades</td>
+          <td>Registrar observaciones, rayones, abolladuras o elementos dejados en el vehículo durante el ingreso.</td>
+          <td>Media (Should)</td>
+        </tr>
+        <tr>
+          <td><strong>RF05</strong></td>
+          <td>Emisión de Ticket Térmico</td>
+          <td>Generar comprobante impreso de 80 mm con datos del vehículo, fecha/hora, celda y términos legales.</td>
+          <td>Alta (Must)</td>
+        </tr>
+        <tr>
+          <td><strong>RF06</strong></td>
+          <td>Liquidación de Salida</td>
+          <td>Calcular minutos transcurridos, horas cobrables según tarifa oficial, total a pagar o aplicar exoneración.</td>
+          <td>Alta (Must)</td>
+        </tr>
+        <tr>
+          <td><strong>RF07</strong></td>
+          <td>Cobro y Liberación de Celda</td>
+          <td>Registrar forma de pago (Efectivo/Tarjeta/Transferencia), finalizar la estancia y retornar la celda a DISPONIBLE.</td>
+          <td>Alta (Must)</td>
+        </tr>
+        <tr>
+          <td><strong>RF08</strong></td>
+          <td>Mapa Visual de Celdas</td>
+          <td>Tablero interactivo en vivo codificado por colores (Verde=Disponible, Rojo=Ocupado, Amarillo=Mantenimiento).</td>
+          <td>Media (Should)</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- 4. HISTORIAS DE USUARIO -->
+    <div class="page-break"></div>
+    <h1>4. HISTORIAS DE USUARIO ASOCIADAS (CRITERIOS GHERKIN)</h1>
+
+    <div class="story-card">
+      <div class="story-title">HU-01: Registro de Entrada Vehicular y Generación de Ticket (5 SP - Alta)</div>
+      <p><strong>Como</strong> Operador de Parqueadero, <strong>Quiero</strong> registrar la placa y asignar una celda disponible, <strong>Para</strong> tener control estricto del inventario vehicular y expedir el ticket al conductor.</p>
+      <p><strong>Criterios Gherkin:</strong><br>
+      - <em>Escenario Exitoso:</em> <strong>Dado</strong> que la placa "ABC123" no tiene estancia activa, <strong>Cuando</strong> el operador selecciona la celda disponible "A-02", <strong>Entonces</strong> el sistema guarda la estadía con hora exacta, bloquea la celda "A-02" y emite el ticket térmico.<br>
+      - <em>Escenario Duplicidad:</em> <strong>Dado</strong> que la placa ya está en el parqueadero, <strong>Cuando</strong> se intenta registrar otra entrada, <strong>Entonces</strong> el sistema rechaza la acción e indica la celda donde está ubicado.</p>
+    </div>
+
+    <div class="story-card">
+      <div class="story-title">HU-02: Detección Automática de Mensualidad Activa (3 SP - Alta)</div>
+      <p><strong>Como</strong> Operador de Parqueadero, <strong>Quiero</strong> que el sistema detecte si el vehículo cuenta con mensualidad vigente, <strong>Para</strong> evitar cobros por horas indebidos y agilizar el paso del abonado.</p>
+      <p><strong>Criterios Gherkin:</strong><br>
+      - <em>Escenario:</em> <strong>Dado</strong> que la placa "KLT452" tiene suscripción vigente hasta el 01/11/2026, <strong>Cuando</strong> se digita la placa, <strong>Entonces</strong> el sistema muestra el distintivo verde de abonado activo y fija el servicio como 'MENSUALIDAD' con tarifa $0.</p>
+    </div>
+
+    <div class="story-card">
+      <div class="story-title">HU-03: Registro de Novedades e Inspección Física (5 SP - Media)</div>
+      <p><strong>Como</strong> Operador de Parqueadero, <strong>Quiero</strong> registrar rayones o pertenencias observadas en el automotor, <strong>Para</strong> proteger jurídicamente al parqueadero contra reclamaciones por daños preexistentes.</p>
+    </div>
+
+    <div class="story-card">
+      <div class="story-title">HU-04: Liquidación y Salida del Vehículo (8 SP - Alta)</div>
+      <p><strong>Como</strong> Operador de Parqueadero, <strong>Quiero</strong> buscar una estancia por placa o ticket y calcular el cobro exacto, <strong>Para</strong> recibir el pago, finalizar el servicio y liberar la celda ocupada.</p>
+    </div>
+
+    <!-- 5. ARQUITECTURA -->
+    <div class="page-break"></div>
+    <h1>5. ARQUITECTURA DEL SISTEMA EN CAPAS (STARUML)</h1>
+    <div class="diagram-box">
+      <img src="../staruml/diagrama_arquitectura.svg" alt="Diagrama de Arquitectura del Sistema">
+      <div class="diagram-caption">Figura 1. Diagrama Arquitectónico por Capas (N-Tier / C4 View) del Parqueadero Autos Colombia</div>
+    </div>
+
+    <!-- 6. MER, MR Y MODELO FÍSICO -->
+    <div class="page-break"></div>
+    <h1>6. MODELO DE DATOS: MER, MR Y MODELO FÍSICO SQL (UNIDAD 2 AA4)</h1>
+    <div class="diagram-box">
+      <img src="../staruml/diagrama_mer_mr.svg" alt="Diagrama MER y MR">
+      <div class="diagram-caption">Figura 2. Modelo Relacional Normalizado (3FN) con Claves Primarias y Foráneas</div>
+    </div>
+
+    <!-- 7. DIAGRAMAS UML 2.2 -->
+    <div class="page-break"></div>
+    <h1>7. MODELADO UML DE ACUERDO CON UML 2.2 (UNIDAD 2 AA1)</h1>
+    
+    <h3>7.1 Diagrama de Casos de Uso (Diagrama de Comportamiento)</h3>
+    <div class="diagram-box">
+      <img src="../staruml/diagrama_casos_de_uso.svg" alt="Diagrama de Casos de Uso">
+      <div class="diagram-caption">Figura 3. Diagrama de Casos de Uso (StarUML) - Iteración 1: Gestión de Entrada y Salida</div>
+    </div>
+
+    <h3>7.2 Diagrama de Clases (Diagrama Estructural)</h3>
+    <div class="diagram-box">
+      <img src="../staruml/diagrama_clases.svg" alt="Diagrama de Clases del Dominio">
+      <div class="diagram-caption">Figura 4. Diagrama de Clases del Dominio con Atributos Privados, Métodos y Multiplicidades</div>
+    </div>
+
+    <h3>7.3 Diagrama de Paquetes (Diagrama Estructural)</h3>
+    <div class="diagram-box">
+      <img src="../staruml/diagrama_paquetes.svg" alt="Diagrama de Paquetes">
+      <div class="diagram-caption">Figura 5. Diagrama de Paquetes Arquitectónicos por Capas</div>
+    </div>
+
+    <!-- 8. PRUEBAS DE SOFTWARE -->
+    <div class="page-break"></div>
+    <h1>8. ESTRATEGIA Y SUITE DE PRUEBAS DE SOFTWARE (UNIDAD 1 AA2 Y UNIDAD 2 AA5)</h1>
+    <p>
+      Siguiendo los fundamentos de la Unidad 2 AA5, se implementó una suite automatizada de pruebas dinámicas (<code>npm test</code>) cubriendo los cuatro pilares:
+    </p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Tipo de Prueba</th>
+          <th>Descripción del Caso de Prueba</th>
+          <th>Resultado</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Corrección</strong></td>
+          <td>Detección automática de cliente con mensualidad activa</td>
+          <td><span class="badge-test">PASSED</span></td>
+        </tr>
+        <tr>
+          <td><strong>Corrección</strong></td>
+          <td>Asociación correcta del titular de la mensualidad</td>
+          <td><span class="badge-test">PASSED</span></td>
+        </tr>
+        <tr>
+          <td><strong>Corrección</strong></td>
+          <td>Registro de entrada y generación de ticket único</td>
+          <td><span class="badge-test">PASSED</span></td>
+        </tr>
+        <tr>
+          <td><strong>Corrección</strong></td>
+          <td>Estructura y formato del ticket (TCK-YYYYMMDD-XXXX)</td>
+          <td><span class="badge-test">PASSED</span></td>
+        </tr>
+        <tr>
+          <td><strong>Corrección</strong></td>
+          <td>Impedir ingreso duplicado de vehículo ya presente</td>
+          <td><span class="badge-test">PASSED</span></td>
+        </tr>
+        <tr>
+          <td><strong>Corrección</strong></td>
+          <td>Cálculo dinámico de minutos transcurridos</td>
+          <td><span class="badge-test">PASSED</span></td>
+        </tr>
+        <tr>
+          <td><strong>Corrección</strong></td>
+          <td>Aplicación de tarifa horaria mínima oficial ($4.500 COP)</td>
+          <td><span class="badge-test">PASSED</span></td>
+        </tr>
+        <tr>
+          <td><strong>Corrección</strong></td>
+          <td>Confirmar salida, cobro y cierre de estadía</td>
+          <td><span class="badge-test">PASSED</span></td>
+        </tr>
+        <tr>
+          <td><strong>Corrección</strong></td>
+          <td>Liberación atómica de celda a estado DISPONIBLE</td>
+          <td><span class="badge-test">PASSED</span></td>
+        </tr>
+        <tr>
+          <td><strong>Seguridad</strong></td>
+          <td>Resistencia a ataques de Inyección SQL (' OR '1'='1)</td>
+          <td><span class="badge-test">PASSED</span></td>
+        </tr>
+        <tr>
+          <td><strong>Seguridad</strong></td>
+          <td>Rechazo estricto de entradas con campos obligatorios nulos</td>
+          <td><span class="badge-test">PASSED</span></td>
+        </tr>
+        <tr>
+          <td><strong>Rendimiento</strong></td>
+          <td>Tiempo promedio de respuesta en ráfaga (5.43 ms < 800 ms)</td>
+          <td><span class="badge-test">PASSED</span></td>
+        </tr>
+        <tr>
+          <td><strong>Confiabilidad</strong></td>
+          <td>Conteo íntegro de celdas parametrizadas (12 celdas)</td>
+          <td><span class="badge-test">PASSED</span></td>
+        </tr>
+        <tr>
+          <td><strong>Confiabilidad</strong></td>
+          <td>Consistencia matemática en el balance de estados de celdas</td>
+          <td><span class="badge-test">PASSED</span></td>
+        </tr>
+      </tbody>
+    </table>
+    <p><strong>Resultado Global:</strong> 14 de 14 pruebas aprobadas (100% de éxito).</p>
+
+    <!-- 9. CONCLUSIONES -->
+    <h1>9. CONCLUSIONES</h1>
+    <p>
+      La articulación de las temáticas de las Unidades 1 y 2 de Ingeniería de Software de la IU Digital permitió desarrollar un sistema con altos estándares de calidad arquitectónica, fiabilidad operacional y satisfacción del usuario final.
+    </p>
+    <p>
+      La aplicación del enfoque evolutivo en Espiral junto con el Modelo en V garantizó que los riesgos críticos de la operación (asignaciones concurrentes de celdas, cobros erróneos por fracción y validación de mensualidades) fueran mitigados mediante pruebas de software automatizadas.
+    </p>
+
+    <!-- 10. REFERENCIAS -->
+    <h2>10. REFERENCIAS BIBLIOGRÁFICAS</h2>
+    <ul>
+      <li>Boehm, B. W. (1988). <em>A spiral model of software development and enhancement</em>. IEEE Computer, 21(5), 61-72.</li>
+      <li>Booch, G., Rumbaugh, J., & Jacobson, I. (2006). <em>El Lenguaje Unificado de Modelado: Guía del Usuario</em> (2.ª ed.). Addison-Wesley.</li>
+      <li>CMMI Institute. (2018). <em>CMMI for Development, Version 2.0</em>. SEI, Carnegie Mellon University.</li>
+      <li>Institución Universitaria Digital de Antioquia - IU Digital. (2024). <em>Módulos de Aprendizaje Unidad 1 y Unidad 2: Ingeniería de Software</em>.</li>
+      <li>Pressman, R. S. (2010). <em>Ingeniería del Software: Un enfoque práctico</em> (7.ª ed.). McGraw-Hill.</li>
+      <li>Sommerville, I. (2011). <em>Ingeniería de Software</em> (9.ª ed.). Pearson.</li>
+    </ul>
+
+  </div>
+</body>
+</html>
