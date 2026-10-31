@@ -1,0 +1,403 @@
+{
+  "_type": "Project",
+  "_id": "AAAAAAF8AutosColombiaProject",
+  "name": "SistemaParqueaderoAutosColombia",
+  "ownedElements": [
+    {
+      "_type": "UMLModel",
+      "_id": "AAAAAAF8ModelCasosDeUso",
+      "_parent": {
+        "$ref": "AAAAAAF8AutosColombiaProject"
+      },
+      "name": "Modelo de Casos de Uso - Iteración 1",
+      "ownedElements": [
+        {
+          "_type": "UMLActor",
+          "_id": "AAAAAAF8ActorOperador",
+          "_parent": {
+            "$ref": "AAAAAAF8ModelCasosDeUso"
+          },
+          "name": "Operador de Parqueadero"
+        },
+        {
+          "_type": "UMLActor",
+          "_id": "AAAAAAF8ActorCliente",
+          "_parent": {
+            "$ref": "AAAAAAF8ModelCasosDeUso"
+          },
+          "name": "Cliente / Conductor"
+        },
+        {
+          "_type": "UMLActor",
+          "_id": "AAAAAAF8ActorAdmin",
+          "_parent": {
+            "$ref": "AAAAAAF8ModelCasosDeUso"
+          },
+          "name": "Administrador del Sistema"
+        },
+        {
+          "_type": "UMLUseCase",
+          "_id": "AAAAAAF8UCO01",
+          "_parent": {
+            "$ref": "AAAAAAF8ModelCasosDeUso"
+          },
+          "name": "CU01: Registrar Entrada de Vehículo"
+        },
+        {
+          "_type": "UMLUseCase",
+          "_id": "AAAAAAF8UCO02",
+          "_parent": {
+            "$ref": "AAAAAAF8ModelCasosDeUso"
+          },
+          "name": "CU02: Registrar Salida y Liquidación"
+        },
+        {
+          "_type": "UMLUseCase",
+          "_id": "AAAAAAF8UCO03",
+          "_parent": {
+            "$ref": "AAAAAAF8ModelCasosDeUso"
+          },
+          "name": "CU03: Registrar Novedad / Daño Preexistente"
+        },
+        {
+          "_type": "UMLUseCase",
+          "_id": "AAAAAAF8UCO04",
+          "_parent": {
+            "$ref": "AAAAAAF8ModelCasosDeUso"
+          },
+          "name": "CU04: Consultar Estado y Asignación de Celdas"
+        },
+        {
+          "_type": "UMLUseCase",
+          "_id": "AAAAAAF8UCO05",
+          "_parent": {
+            "$ref": "AAAAAAF8ModelCasosDeUso"
+          },
+          "name": "CU05: Validar Vigencia de Mensualidad"
+        },
+        {
+          "_type": "UMLUseCase",
+          "_id": "AAAAAAF8UCO06",
+          "_parent": {
+            "$ref": "AAAAAAF8ModelCasosDeUso"
+          },
+          "name": "CU06: Emitir Ticket Térmico de Ingreso"
+        },
+        {
+          "_type": "UMLUseCaseDiagram",
+          "_id": "AAAAAAF8DiagramCasosUso",
+          "_parent": {
+            "$ref": "AAAAAAF8ModelCasosDeUso"
+          },
+          "name": "Diagrama de Casos de Uso - Entrada y Salida"
+        }
+      ]
+    },
+    {
+      "_type": "UMLModel",
+      "_id": "AAAAAAF8ModelClases",
+      "_parent": {
+        "$ref": "AAAAAAF8AutosColombiaProject"
+      },
+      "name": "Modelo de Clases del Dominio",
+      "ownedElements": [
+        {
+          "_type": "UMLClass",
+          "_id": "AAAAAAF8ClassVehiculo",
+          "_parent": {
+            "$ref": "AAAAAAF8ModelClases"
+          },
+          "name": "Vehiculo",
+          "attributes": [
+            {
+              "_type": "UMLAttribute",
+              "name": "id",
+              "type": "Integer",
+              "visibility": "private"
+            },
+            {
+              "_type": "UMLAttribute",
+              "name": "placa",
+              "type": "String",
+              "visibility": "private"
+            },
+            {
+              "_type": "UMLAttribute",
+              "name": "marca",
+              "type": "String",
+              "visibility": "private"
+            },
+            {
+              "_type": "UMLAttribute",
+              "name": "lineaModelo",
+              "type": "String",
+              "visibility": "private"
+            },
+            {
+              "_type": "UMLAttribute",
+              "name": "color",
+              "type": "String",
+              "visibility": "private"
+            }
+          ],
+          "operations": [
+            {
+              "_type": "UMLOperation",
+              "name": "validarFormatoPlaca",
+              "visibility": "public"
+            },
+            {
+              "_type": "UMLOperation",
+              "name": "obtenerHistorialEstadias",
+              "visibility": "public"
+            }
+          ]
+        },
+        {
+          "_type": "UMLClass",
+          "_id": "AAAAAAF8ClassCelda",
+          "_parent": {
+            "$ref": "AAAAAAF8ModelClases"
+          },
+          "name": "Celda",
+          "attributes": [
+            {
+              "_type": "UMLAttribute",
+              "name": "id",
+              "type": "Integer",
+              "visibility": "private"
+            },
+            {
+              "_type": "UMLAttribute",
+              "name": "codigo",
+              "type": "String",
+              "visibility": "private"
+            },
+            {
+              "_type": "UMLAttribute",
+              "name": "pisoZona",
+              "type": "String",
+              "visibility": "private"
+            },
+            {
+              "_type": "UMLAttribute",
+              "name": "estado",
+              "type": "EstadoCeldaEnum",
+              "visibility": "private"
+            }
+          ],
+          "operations": [
+            {
+              "_type": "UMLOperation",
+              "name": "ocuparCelda",
+              "visibility": "public"
+            },
+            {
+              "_type": "UMLOperation",
+              "name": "liberarCelda",
+              "visibility": "public"
+            },
+            {
+              "_type": "UMLOperation",
+              "name": "marcarMantenimiento",
+              "visibility": "public"
+            }
+          ]
+        },
+        {
+          "_type": "UMLClass",
+          "_id": "AAAAAAF8ClassRegistroEstadia",
+          "_parent": {
+            "$ref": "AAAAAAF8ModelClases"
+          },
+          "name": "RegistroEstadia",
+          "attributes": [
+            {
+              "_type": "UMLAttribute",
+              "name": "id",
+              "type": "Integer",
+              "visibility": "private"
+            },
+            {
+              "_type": "UMLAttribute",
+              "name": "ticketCodigo",
+              "type": "String",
+              "visibility": "private"
+            },
+            {
+              "_type": "UMLAttribute",
+              "name": "fechaHoraEntrada",
+              "type": "DateTime",
+              "visibility": "private"
+            },
+            {
+              "_type": "UMLAttribute",
+              "name": "fechaHoraSalida",
+              "type": "DateTime",
+              "visibility": "private"
+            },
+            {
+              "_type": "UMLAttribute",
+              "name": "tipoServicio",
+              "type": "TipoServicioEnum",
+              "visibility": "private"
+            },
+            {
+              "_type": "UMLAttribute",
+              "name": "totalPagar",
+              "type": "Decimal",
+              "visibility": "private"
+            },
+            {
+              "_type": "UMLAttribute",
+              "name": "estadoEstadia",
+              "type": "EstadoEstadiaEnum",
+              "visibility": "private"
+            }
+          ],
+          "operations": [
+            {
+              "_type": "UMLOperation",
+              "name": "calcularMinutosEstadia",
+              "visibility": "public"
+            },
+            {
+              "_type": "UMLOperation",
+              "name": "liquidarCobro",
+              "visibility": "public"
+            },
+            {
+              "_type": "UMLOperation",
+              "name": "generarTicketImpreso",
+              "visibility": "public"
+            }
+          ]
+        },
+        {
+          "_type": "UMLClass",
+          "_id": "AAAAAAF8ClassNovedadVehiculo",
+          "_parent": {
+            "$ref": "AAAAAAF8ModelClases"
+          },
+          "name": "NovedadVehiculo",
+          "attributes": [
+            {
+              "_type": "UMLAttribute",
+              "name": "id",
+              "type": "Integer",
+              "visibility": "private"
+            },
+            {
+              "_type": "UMLAttribute",
+              "name": "tipoNovedad",
+              "type": "TipoNovedadEnum",
+              "visibility": "private"
+            },
+            {
+              "_type": "UMLAttribute",
+              "name": "descripcion",
+              "type": "String",
+              "visibility": "private"
+            },
+            {
+              "_type": "UMLAttribute",
+              "name": "gravedad",
+              "type": "GravedadEnum",
+              "visibility": "private"
+            },
+            {
+              "_type": "UMLAttribute",
+              "name": "ubicacionDano",
+              "type": "String",
+              "visibility": "private"
+            },
+            {
+              "_type": "UMLAttribute",
+              "name": "fechaHora",
+              "type": "DateTime",
+              "visibility": "private"
+            }
+          ],
+          "operations": [
+            {
+              "_type": "UMLOperation",
+              "name": "registrarNovedad",
+              "visibility": "public"
+            },
+            {
+              "_type": "UMLOperation",
+              "name": "adjuntarEvidencia",
+              "visibility": "public"
+            }
+          ]
+        },
+        {
+          "_type": "UMLClassDiagram",
+          "_id": "AAAAAAF8DiagramClases",
+          "_parent": {
+            "$ref": "AAAAAAF8ModelClases"
+          },
+          "name": "Diagrama de Clases - Dominio Autos Colombia"
+        }
+      ]
+    },
+    {
+      "_type": "UMLModel",
+      "_id": "AAAAAAF8ModelPaquetes",
+      "_parent": {
+        "$ref": "AAAAAAF8AutosColombiaProject"
+      },
+      "name": "Modelo de Paquetes y Arquitectura",
+      "ownedElements": [
+        {
+          "_type": "UMLPackage",
+          "_id": "AAAAAAF8PkgPresentation",
+          "_parent": {
+            "$ref": "AAAAAAF8ModelPaquetes"
+          },
+          "name": "co.com.autoscolombia.presentation"
+        },
+        {
+          "_type": "UMLPackage",
+          "_id": "AAAAAAF8PkgControllers",
+          "_parent": {
+            "$ref": "AAAAAAF8ModelPaquetes"
+          },
+          "name": "co.com.autoscolombia.controllers"
+        },
+        {
+          "_type": "UMLPackage",
+          "_id": "AAAAAAF8PkgServices",
+          "_parent": {
+            "$ref": "AAAAAAF8ModelPaquetes"
+          },
+          "name": "co.com.autoscolombia.services"
+        },
+        {
+          "_type": "UMLPackage",
+          "_id": "AAAAAAF8PkgRepositories",
+          "_parent": {
+            "$ref": "AAAAAAF8ModelPaquetes"
+          },
+          "name": "co.com.autoscolombia.repositories"
+        },
+        {
+          "_type": "UMLPackage",
+          "_id": "AAAAAAF8PkgData",
+          "_parent": {
+            "$ref": "AAAAAAF8ModelPaquetes"
+          },
+          "name": "co.com.autoscolombia.database"
+        },
+        {
+          "_type": "UMLPackageDiagram",
+          "_id": "AAAAAAF8DiagramPaquetes",
+          "_parent": {
+            "$ref": "AAAAAAF8ModelPaquetes"
+          },
+          "name": "Diagrama de Paquetes por Capas"
+        }
+      ]
+    }
+  ]
+}
