@@ -1,0 +1,22 @@
+{
+  "name": "autos-colombia-parqueadero",
+  "version": "1.0.0",
+  "description": "Sistema de Información para la gestión de parqueadero Autos Colombia - Iteración 1: Gestión de entrada y salida de vehículos (Electiva I - IU Digital)",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "test": "node test/pruebas_software.js"
+  },
+  "keywords": [
+    "parqueadero",
+    "autos-colombia",
+    "ingenieria-de-software",
+    "iu-digital",
+    "cmmi",
+    "staruml",
+    "modelo-en-v",
+    "pruebas-de-software"
+  ],
+  "author": "Autos Colombia Dev Team",
+  "license": "MIT"
+}
