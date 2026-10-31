@@ -1,0 +1,145 @@
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1050 720" width="100%" height="100%">
+  <defs>
+    <style>
+      .bg { fill: #f8fafc; }
+      .class-box { fill: #ffffff; stroke: #1e3a8a; stroke-width: 2; rx: 6; filter: drop-shadow(0 3px 5px rgba(0,0,0,0.08)); }
+      .class-header { fill: #1e40af; rx: 6; }
+      .header-title { font-family: 'Segoe UI', Arial, sans-serif; font-size: 14px; font-weight: 700; fill: #ffffff; text-anchor: middle; }
+      .attr-text { font-family: 'Consolas', 'Courier New', monospace; font-size: 11px; fill: #0f172a; }
+      .meth-text { font-family: 'Consolas', 'Courier New', monospace; font-size: 11px; fill: #047857; }
+      .assoc-line { stroke: #334155; stroke-width: 1.8; fill: none; }
+      .mult-text { font-family: 'Segoe UI', Arial, sans-serif; font-size: 11px; font-weight: 700; fill: #64748b; }
+      .divider { stroke: #cbd5e1; stroke-width: 1; }
+    </style>
+  </defs>
+
+  <rect width="100%" height="100%" class="bg" />
+
+  <!-- TITULO -->
+  <text x="525" y="32" text-anchor="middle" font-family="'Segoe UI', Arial, sans-serif" font-size="18" font-weight="700" fill="#0f172a">
+    Diagrama de Clases del Dominio - Autos Colombia (Iteración 1)
+  </text>
+
+  <!-- CLASE: Vehiculo -->
+  <g transform="translate(40, 70)">
+    <rect width="260" height="200" class="class-box" />
+    <path d="M 0,0 L 260,0 L 260,32 L 0,32 Z" class="class-header" />
+    <text x="130" y="22" class="header-title">Vehiculo</text>
+    
+    <!-- Atributos -->
+    <text x="12" y="52" class="attr-text">- id: Integer [PK]</text>
+    <text x="12" y="70" class="attr-text">- placa: String [Unique]</text>
+    <text x="12" y="88" class="attr-text">- tipoVehiculoId: Integer</text>
+    <text x="12" y="106" class="attr-text">- marca: String</text>
+    <text x="12" y="124" class="attr-text">- lineaModelo: String</text>
+    <text x="12" y="142" class="attr-text">- color: String</text>
+    <line x1="0" y1="152" x2="260" y2="152" class="divider" />
+    <!-- Métodos -->
+    <text x="12" y="172" class="meth-text">+ validarPlaca(): Boolean</text>
+    <text x="12" y="190" class="meth-text">+ tieneMensualidadActiva(): Boolean</text>
+  </g>
+
+  <!-- CLASE: TipoVehiculo -->
+  <g transform="translate(40, 360)">
+    <rect width="260" height="150" class="class-box" />
+    <path d="M 0,0 L 260,0 L 260,32 L 0,32 Z" class="class-header" />
+    <text x="130" y="22" class="header-title">TipoVehiculo</text>
+    <text x="12" y="54" class="attr-text">- id: Integer [PK]</text>
+    <text x="12" y="72" class="attr-text">- nombre: String</text>
+    <text x="12" y="90" class="attr-text">- tarifaHora: Decimal</text>
+    <text x="12" y="108" class="attr-text">- tarifaMes: Decimal</text>
+    <line x1="0" y1="118" x2="260" y2="118" class="divider" />
+    <text x="12" y="136" class="meth-text">+ getTarifaHora(): Decimal</text>
+  </g>
+
+  <!-- CLASE: RegistroEstadia (Central) -->
+  <g transform="translate(410, 70)">
+    <rect width="280" height="260" class="class-box" />
+    <path d="M 0,0 L 280,0 L 280,32 L 0,32 Z" class="class-header" />
+    <text x="140" y="22" class="header-title">RegistroEstadia</text>
+    <text x="12" y="52" class="attr-text">- id: Integer [PK]</text>
+    <text x="12" y="70" class="attr-text">- ticketCodigo: String</text>
+    <text x="12" y="88" class="attr-text">- fechaHoraEntrada: DateTime</text>
+    <text x="12" y="106" class="attr-text">- fechaHoraSalida: DateTime</text>
+    <text x="12" y="124" class="attr-text">- tipoServicio: TipoServicioEnum</text>
+    <text x="12" y="142" class="attr-text">- totalMinutos: Integer</text>
+    <text x="12" y="160" class="attr-text">- totalPagar: Decimal</text>
+    <text x="12" y="178" class="attr-text">- estadoEstadia: EstadoEstadiaEnum</text>
+    <line x1="0" y1="188" x2="280" y2="188" class="divider" />
+    <text x="12" y="208" class="meth-text">+ calcularMinutos(): Integer</text>
+    <text x="12" y="226" class="meth-text">+ liquidarCobro(): Decimal</text>
+    <text x="12" y="244" class="meth-text">+ finalizarEstadia(): Void</text>
+  </g>
+
+  <!-- CLASE: Celda -->
+  <g transform="translate(770, 70)">
+    <rect width="240" height="190" class="class-box" />
+    <path d="M 0,0 L 240,0 L 240,32 L 0,32 Z" class="class-header" />
+    <text x="120" y="22" class="header-title">Celda</text>
+    <text x="12" y="52" class="attr-text">- id: Integer [PK]</text>
+    <text x="12" y="70" class="attr-text">- codigo: String</text>
+    <text x="12" y="88" class="attr-text">- pisoZona: String</text>
+    <text x="12" y="106" class="attr-text">- estado: EstadoCeldaEnum</text>
+    <text x="12" y="124" class="attr-text">- vehiculoActualId: Integer</text>
+    <line x1="0" y1="134" x2="240" y2="134" class="divider" />
+    <text x="12" y="154" class="meth-text">+ asignarVehiculo(v: Vehiculo)</text>
+    <text x="12" y="172" class="meth-text">+ liberarCelda(): Void</text>
+  </g>
+
+  <!-- CLASE: NovedadVehiculo -->
+  <g transform="translate(410, 420)">
+    <rect width="280" height="190" class="class-box" />
+    <path d="M 0,0 L 280,0 L 280,32 L 0,32 Z" class="class-header" />
+    <text x="140" y="22" class="header-title">NovedadVehiculo</text>
+    <text x="12" y="52" class="attr-text">- id: Integer [PK]</text>
+    <text x="12" y="70" class="attr-text">- tipoNovedad: String</text>
+    <text x="12" y="88" class="attr-text">- descripcion: String</text>
+    <text x="12" y="106" class="attr-text">- gravedad: GravedadEnum</text>
+    <text x="12" y="124" class="attr-text">- ubicacionDano: String</text>
+    <text x="12" y="142" class="attr-text">- fechaHora: DateTime</text>
+    <line x1="0" y1="152" x2="280" y2="152" class="divider" />
+    <text x="12" y="174" class="meth-text">+ registrarDetalle(): Void</text>
+  </g>
+
+  <!-- CLASE: Mensualidad -->
+  <g transform="translate(770, 360)">
+    <rect width="240" height="190" class="class-box" />
+    <path d="M 0,0 L 240,0 L 240,32 L 0,32 Z" class="class-header" />
+    <text x="120" y="22" class="header-title">Mensualidad</text>
+    <text x="12" y="52" class="attr-text">- id: Integer [PK]</text>
+    <text x="12" y="70" class="attr-text">- fechaInicio: Date</text>
+    <text x="12" y="88" class="attr-text">- fechaFin: Date</text>
+    <text x="12" y="106" class="attr-text">- valorMensualidad: Decimal</text>
+    <text x="12" y="124" class="attr-text">- estado: EstadoMensualidadEnum</text>
+    <line x1="0" y1="134" x2="240" y2="134" class="divider" />
+    <text x="12" y="154" class="meth-text">+ estaVigente(): Boolean</text>
+    <text x="12" y="172" class="meth-text">+ renovarPeriodo(): Void</text>
+  </g>
+
+  <!-- ASOCIACIONES -->
+  <!-- Vehiculo 1 --- * RegistroEstadia -->
+  <line x1="300" y1="160" x2="410" y2="160" class="assoc-line" />
+  <text x="310" y="150" class="mult-text">1</text>
+  <text x="390" y="150" class="mult-text">0..*</text>
+
+  <!-- RegistroEstadia * --- 1 Celda -->
+  <line x1="690" y1="160" x2="770" y2="160" class="assoc-line" />
+  <text x="700" y="150" class="mult-text">0..*</text>
+  <text x="750" y="150" class="mult-text">1</text>
+
+  <!-- Vehiculo * --- 1 TipoVehiculo -->
+  <line x1="170" y1="270" x2="170" y2="360" class="assoc-line" />
+  <text x="180" y="290" class="mult-text">0..*</text>
+  <text x="180" y="345" class="mult-text">1</text>
+
+  <!-- RegistroEstadia 1 --- 0..* NovedadVehiculo -->
+  <line x1="550" y1="330" x2="550" y2="420" class="assoc-line" />
+  <text x="560" y="350" class="mult-text">1</text>
+  <text x="560" y="410" class="mult-text">0..*</text>
+
+  <!-- Vehiculo 1 --- 0..1 Mensualidad -->
+  <path d="M 280,270 L 280,310 L 850,310 L 850,360" class="assoc-line" />
+  <text x="290" y="295" class="mult-text">1</text>
+  <text x="860" y="345" class="mult-text">0..1</text>
+</svg>
