@@ -1,0 +1,120 @@
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 950 620" width="100%" height="100%">
+  <defs>
+    <style>
+      .bg { fill: #f8fafc; }
+      .system-box { fill: #ffffff; stroke: #2563eb; stroke-width: 2.5; rx: 12; filter: drop-shadow(0 4px 6px rgba(0,0,0,0.06)); }
+      .system-title { font-family: 'Segoe UI', Arial, sans-serif; font-size: 16px; font-weight: 700; fill: #1e3a8a; }
+      .actor-text { font-family: 'Segoe UI', Arial, sans-serif; font-size: 13px; font-weight: 600; fill: #0f172a; text-anchor: middle; }
+      .usecase-ellipse { fill: #eff6ff; stroke: #3b82f6; stroke-width: 2; rx: 110; ry: 26; filter: drop-shadow(0 2px 4px rgba(37,99,235,0.08)); }
+      .usecase-text { font-family: 'Segoe UI', Arial, sans-serif; font-size: 12px; font-weight: 600; fill: #1e40af; text-anchor: middle; }
+      .link-line { stroke: #64748b; stroke-width: 1.8; }
+      .dashed-line { stroke: #9333ea; stroke-width: 1.5; stroke-dasharray: 5,4; }
+      .relation-label { font-family: 'Segoe UI', Arial, sans-serif; font-size: 11px; fill: #7e22ce; font-weight: 600; text-anchor: middle; }
+    </style>
+    <marker id="arrow" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#9333ea" />
+    </marker>
+  </defs>
+
+  <rect width="100%" height="100%" class="bg" />
+
+  <!-- Caja del Sistema -->
+  <rect x="230" y="30" width="490" height="560" class="system-box" />
+  <text x="475" y="65" text-anchor="middle" class="system-title">Sistema Parqueadero "Autos Colombia" - Iteración 1</text>
+
+  <!-- ACTOR 1: OPERADOR -->
+  <g transform="translate(100, 240)">
+    <circle cx="0" cy="0" r="18" fill="#dbeafe" stroke="#1d4ed8" stroke-width="2.2" />
+    <line x1="0" y1="18" x2="0" y2="60" stroke="#1d4ed8" stroke-width="2.5" />
+    <line x1="-25" y1="35" x2="25" y2="35" stroke="#1d4ed8" stroke-width="2.5" />
+    <line x1="0" y1="60" x2="-20" y2="105" stroke="#1d4ed8" stroke-width="2.5" />
+    <line x1="0" y1="60" x2="20" y2="105" stroke="#1d4ed8" stroke-width="2.5" />
+    <text x="0" y="128" class="actor-text">Operador de</text>
+    <text x="0" y="145" class="actor-text">Parqueadero</text>
+  </g>
+
+  <!-- ACTOR 2: CLIENTE / CONDUCTOR -->
+  <g transform="translate(840, 160)">
+    <circle cx="0" cy="0" r="18" fill="#dcfce7" stroke="#15803d" stroke-width="2.2" />
+    <line x1="0" y1="18" x2="0" y2="60" stroke="#15803d" stroke-width="2.5" />
+    <line x1="-25" y1="35" x2="25" y2="35" stroke="#15803d" stroke-width="2.5" />
+    <line x1="0" y1="60" x2="-20" y2="105" stroke="#15803d" stroke-width="2.5" />
+    <line x1="0" y1="60" x2="20" y2="105" stroke="#15803d" stroke-width="2.5" />
+    <text x="0" y="128" class="actor-text">Cliente / Conductor</text>
+    <text x="0" y="145" class="actor-text">(Mensual o Turno)</text>
+  </g>
+
+  <!-- ACTOR 3: ADMINISTRADOR -->
+  <g transform="translate(840, 420)">
+    <circle cx="0" cy="0" r="18" fill="#fef3c7" stroke="#b45309" stroke-width="2.2" />
+    <line x1="0" y1="18" x2="0" y2="60" stroke="#b45309" stroke-width="2.5" />
+    <line x1="-25" y1="35" x2="25" y2="35" stroke="#b45309" stroke-width="2.5" />
+    <line x1="0" y1="60" x2="-20" y2="105" stroke="#b45309" stroke-width="2.5" />
+    <line x1="0" y1="60" x2="20" y2="105" stroke="#b45309" stroke-width="2.5" />
+    <text x="0" y="128" class="actor-text">Administrador</text>
+  </g>
+
+  <!-- CASOS DE USO -->
+  <!-- CU 01 -->
+  <g transform="translate(475, 110)">
+    <ellipse cx="0" cy="0" class="usecase-ellipse" />
+    <text x="0" y="5" class="usecase-text">CU01: Registrar Entrada de Vehículo</text>
+  </g>
+
+  <!-- CU 02 -->
+  <g transform="translate(475, 190)">
+    <ellipse cx="0" cy="0" class="usecase-ellipse" />
+    <text x="0" y="5" class="usecase-text">CU02: Emitir Ticket Térmico</text>
+  </g>
+
+  <!-- CU 03 -->
+  <g transform="translate(475, 270)">
+    <ellipse cx="0" cy="0" class="usecase-ellipse" />
+    <text x="0" y="5" class="usecase-text">CU03: Registrar Novedad / Daño Preexistente</text>
+  </g>
+
+  <!-- CU 04 -->
+  <g transform="translate(475, 350)">
+    <ellipse cx="0" cy="0" class="usecase-ellipse" />
+    <text x="0" y="5" class="usecase-text">CU04: Consultar y Asignar Celdas Libres</text>
+  </g>
+
+  <!-- CU 05 -->
+  <g transform="translate(475, 430)">
+    <ellipse cx="0" cy="0" class="usecase-ellipse" />
+    <text x="0" y="5" class="usecase-text">CU05: Liquidar y Registrar Salida</text>
+  </g>
+
+  <!-- CU 06 -->
+  <g transform="translate(475, 510)">
+    <ellipse cx="0" cy="0" class="usecase-ellipse" />
+    <text x="0" y="5" class="usecase-text">CU06: Validar Estado de Mensualidad</text>
+  </g>
+
+  <!-- LÍNEAS DE ASOCIACIÓN -->
+  <!-- Operador hacia Casos de Uso -->
+  <line x1="130" y1="260" x2="365" y2="110" class="link-line" />
+  <line x1="130" y1="270" x2="365" y2="190" class="link-line" />
+  <line x1="130" y1="280" x2="365" y2="270" class="link-line" />
+  <line x1="130" y1="290" x2="365" y2="350" class="link-line" />
+  <line x1="130" y1="300" x2="365" y2="430" class="link-line" />
+
+  <!-- Cliente / Conductor -->
+  <line x1="810" y1="180" x2="585" y2="110" class="link-line" />
+  <line x1="810" y1="190" x2="585" y2="430" class="link-line" />
+
+  <!-- Administrador -->
+  <line x1="810" y1="440" x2="585" y2="350" class="link-line" />
+  <line x1="810" y1="450" x2="585" y2="510" class="link-line" />
+
+  <!-- Relaciones <<include>> y <<extend>> -->
+  <path d="M 475,136 L 475,164" class="dashed-line" marker-end="url(#arrow)" />
+  <text x="525" y="152" class="relation-label">&lt;&lt;include&gt;&gt;</text>
+
+  <path d="M 475,244 L 475,216" class="dashed-line" marker-end="url(#arrow)" />
+  <text x="525" y="235" class="relation-label">&lt;&lt;extend&gt;&gt;</text>
+
+  <path d="M 475,484 L 475,456" class="dashed-line" marker-end="url(#arrow)" />
+  <text x="525" y="473" class="relation-label">&lt;&lt;include&gt;&gt;</text>
+</svg>
