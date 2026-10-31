@@ -86,7 +86,9 @@ YULIAN/
 ---
 
 ## 👥 Autores y Créditos
-- **Autores:** Yulian & Equipo de Trabajo
-- **Materia:** Electiva I – Diseño Sistema de Información
-- **Institución:** Universidad / Institución de Educación Superior
-- **Año:** 2026
+- **Autores:** Yulian Germayony Mosquera Cetre
+- **Materia:**  Ingeniería de Software 
+- **Institución:** INSTITUCIÓN UNIVERSITARIA DIGITAL DE ANTIOQUIA
+- **Año:** 31/10/2026
+
+
