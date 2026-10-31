@@ -1,0 +1,145 @@
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1050 680" width="100%" height="100%">
+  <defs>
+    <style>
+      .bg { fill: #f8fafc; }
+      .entity-box { fill: #ffffff; stroke: #0284c7; stroke-width: 2; rx: 6; filter: drop-shadow(0 3px 6px rgba(0,0,0,0.06)); }
+      .entity-header { fill: #0284c7; rx: 6; }
+      .entity-title { font-family: 'Segoe UI', Arial, sans-serif; font-size: 13px; font-weight: 700; fill: #ffffff; text-anchor: middle; }
+      .pk-text { font-family: 'Consolas', monospace; font-size: 11px; font-weight: 700; fill: #dc2626; }
+      .fk-text { font-family: 'Consolas', monospace; font-size: 11px; font-weight: 700; fill: #2563eb; }
+      .field-text { font-family: 'Consolas', monospace; font-size: 11px; fill: #1e293b; }
+      .rel-line { stroke: #475569; stroke-width: 1.8; fill: none; }
+      .card-text { font-family: 'Segoe UI', Arial, sans-serif; font-size: 11px; font-weight: 700; fill: #0284c7; }
+    </style>
+  </defs>
+
+  <rect width="100%" height="100%" class="bg" />
+
+  <text x="525" y="32" text-anchor="middle" font-family="'Segoe UI', Arial, sans-serif" font-size="18" font-weight="700" fill="#0f172a">
+    Modelo Relacional (MR) y Entidad-Relación - Parqueadero "Autos Colombia"
+  </text>
+
+  <!-- TABLA: CLIENTES -->
+  <g transform="translate(40, 70)">
+    <rect width="210" height="150" class="entity-box" />
+    <path d="M 0,0 L 210,0 L 210,28 L 0,28 Z" class="entity-header" />
+    <text x="105" y="19" class="entity-title">CLIENTES</text>
+    <text x="10" y="48" class="pk-text">[PK] id: INTEGER</text>
+    <text x="10" y="66" class="field-text">documento: VARCHAR(20)</text>
+    <text x="10" y="84" class="field-text">nombres: VARCHAR(100)</text>
+    <text x="10" y="102" class="field-text">apellidos: VARCHAR(100)</text>
+    <text x="10" y="120" class="field-text">telefono: VARCHAR(20)</text>
+    <text x="10" y="138" class="field-text">email: VARCHAR(120)</text>
+  </g>
+
+  <!-- TABLA: VEHICULOS -->
+  <g transform="translate(320, 70)">
+    <rect width="230" height="180" class="entity-box" />
+    <path d="M 0,0 L 230,0 L 230,28 L 0,28 Z" class="entity-header" />
+    <text x="115" y="19" class="entity-title">VEHICULOS</text>
+    <text x="10" y="48" class="pk-text">[PK] id: INTEGER</text>
+    <text x="10" y="66" class="field-text">placa: VARCHAR(10) [UQ]</text>
+    <text x="10" y="84" class="fk-text">[FK] tipo_vehiculo_id: INT</text>
+    <text x="10" y="102" class="fk-text">[FK] cliente_id: INT</text>
+    <text x="10" y="120" class="field-text">marca: VARCHAR(50)</text>
+    <text x="10" y="138" class="field-text">linea_modelo: VARCHAR(50)</text>
+    <text x="10" y="156" class="field-text">color: VARCHAR(30)</text>
+  </g>
+
+  <!-- TABLA: TIPOS_VEHICULO -->
+  <g transform="translate(40, 270)">
+    <rect width="210" height="130" class="entity-box" />
+    <path d="M 0,0 L 210,0 L 210,28 L 0,28 Z" class="entity-header" />
+    <text x="105" y="19" class="entity-title">TIPOS_VEHICULO</text>
+    <text x="10" y="48" class="pk-text">[PK] id: INTEGER</text>
+    <text x="10" y="66" class="field-text">nombre: VARCHAR(50)</text>
+    <text x="10" y="84" class="field-text">tarifa_hora: DECIMAL(10,2)</text>
+    <text x="10" y="102" class="field-text">tarifa_dia: DECIMAL(10,2)</text>
+    <text x="10" y="120" class="field-text">tarifa_mes: DECIMAL(10,2)</text>
+  </g>
+
+  <!-- TABLA: REGISTROS_ESTADIA (CENTRAL) -->
+  <g transform="translate(630, 70)">
+    <rect width="250" height="240" class="entity-box" />
+    <path d="M 0,0 L 250,0 L 250,28 L 0,28 Z" class="entity-header" />
+    <text x="125" y="19" class="entity-title">REGISTROS_ESTADIA</text>
+    <text x="10" y="48" class="pk-text">[PK] id: INTEGER</text>
+    <text x="10" y="66" class="field-text">ticket_codigo: VARCHAR(30)</text>
+    <text x="10" y="84" class="fk-text">[FK] vehiculo_id: INT</text>
+    <text x="10" y="102" class="fk-text">[FK] celda_id: INT</text>
+    <text x="10" y="120" class="field-text">tipo_servicio: VARCHAR(20)</text>
+    <text x="10" y="138" class="field-text">fecha_hora_entrada: DATETIME</text>
+    <text x="10" y="156" class="fk-text">[FK] usuario_entrada_id: INT</text>
+    <text x="10" y="174" class="field-text">fecha_hora_salida: DATETIME</text>
+    <text x="10" y="192" class="field-text">total_minutos: INTEGER</text>
+    <text x="10" y="210" class="field-text">total_pagar: DECIMAL(10,2)</text>
+    <text x="10" y="228" class="field-text">estado_estadia: VARCHAR(20)</text>
+  </g>
+
+  <!-- TABLA: CELDAS -->
+  <g transform="translate(630, 370)">
+    <rect width="250" height="150" class="entity-box" />
+    <path d="M 0,0 L 250,0 L 250,28 L 0,28 Z" class="entity-header" />
+    <text x="125" y="19" class="entity-title">CELDAS</text>
+    <text x="10" y="48" class="pk-text">[PK] id: INTEGER</text>
+    <text x="10" y="66" class="field-text">codigo: VARCHAR(10) [UQ]</text>
+    <text x="10" y="84" class="field-text">piso_zona: VARCHAR(20)</text>
+    <text x="10" y="102" class="fk-text">[FK] tipo_permitido_id: INT</text>
+    <text x="10" y="120" class="field-text">estado: VARCHAR(20)</text>
+    <text x="10" y="138" class="fk-text">[FK] vehiculo_actual_id: INT</text>
+  </g>
+
+  <!-- TABLA: NOVEDADES_VEHICULO -->
+  <g transform="translate(320, 370)">
+    <rect width="230" height="170" class="entity-box" />
+    <path d="M 0,0 L 230,0 L 230,28 L 0,28 Z" class="entity-header" />
+    <text x="115" y="19" class="entity-title">NOVEDADES_VEHICULO</text>
+    <text x="10" y="48" class="pk-text">[PK] id: INTEGER</text>
+    <text x="10" y="66" class="fk-text">[FK] registro_estadia_id: INT</text>
+    <text x="10" y="84" class="fk-text">[FK] vehiculo_id: INT</text>
+    <text x="10" y="102" class="field-text">tipo_novedad: VARCHAR(30)</text>
+    <text x="10" y="120" class="field-text">descripcion: TEXT</text>
+    <text x="10" y="138" class="field-text">gravedad: VARCHAR(20)</text>
+    <text x="10" y="156" class="field-text">ubicacion_dano: VARCHAR(100)</text>
+  </g>
+
+  <!-- TABLA: MENSUALIDADES -->
+  <g transform="translate(40, 460)">
+    <rect width="210" height="150" class="entity-box" />
+    <path d="M 0,0 L 210,0 L 210,28 L 0,28 Z" class="entity-header" />
+    <text x="105" y="19" class="entity-title">MENSUALIDADES</text>
+    <text x="10" y="48" class="pk-text">[PK] id: INTEGER</text>
+    <text x="10" y="66" class="fk-text">[FK] cliente_id: INT</text>
+    <text x="10" y="84" class="fk-text">[FK] vehiculo_id: INT</text>
+    <text x="10" y="102" class="field-text">fecha_inicio: DATE</text>
+    <text x="10" y="120" class="field-text">fecha_fin: DATE</text>
+    <text x="10" y="138" class="field-text">estado: VARCHAR(20)</text>
+  </g>
+
+  <!-- RELACIONES -->
+  <!-- Clientes 1 --- 0..* Vehiculos -->
+  <line x1="250" y1="130" x2="320" y2="130" class="rel-line" />
+  <text x="255" y="120" class="card-text">1</text>
+  <text x="305" y="120" class="card-text">0..*</text>
+
+  <!-- Vehiculos 1 --- 0..* Registros_Estadia -->
+  <line x1="550" y1="130" x2="630" y2="130" class="rel-line" />
+  <text x="560" y="120" class="card-text">1</text>
+  <text x="615" y="120" class="card-text">0..*</text>
+
+  <!-- Celdas 1 --- 0..* Registros_Estadia -->
+  <line x1="755" y1="310" x2="755" y2="370" class="rel-line" />
+  <text x="765" y="325" class="card-text">0..*</text>
+  <text x="765" y="360" class="card-text">1</text>
+
+  <!-- Registros_Estadia 1 --- 0..* Novedades -->
+  <path d="M 630,220 L 550,220 L 550,370" class="rel-line" />
+  <text x="610" y="210" class="card-text">1</text>
+  <text x="560" y="360" class="card-text">0..*</text>
+
+  <!-- Tipos_Vehiculo 1 --- 0..* Vehiculos -->
+  <path d="M 250,320 L 285,320 L 285,160 L 320,160" class="rel-line" />
+  <text x="255" y="310" class="card-text">1</text>
+  <text x="305" y="150" class="card-text">0..*</text>
+</svg>
