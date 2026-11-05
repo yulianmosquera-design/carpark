@@ -218,6 +218,150 @@ class ParqueaderoRepository {
     `);
     return stmt.all();
   }
+
+  // ====================================================================
+  // ITERACIÓN 2: MÉTODOS PARA GESTIÓN DE USUARIOS
+  // ====================================================================
+  getAllRoles() {
+    return db.prepare(`SELECT * FROM roles ORDER BY id ASC`).all();
+  }
+
+  getAllUsuarios() {
+    const stmt = db.prepare(`
+      SELECT u.id, u.documento, u.nombre, u.apellido, u.telefono, u.email, u.username,
+             u.rol_id, r.nombre AS rol_nombre, u.estado, u.fecha_creacion
+      FROM usuarios u
+      JOIN roles r ON u.rol_id = r.id
+      ORDER BY u.id ASC
+    `);
+    return stmt.all();
+  }
+
+  findUsuarioById(id) {
+    const stmt = db.prepare(`
+      SELECT u.*, r.nombre AS rol_nombre
+      FROM usuarios u
+      JOIN roles r ON u.rol_id = r.id
+      WHERE u.id = ?
+    `);
+    return stmt.get(id);
+  }
+
+  findUsuarioByUsername(username) {
+    const stmt = db.prepare(`SELECT * FROM usuarios WHERE LOWER(username) = LOWER(?)`);
+    return stmt.get(username);
+  }
+
+  findUsuarioByDocumento(doc) {
+    const stmt = db.prepare(`SELECT * FROM usuarios WHERE documento = ?`);
+    return stmt.get(doc);
+  }
+
+  createUsuario({ documento, nombre, apellido, telefono, email, username, password_hash, rol_id, estado = 'ACTIVO' }) {
+    const stmt = db.prepare(`
+      INSERT INTO usuarios (documento, nombre, apellido, telefono, email, username, password_hash, rol_id, estado)
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+    `);
+    const info = stmt.run(documento, nombre, apellido, telefono || '', email || '', username, password_hash || '123456', rol_id, estado);
+    return info.lastInsertRowid;
+  }
+
+  updateUsuario(id, { nombre, apellido, telefono, email, rol_id, estado, password_hash }) {
+    if (password_hash) {
+      const stmt = db.prepare(`
+        UPDATE usuarios
+        SET nombre = ?, apellido = ?, telefono = ?, email = ?, rol_id = ?, estado = ?, password_hash = ?
+        WHERE id = ?
+      `);
+      stmt.run(nombre, apellido, telefono || '', email || '', rol_id, estado, password_hash, id);
+    } else {
+      const stmt = db.prepare(`
+        UPDATE usuarios
+        SET nombre = ?, apellido = ?, telefono = ?, email = ?, rol_id = ?, estado = ?
+        WHERE id = ?
+      `);
+      stmt.run(nombre, apellido, telefono || '', email || '', rol_id, estado, id);
+    }
+  }
+
+  toggleEstadoUsuario(id, nuevoEstado) {
+    const stmt = db.prepare(`UPDATE usuarios SET estado = ? WHERE id = ?`);
+    stmt.run(nuevoEstado, id);
+  }
+
+  // ====================================================================
+  // ITERACIÓN 2: MÉTODOS AVANZADOS PARA GESTIÓN DE CELDAS
+  // ====================================================================
+  findCeldaByCodigo(codigo) {
+    const stmt = db.prepare(`SELECT * FROM celdas WHERE UPPER(codigo) = UPPER(?)`);
+    return stmt.get(codigo);
+  }
+
+  findCeldaById(id) {
+    const stmt = db.prepare(`
+      SELECT c.*, tv.nombre AS tipo_permitido_nombre, v.placa AS placa_ocupante
+      FROM celdas c
+      JOIN tipos_vehiculo tv ON c.tipo_permitido_id = tv.id
+      LEFT JOIN vehiculos v ON c.vehiculo_actual_id = v.id
+      WHERE c.id = ?
+    `);
+    return stmt.get(id);
+  }
+
+  createCelda({ codigo, piso_zona, tipo_permitido_id, estado = 'DISPONIBLE' }) {
+    const stmt = db.prepare(`
+      INSERT INTO celdas (codigo, piso_zona, tipo_permitido_id, estado, vehiculo_actual_id)
+      VALUES (UPPER(?), ?, ?, ?, NULL)
+    `);
+    const info = stmt.run(codigo, piso_zona, tipo_permitido_id, estado);
+    return info.lastInsertRowid;
+  }
+
+  updateCelda(id, { codigo, piso_zona, tipo_permitido_id, estado }) {
+    const stmt = db.prepare(`
+      UPDATE celdas
+      SET codigo = UPPER(?), piso_zona = ?, tipo_permitido_id = ?, estado = ?
+      WHERE id = ?
+    `);
+    stmt.run(codigo, piso_zona, tipo_permitido_id, estado, id);
+  }
+
+  // Reasignación operativa de celda: pasa vehículo de Celda A a Celda B
+  reasignarCelda(celdaOrigenId, celdaDestinoId) {
+    const celdaOrigen = this.findCeldaById(celdaOrigenId);
+    if (!celdaOrigen || !celdaOrigen.vehiculo_actual_id) {
+      throw new Error('La celda origen no tiene ningún vehículo para reasignar');
+    }
+    const celdaDestino = this.findCeldaById(celdaDestinoId);
+    if (!celdaDestino) {
+      throw new Error('La celda de destino no existe');
+    }
+    if (celdaDestino.estado !== 'DISPONIBLE') {
+      throw new Error(`La celda destino ${celdaDestino.codigo} no está disponible (Estado actual: ${celdaDestino.estado})`);
+    }
+
+    const vehiculoId = celdaOrigen.vehiculo_actual_id;
+
+    // 1. Liberar celda origen
+    this.updateCeldaEstado(celdaOrigenId, 'DISPONIBLE', null);
+
+    // 2. Ocupar celda destino
+    this.updateCeldaEstado(celdaDestinoId, 'OCUPADA', vehiculoId);
+
+    // 3. Actualizar registro de estadía activo
+    const stmt = db.prepare(`
+      UPDATE registros_estadia
+      SET celda_id = ?
+      WHERE vehiculo_id = ? AND estado_estadia = 'EN_PARQUEADERO'
+    `);
+    stmt.run(celdaDestinoId, vehiculoId);
+
+    return {
+      vehiculoId,
+      celdaOrigen: celdaOrigen.codigo,
+      celdaDestino: celdaDestino.codigo
+    };
+  }
 }
 
 module.exports = new ParqueaderoRepository();
