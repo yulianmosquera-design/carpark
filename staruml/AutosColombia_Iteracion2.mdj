@@ -1,0 +1,143 @@
+{
+  "_type": "Project",
+  "_id": "AAAAAAF8AutosColombiaProjectIteracion2",
+  "name": "SistemaParqueaderoAutosColombia_Iteracion2",
+  "ownedElements": [
+    {
+      "_type": "UMLModel",
+      "_id": "AAAAAAF8ModelCasosDeUsoIter2",
+      "name": "Modelo de Casos de Uso - Iteración 2 (Usuarios y Celdas)",
+      "ownedElements": [
+        {
+          "_type": "UMLActor",
+          "_id": "AAAAActorAdmin",
+          "name": "Administrador del Sistema"
+        },
+        {
+          "_type": "UMLActor",
+          "_id": "AAAAActorOperador",
+          "name": "Operador de Parqueadero"
+        },
+        {
+          "_type": "UMLActor",
+          "_id": "AAAAActorAuditor",
+          "name": "Auditor / Supervisor"
+        },
+        {
+          "_type": "UMLUseCase",
+          "_id": "AAAAUC_USU01",
+          "name": "CU-USU-01: Autenticar Usuario y Control de Acceso"
+        },
+        {
+          "_type": "UMLUseCase",
+          "_id": "AAAAUC_USU02",
+          "name": "CU-USU-02: Registrar Nuevo Usuario Operador/Admin"
+        },
+        {
+          "_type": "UMLUseCase",
+          "_id": "AAAAUC_USU03",
+          "name": "CU-USU-03: Modificar Datos y Asignar Rol de Usuario"
+        },
+        {
+          "_type": "UMLUseCase",
+          "_id": "AAAAUC_USU04",
+          "name": "CU-USU-04: Activar / Inactivar Acceso de Usuario"
+        },
+        {
+          "_type": "UMLUseCase",
+          "_id": "AAAAUC_CEL01",
+          "name": "CU-CEL-01: Parametrizar y Crear Nueva Celda"
+        },
+        {
+          "_type": "UMLUseCase",
+          "_id": "AAAAUC_CEL02",
+          "name": "CU-CEL-02: Monitorear Ocupación en Tiempo Real"
+        },
+        {
+          "_type": "UMLUseCase",
+          "_id": "AAAAUC_CEL03",
+          "name": "CU-CEL-03: Reasignar Vehículo entre Celdas"
+        },
+        {
+          "_type": "UMLUseCase",
+          "_id": "AAAAUC_CEL04",
+          "name": "CU-CEL-04: Inhabilitar por Mantenimiento"
+        },
+        {
+          "_type": "UMLUseCase",
+          "_id": "AAAAUC_CEL05",
+          "name": "CU-CEL-05: Auditar Celdas y Estadías"
+        }
+      ]
+    },
+    {
+      "_type": "UMLModel",
+      "_id": "AAAAAAF8ModelSecuencia",
+      "name": "Modelo de Interacción - Diagramas de Secuencia (Iteraciones 1 y 2)",
+      "ownedElements": [
+        {
+          "_type": "UMLInteraction",
+          "_id": "AAAAInteractionEntrada",
+          "name": "Secuencia: Registro Entrada y Asignación Celda"
+        },
+        {
+          "_type": "UMLInteraction",
+          "_id": "AAAAInteractionSalida",
+          "name": "Secuencia: Liquidación Salida y Liberación Celda"
+        },
+        {
+          "_type": "UMLInteraction",
+          "_id": "AAAAInteractionUsuarios",
+          "name": "Secuencia: Creación y Asignación de Roles de Usuarios"
+        },
+        {
+          "_type": "UMLInteraction",
+          "_id": "AAAAInteractionCeldas",
+          "name": "Secuencia: Reasignación Atómica de Celdas"
+        }
+      ]
+    },
+    {
+      "_type": "UMLModel",
+      "_id": "AAAAAAF8ModelComponents",
+      "name": "Modelo de Componentes Arquitectónicos (Iteraciones 1 y 2)",
+      "ownedElements": [
+        {
+          "_type": "UMLComponent",
+          "_id": "AAAACompUI",
+          "name": "SPA Dashboard UI"
+        },
+        {
+          "_type": "UMLComponent",
+          "_id": "AAAACompTicket",
+          "name": "Ticket & Liquidación Manager"
+        },
+        {
+          "_type": "UMLComponent",
+          "_id": "AAAACompUserCellUI",
+          "name": "CellMap & UserMgmt UI"
+        },
+        {
+          "_type": "UMLComponent",
+          "_id": "AAAACompController",
+          "name": "ParqueaderoController"
+        },
+        {
+          "_type": "UMLComponent",
+          "_id": "AAAACompService",
+          "name": "ParqueaderoService"
+        },
+        {
+          "_type": "UMLComponent",
+          "_id": "AAAACompRepo",
+          "name": "ParqueaderoRepository"
+        },
+        {
+          "_type": "UMLComponent",
+          "_id": "AAAACompDB",
+          "name": "SQLite3 Database Engine (autos_colombia.db)"
+        }
+      ]
+    }
+  ]
+}
