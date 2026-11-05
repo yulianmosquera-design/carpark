@@ -95,6 +95,34 @@ const server = http.createServer((req, res) => {
         return controller.getMensualidades(req, res);
       }
 
+      // RUTAS ITERACIÓN 2: GESTIÓN DE USUARIOS
+      if (pathname === '/api/usuarios' && req.method === 'GET') {
+        return controller.getUsuarios(req, res);
+      }
+      if (pathname === '/api/usuarios' && req.method === 'POST') {
+        return controller.crearUsuario(req, res, parsedBody);
+      }
+      if (pathname === '/api/usuarios/actualizar' && req.method === 'POST') {
+        return controller.actualizarUsuario(req, res, parsedBody);
+      }
+      if (pathname === '/api/usuarios/estado' && req.method === 'POST') {
+        return controller.toggleEstadoUsuario(req, res, parsedBody);
+      }
+      if (pathname === '/api/roles' && req.method === 'GET') {
+        return controller.getRoles(req, res);
+      }
+
+      // RUTAS ITERACIÓN 2: GESTIÓN AVANZADA DE CELDAS
+      if (pathname === '/api/celdas/crear' && req.method === 'POST') {
+        return controller.crearCelda(req, res, parsedBody);
+      }
+      if (pathname === '/api/celdas/actualizar' && req.method === 'POST') {
+        return controller.actualizarCelda(req, res, parsedBody);
+      }
+      if (pathname === '/api/celdas/reasignar' && req.method === 'POST') {
+        return controller.reasignarCelda(req, res, parsedBody);
+      }
+
       // 404 para API no encontrada
       res.writeHead(404, { 'Content-Type': 'application/json' });
       res.end(JSON.stringify({ success: false, error: 'Ruta de API no encontrada' }));
