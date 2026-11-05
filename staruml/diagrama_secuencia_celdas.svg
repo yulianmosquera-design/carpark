@@ -1,0 +1,108 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 660" width="100%" height="100%">
+  <defs>
+    <style>
+      .bg { fill: #0f172a; }
+      .title { font-family: 'Segoe UI', Arial, sans-serif; font-size: 16px; font-weight: 700; fill: #60a5fa; text-anchor: middle; }
+      .subtitle { font-family: 'Segoe UI', Arial, sans-serif; font-size: 12px; fill: #94a3b8; text-anchor: middle; }
+      .lifeline-box { fill: #1e293b; stroke: #38bdf8; stroke-width: 1.8; rx: 6; }
+      .lifeline-db { fill: #312e81; stroke: #818cf8; stroke-width: 1.8; rx: 6; }
+      .lifeline-text { font-family: 'Segoe UI', Arial, sans-serif; font-size: 11px; font-weight: 600; fill: #f8fafc; text-anchor: middle; }
+      .lifeline-line { stroke: #475569; stroke-width: 1.5; stroke-dasharray: 4,4; }
+      .activation-bar { fill: #0284c7; stroke: #38bdf8; stroke-width: 1.2; rx: 3; }
+      .msg-line { stroke: #38bdf8; stroke-width: 1.6; }
+      .reply-line { stroke: #a5b4fc; stroke-width: 1.4; stroke-dasharray: 4,3; }
+      .msg-text { font-family: 'Segoe UI', Arial, sans-serif; font-size: 10px; font-weight: 600; fill: #e2e8f0; }
+      .reply-text { font-family: 'Segoe UI', Arial, sans-serif; font-size: 9.5px; fill: #94a3b8; }
+      .trans-box { fill: rgba(59, 130, 246, 0.08); stroke: #3b82f6; stroke-width: 1.2; stroke-dasharray: 4,2; rx: 5; }
+      .trans-label { font-family: 'Segoe UI', Arial, sans-serif; font-size: 10px; font-weight: 700; fill: #60a5fa; }
+    </style>
+    <marker id="arrow-blue4" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#38bdf8" />
+    </marker>
+    <marker id="arrow-reply4" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#a5b4fc" />
+    </marker>
+  </defs>
+
+  <rect width="100%" height="100%" class="bg" />
+
+  <text x="500" y="32" class="title">Diagrama de Secuencia: Reasignación Atómica de Celda de Parqueo (Iteración 2)</text>
+  <text x="500" y="50" class="subtitle">Transferencia Consistente de Celda Ocupada a Celda Disponible en StarUML</text>
+
+  <!-- PARTICIPANTES -->
+  <rect x="30" y="70" width="100" height="36" class="lifeline-box" />
+  <text x="80" y="93" class="lifeline-text">:OperadorUI</text>
+  <line x1="80" y1="106" x2="80" y2="630" class="lifeline-line" />
+
+  <rect x="200" y="70" width="140" height="36" class="lifeline-box" />
+  <text x="270" y="93" class="lifeline-text">:ParqueaderoController</text>
+  <line x1="270" y1="106" x2="270" y2="630" class="lifeline-line" />
+
+  <rect x="410" y="70" width="140" height="36" class="lifeline-box" />
+  <text x="480" y="93" class="lifeline-text">:ParqueaderoService</text>
+  <line x1="480" y1="106" x2="480" y2="630" class="lifeline-line" />
+
+  <rect x="630" y="70" width="140" height="36" class="lifeline-box" />
+  <text x="700" y="93" class="lifeline-text">:ParqueaderoRepository</text>
+  <line x1="700" y1="106" x2="700" y2="630" class="lifeline-line" />
+
+  <rect x="840" y="70" width="120" height="36" class="lifeline-db" />
+  <text x="900" y="93" class="lifeline-text">:SQLite Database</text>
+  <line x1="900" y1="106" x2="900" y2="630" class="lifeline-line" />
+
+  <!-- BARRAS ACTIVAS -->
+  <rect x="74" y="125" width="12" height="480" class="activation-bar" />
+  <rect x="264" y="130" width="12" height="460" class="activation-bar" />
+  <rect x="474" y="145" width="12" height="430" class="activation-bar" />
+  <rect x="694" y="160" width="12" height="390" class="activation-bar" />
+
+  <!-- PASO 1: Selección y Envío de Reasignación -->
+  <line x1="86" y1="135" x2="264" y2="135" class="msg-line" marker-end="url(#arrow-blue4)" />
+  <text x="95" y="130" class="msg-text">1: POST /api/celdas/reasignar {celdaOrigenId, celdaDestinoId}</text>
+
+  <line x1="276" y1="150" x2="474" y2="150" class="msg-line" marker-end="url(#arrow-blue4)" />
+  <text x="285" y="145" class="msg-text">2: reasignarCelda(celdaOrigenId, celdaDestinoId)</text>
+
+  <!-- PASO 2: Validar Estados Actuales de Celdas -->
+  <line x1="486" y1="170" x2="694" y2="170" class="msg-line" marker-end="url(#arrow-blue4)" />
+  <text x="495" y="165" class="msg-text">3: findCeldaById(celdaOrigenId) &amp; findCeldaById(celdaDestinoId)</text>
+
+  <line x1="694" y1="200" x2="486" y2="200" class="reply-line" marker-end="url(#arrow-reply4)" />
+  <text x="510" y="195" class="reply-text">4: return {origen: 'OCUPADA', destino: 'DISPONIBLE', tipoCompatible: true}</text>
+
+  <!-- CUADRO TRANSACCIONAL ATÓMICO -->
+  <rect x="420" y="225" width="530" height="180" class="trans-box" />
+  <text x="430" y="243" class="trans-label">[BEGIN TRANSACTION - Atomic Cell Transfer]</text>
+
+  <!-- 1. Actualizar Registro Estadía al nuevo celda_id -->
+  <line x1="486" y1="265" x2="694" y2="265" class="msg-line" marker-end="url(#arrow-blue4)" />
+  <text x="495" y="260" class="msg-text">5: updateEstadiaCelda(estadiaActiva.id, celdaDestinoId)</text>
+
+  <!-- 2. Liberar celda origen -->
+  <line x1="486" y1="300" x2="694" y2="300" class="msg-line" marker-end="url(#arrow-blue4)" />
+  <text x="495" y="295" class="msg-text">6: updateCeldaEstado(celdaOrigenId, 'DISPONIBLE')</text>
+
+  <!-- 3. Ocupar celda destino -->
+  <line x1="486" y1="335" x2="694" y2="335" class="msg-line" marker-end="url(#arrow-blue4)" />
+  <text x="495" y="330" class="msg-text">7: updateCeldaEstado(celdaDestinoId, 'OCUPADA')</text>
+
+  <!-- Commit DB -->
+  <line x1="706" y1="370" x2="900" y2="370" class="msg-line" marker-end="url(#arrow-blue4)" />
+  <text x="720" y="365" class="msg-text">8: COMMIT TRANSACTION</text>
+
+  <line x1="694" y1="420" x2="486" y2="420" class="reply-line" marker-end="url(#arrow-reply4)" />
+  <text x="510" y="415" class="reply-text">9: return {reasignacionExitosa: true, vehiculo: 'ABC123'}</text>
+
+  <line x1="474" y1="460" x2="276" y2="460" class="reply-line" marker-end="url(#arrow-reply4)" />
+  <text x="290" y="455" class="reply-text">10: return {success: true, celdaOrigen, celdaDestino}</text>
+
+  <line x1="264" y1="500" x2="86" y2="500" class="reply-line" marker-end="url(#arrow-reply4)" />
+  <text x="95" y="495" class="reply-text">11: HTTP 200 OK {success: true, message: 'Celda reasignada'}</text>
+
+  <!-- Actualización del Mapa Visual -->
+  <line x1="86" y1="540" x2="160" y2="540" class="msg-line" />
+  <line x1="160" y1="540" x2="160" y2="555" class="msg-line" />
+  <line x1="160" y1="555" x2="86" y2="555" class="msg-line" marker-end="url(#arrow-blue4)" />
+  <text x="170" y="550" class="msg-text">12: app.cargarMapaCeldas() &amp; app.cargarDashboard()</text>
+
+</svg>
