@@ -97,7 +97,79 @@ try {
 assert(errorValidacion === true, 'Rechazo estricto de entradas con campos obligatorios vacíos o nulos');
 
 // --------------------------------------------------------------------
-// 3. PRUEBAS DE RENDIMIENTO Y VELOCIDAD DE RESPUESTA
+// 3. PRUEBAS DE ITERACIÓN 2: GESTIÓN DE USUARIOS Y GESTIÓN DE CELDAS
+// --------------------------------------------------------------------
+console.log('\n>>> 3. PRUEBAS DINÁMICAS ITERACIÓN 2: USUARIOS Y CELDAS <<<');
+
+// 3.1 Creación de nuevo usuario con rol asignado
+const randUser = 'operador_' + Math.floor(100 + Math.random() * 900);
+const randDoc = '987' + Math.floor(100000 + Math.random() * 900000);
+const userRes = service.crearUsuario({
+  documento: randDoc,
+  nombre: 'Yulian',
+  apellido: 'Mosquera',
+  telefono: '3124567890',
+  email: randUser + '@autoscolombia.com',
+  username: randUser,
+  password: 'Password123!',
+  rol_id: 2, // Operador
+  estado: 'ACTIVO'
+});
+assert(userRes.success === true && userRes.id > 0, 'Creación de nuevo usuario con rol asignado exitosamente');
+
+// 3.2 Impedir duplicidad de username en creación de usuario
+let errorUserDup = false;
+try {
+  service.crearUsuario({
+    documento: '1112223334',
+    nombre: 'Duplicado',
+    apellido: 'Test',
+    username: randUser, // Mismo username
+    rol_id: 2
+  });
+} catch (e) {
+  errorUserDup = true;
+}
+assert(errorUserDup === true, 'Regla de negocio: Rechazo estricto de username duplicado');
+
+// 3.3 Cambio de estado de usuario (Activar / Inactivar)
+const toggleRes = service.toggleEstadoUsuario(userRes.id);
+assert(toggleRes.nuevoEstado === 'INACTIVO', 'Modificación de estado de usuario a INACTIVO');
+
+// 3.4 Creación de nueva celda en el parqueadero
+const randCode = 'X-' + Math.floor(10 + Math.random() * 90);
+const celdaRes = service.crearCelda({
+  codigo: randCode,
+  piso_zona: 'Piso 2 - VIP',
+  tipo_permitido_id: 1, // Automóvil
+  estado: 'DISPONIBLE'
+});
+assert(celdaRes.success === true && celdaRes.id > 0, 'Creación y parametrización de nueva celda en el parqueadero');
+
+// 3.5 Cambio de estado de celda a MANTENIMIENTO
+const mantRes = service.cambiarEstadoCelda(celdaRes.id, 'MANTENIMIENTO');
+assert(mantRes.success === true, 'Modificación de estado de celda a MANTENIMIENTO');
+
+// 3.6 Reasignación operativa de celda de vehículo estacionado
+// Creamos una estadía en celda A-04 (id: 4) y reasignamos a celda A-03 (id: 3)
+const placaReasig = 'REA' + Math.floor(100 + Math.random() * 900);
+service.registrarEntrada({
+  placa: placaReasig,
+  tipo_vehiculo_id: 1,
+  celda_id: 4,
+  marca: 'Nissan',
+  color: 'Azul'
+});
+const reasigRes = service.reasignarCelda(4, 3);
+assert(reasigRes.success === true, 'Reasignación atómica de vehículo activo entre celdas (Celda A-04 -> Celda A-03)');
+
+const celdasReasig = repo.getAllCeldas();
+const celdaOrig = celdasReasig.find(c => c.id === 4);
+const celdaDest = celdasReasig.find(c => c.id === 3);
+assert(celdaOrig.estado === 'DISPONIBLE' && celdaDest.estado === 'OCUPADA', 'Validación de estados consistentes tras reasignación de celdas');
+
+// --------------------------------------------------------------------
+// 4. PRUEBAS DE RENDIMIENTO Y VELOCIDAD DE RESPUESTA
 // --------------------------------------------------------------------
 console.log('\n>>> 3. PRUEBAS DE RENDIMIENTO Y TIEMPOS DE RESPUESTA <<<');
 
@@ -115,7 +187,7 @@ assert(tPromedio < 10.0, `Tiempo de consulta promedio del dashboard (${tPromedio
 console.log('\n>>> 4. PRUEBAS DE CONFIABILIDAD (ESTADOS DE CELDA Y REPO) <<<');
 
 const stats = repo.getEstadisticas();
-assert(stats.totalCeldas === 12, 'Confiabilidad en conteo total de celdas parametrizadas (12 celdas)');
+assert(stats.totalCeldas >= 12, 'Confiabilidad en conteo total de celdas parametrizadas (al menos 12 celdas base)');
 assert(stats.celdasDisponibles + stats.celdasOcupadas + stats.celdasMantenimiento === stats.totalCeldas, 'Coherencia matemática en balance de estados de celdas');
 
 // --------------------------------------------------------------------
