@@ -125,6 +125,100 @@ class ParqueaderoController {
       res.end(JSON.stringify({ success: false, error: err.message }));
     }
   }
+
+  // ====================================================================
+  // ITERACIÓN 2: CONTROLADORES PARA GESTIÓN DE USUARIOS
+  // ====================================================================
+  getUsuarios(req, res) {
+    try {
+      const usuarios = service.listarUsuarios();
+      res.writeHead(200, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify({ success: true, data: usuarios }));
+    } catch (err) {
+      res.writeHead(500, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify({ success: false, error: err.message }));
+    }
+  }
+
+  getRoles(req, res) {
+    try {
+      const roles = service.listarRoles();
+      res.writeHead(200, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify({ success: true, data: roles }));
+    } catch (err) {
+      res.writeHead(500, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify({ success: false, error: err.message }));
+    }
+  }
+
+  crearUsuario(req, res, body) {
+    try {
+      const result = service.crearUsuario(body);
+      res.writeHead(201, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify(result));
+    } catch (err) {
+      res.writeHead(400, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify({ success: false, error: err.message }));
+    }
+  }
+
+  actualizarUsuario(req, res, body) {
+    try {
+      const result = service.actualizarUsuario(body.id, body);
+      res.writeHead(200, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify(result));
+    } catch (err) {
+      res.writeHead(400, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify({ success: false, error: err.message }));
+    }
+  }
+
+  toggleEstadoUsuario(req, res, body) {
+    try {
+      const result = service.toggleEstadoUsuario(body.id);
+      res.writeHead(200, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify(result));
+    } catch (err) {
+      res.writeHead(400, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify({ success: false, error: err.message }));
+    }
+  }
+
+  // ====================================================================
+  // ITERACIÓN 2: CONTROLADORES AVANZADOS PARA GESTIÓN DE CELDAS
+  // ====================================================================
+  crearCelda(req, res, body) {
+    try {
+      const result = service.crearCelda(body);
+      res.writeHead(201, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify(result));
+    } catch (err) {
+      res.writeHead(400, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify({ success: false, error: err.message }));
+    }
+  }
+
+  actualizarCelda(req, res, body) {
+    try {
+      const result = service.actualizarCelda(body.id, body);
+      res.writeHead(200, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify(result));
+    } catch (err) {
+      res.writeHead(400, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify({ success: false, error: err.message }));
+    }
+  }
+
+  reasignarCelda(req, res, body) {
+    try {
+      const result = service.reasignarCelda(body.celda_origen_id, body.celda_destino_id);
+      res.writeHead(200, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify(result));
+    } catch (err) {
+      res.writeHead(400, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify({ success: false, error: err.message }));
+    }
+  }
 }
 
 module.exports = new ParqueaderoController();
