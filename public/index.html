@@ -53,6 +53,10 @@
           <span class="nav-icon">📅</span>
           <span>Mensualidades</span>
         </button>
+        <button class="nav-btn" data-tab="usuarios">
+          <span class="nav-icon">👤</span>
+          <span>Gestión Usuarios</span>
+        </button>
       </nav>
 
       <div class="operator-card">
@@ -644,13 +648,21 @@
           <div class="card">
             <div class="card-header">
               <div>
-                <h3>🅿️ Mapa y Distribución de Celdas</h3>
-                <p>Visualización gráfica del estado de cada celda del parqueadero</p>
+                <h3>🅿️ Gestión y Mapa de Celdas (Iteración 2)</h3>
+                <p>Visualización gráfica, creación, mantenimiento y reasignación de celdas</p>
               </div>
-              <div class="celda-legend">
-                <span class="legend-item"><span class="badge-dot disponible"></span> Disponible</span>
-                <span class="legend-item"><span class="badge-dot ocupada"></span> Ocupada (Rojo)</span>
-                <span class="legend-item"><span class="badge-dot mantenimiento"></span> Mantenimiento (Oro)</span>
+              <div style="display: flex; gap: 12px; align-items: center;">
+                <div class="celda-legend">
+                  <span class="legend-item"><span class="badge-dot disponible"></span> Disponible</span>
+                  <span class="legend-item"><span class="badge-dot ocupada"></span> Ocupada (Rojo)</span>
+                  <span class="legend-item"><span class="badge-dot mantenimiento"></span> Mantenimiento (Oro)</span>
+                </div>
+                <button class="btn btn-primary" onclick="app.abrirModalNuevaCelda()">
+                  ➕ Nueva Celda
+                </button>
+                <button class="btn btn-secondary" onclick="app.abrirModalReasignarCelda()">
+                  🔄 Reasignar Celda
+                </button>
               </div>
             </div>
 
@@ -716,6 +728,40 @@
                   </tr>
                 </thead>
                 <tbody id="tbody-mensualidades">
+                  <!-- Se llena dinámicamente -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- SECCIÓN 7: GESTIÓN DE USUARIOS (ITERACIÓN 2) -->
+        <section id="tab-usuarios" class="tab-pane">
+          <div class="card table-card">
+            <div class="card-header">
+              <div>
+                <h3>👤 Gestión y Control de Usuarios (Iteración 2)</h3>
+                <p>Administración de operadores, roles, contraseñas y estado de acceso al sistema</p>
+              </div>
+              <button class="btn btn-primary" onclick="app.abrirModalNuevoUsuario()">
+                ➕ Registrar Nuevo Usuario
+              </button>
+            </div>
+            <div class="table-responsive">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Documento</th>
+                    <th>Nombres y Apellidos</th>
+                    <th>Usuario</th>
+                    <th>Rol / Perfil</th>
+                    <th>Contacto</th>
+                    <th>Estado</th>
+                    <th>Acciones</th>
+                  </tr>
+                </thead>
+                <tbody id="tbody-usuarios">
                   <!-- Se llena dinámicamente -->
                 </tbody>
               </table>
@@ -829,6 +875,146 @@
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" onclick="app.cerrarModal('modal-nueva-novedad')">Cancelar</button>
           <button type="submit" class="btn btn-primary">Guardar Novedad</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL: REGISTRAR / EDITAR USUARIO (ITERACIÓN 2) -->
+  <div class="modal-overlay hidden" id="modal-nuevo-usuario">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 id="modal-usuario-titulo">Registrar Nuevo Usuario del Sistema</h3>
+        <button class="close-btn" onclick="app.cerrarModal('modal-nuevo-usuario')">&times;</button>
+      </div>
+      <form id="form-nuevo-usuario" onsubmit="app.guardarUsuario(event)">
+        <input type="hidden" id="usr-id" value="">
+        <div class="form-row">
+          <div class="form-group">
+            <label>Documento de Identidad <span class="required">*</span></label>
+            <input type="text" id="usr-documento" required placeholder="Ej: 1020304050">
+          </div>
+          <div class="form-group">
+            <label>Nombre de Usuario (Username) <span class="required">*</span></label>
+            <input type="text" id="usr-username" required placeholder="Ej: j_perez">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Nombres <span class="required">*</span></label>
+            <input type="text" id="usr-nombres" required placeholder="Ej: Juan">
+          </div>
+          <div class="form-group">
+            <label>Apellidos <span class="required">*</span></label>
+            <input type="text" id="usr-apellidos" required placeholder="Ej: Pérez">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Teléfono</label>
+            <input type="text" id="usr-telefono" placeholder="Ej: 3001234567">
+          </div>
+          <div class="form-group">
+            <label>Correo Electrónico</label>
+            <input type="email" id="usr-email" placeholder="juan@autoscolombia.com">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Rol en el Sistema <span class="required">*</span></label>
+            <select id="usr-rol" required>
+              <option value="1">Administrador (Control total)</option>
+              <option value="2" selected>Operador (Entradas, salidas y celdas)</option>
+              <option value="3">Auditor / Supervisor (Auditoría de celdas)</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Estado de Acceso</label>
+            <select id="usr-estado">
+              <option value="ACTIVO" selected>ACTIVO</option>
+              <option value="INACTIVO">INACTIVO</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Contraseña <span class="required" id="usr-pass-req">*</span></label>
+          <input type="password" id="usr-password" placeholder="Mínimo 6 caracteres">
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" onclick="app.cerrarModal('modal-nuevo-usuario')">Cancelar</button>
+          <button type="submit" class="btn btn-primary" id="btn-save-usuario">Guardar Usuario</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL: REGISTRAR NUEVA CELDA (ITERACIÓN 2) -->
+  <div class="modal-overlay hidden" id="modal-nueva-celda">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>Registrar Nueva Celda de Parqueo</h3>
+        <button class="close-btn" onclick="app.cerrarModal('modal-nueva-celda')">&times;</button>
+      </div>
+      <form id="form-nueva-celda" onsubmit="app.guardarCelda(event)">
+        <div class="form-row">
+          <div class="form-group">
+            <label>Código de Celda <span class="required">*</span></label>
+            <input type="text" id="cel-codigo" class="uppercase-input" required placeholder="Ej: A-06 o B-01" maxlength="6">
+          </div>
+          <div class="form-group">
+            <label>Piso o Zona <span class="required">*</span></label>
+            <input type="text" id="cel-piso" required placeholder="Ej: Piso 1 - Autos, Zona VIP">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Tipo de Vehículo Permitido <span class="required">*</span></label>
+            <select id="cel-tipo" required>
+              <option value="1">Automóvil</option>
+              <option value="2">Motocicleta</option>
+              <option value="3">Camioneta / SUV</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Estado Inicial</label>
+            <select id="cel-estado">
+              <option value="DISPONIBLE" selected>DISPONIBLE</option>
+              <option value="MANTENIMIENTO">MANTENIMIENTO</option>
+              <option value="RESERVADA">RESERVADA</option>
+            </select>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" onclick="app.cerrarModal('modal-nueva-celda')">Cancelar</button>
+          <button type="submit" class="btn btn-primary">Registrar Celda</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL: REASIGNAR CELDA (ITERACIÓN 2) -->
+  <div class="modal-overlay hidden" id="modal-reasignar-celda">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>Reasignar Celda de Vehículo Estacionado</h3>
+        <button class="close-btn" onclick="app.cerrarModal('modal-reasignar-celda')">&times;</button>
+      </div>
+      <form id="form-reasignar-celda" onsubmit="app.ejecutarReasignacionCelda(event)">
+        <div class="form-group">
+          <label>Celda Origen (Vehículo a Mover) <span class="required">*</span></label>
+          <select id="reasig-origen" required onchange="app.cargarCeldasDestinoDisponibles()">
+            <option value="">Seleccione celda ocupada...</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Celda Destino (Espacio Libre) <span class="required">*</span></label>
+          <select id="reasig-destino" required>
+            <option value="">Seleccione celda disponible...</option>
+          </select>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" onclick="app.cerrarModal('modal-reasignar-celda')">Cancelar</button>
+          <button type="submit" class="btn btn-primary">Confirmar Reasignación</button>
         </div>
       </form>
     </div>
