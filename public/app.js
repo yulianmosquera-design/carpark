@@ -52,9 +52,10 @@ const app = {
       dashboard: 'Panel de Control General',
       entrada: 'Registrar Entrada de Vehículo',
       salida: 'Liquidación y Salida de Vehículo',
-      celdas: 'Distribución y Mapa de Celdas',
+      celdas: 'Distribución y Mapa de Celdas (Iteración 2)',
       novedades: 'Bitácora de Novedades e Inspección',
-      mensualidades: 'Control de Mensualidades y Abonados'
+      mensualidades: 'Control de Mensualidades y Abonados',
+      usuarios: 'Gestión y Control de Usuarios (Iteración 2)'
     };
     document.getElementById('current-section-title').textContent = titles[tabId] || 'Autos Colombia';
 
@@ -67,6 +68,8 @@ const app = {
       this.cargarNovedades();
     } else if (tabId === 'mensualidades') {
       this.cargarMensualidades();
+    } else if (tabId === 'usuarios') {
+      this.cargarUsuarios();
     }
   },
 
@@ -629,6 +632,262 @@ const app = {
       `).join('');
     } catch (err) {
       console.error(err);
+    }
+  },
+
+  // ====================================================================
+  // ITERACIÓN 2: GESTIÓN DE USUARIOS
+  // ====================================================================
+  async cargarUsuarios() {
+    try {
+      const res = await fetch('/api/usuarios');
+      const json = await res.json();
+      if (!json.success) return;
+
+      const tbody = document.getElementById('tbody-usuarios');
+      if (!tbody) return;
+
+      tbody.innerHTML = json.data.map(u => `
+        <tr>
+          <td>#${u.id}</td>
+          <td><strong>${u.documento}</strong></td>
+          <td>${u.nombres} ${u.apellidos}</td>
+          <td><code style="color: var(--primary); font-weight: 600;">@${u.username}</code></td>
+          <td>
+            <span class="badge ${u.rol_nombre === 'Administrador' ? 'badge-activa' : (u.rol_nombre === 'Operador' ? 'badge-horas' : 'badge-media')}">
+              ${u.rol_nombre || 'Sin Rol'}
+            </span>
+          </td>
+          <td>📞 ${u.telefono || 'N/A'}<br><small style="color: var(--text-muted);">${u.email || ''}</small></td>
+          <td>
+            <span class="badge ${u.estado === 'ACTIVO' ? 'badge-activa' : 'badge-vencida'}">
+              ${u.estado}
+            </span>
+          </td>
+          <td>
+            <div style="display: flex; gap: 6px;">
+              <button class="btn btn-secondary" style="padding: 4px 8px; font-size: 0.75rem;" onclick='app.abrirModalEditarUsuario(${JSON.stringify(u)})'>
+                ✏️ Editar
+              </button>
+              <button class="btn ${u.estado === 'ACTIVO' ? 'btn-danger' : 'btn-primary'}" style="padding: 4px 8px; font-size: 0.75rem;" onclick="app.toggleEstadoUsuario(${u.id}, '${u.estado}')">
+                ${u.estado === 'ACTIVO' ? '🚫 Desactivar' : '✅ Activar'}
+              </button>
+            </div>
+          </td>
+        </tr>
+      `).join('');
+    } catch (err) {
+      console.error('Error al cargar usuarios:', err);
+    }
+  },
+
+  abrirModalNuevoUsuario() {
+    document.getElementById('modal-usuario-titulo').textContent = 'Registrar Nuevo Usuario del Sistema';
+    document.getElementById('usr-id').value = '';
+    document.getElementById('form-nuevo-usuario').reset();
+    document.getElementById('usr-password').required = true;
+    document.getElementById('usr-pass-req').style.display = 'inline';
+    document.getElementById('modal-nuevo-usuario').classList.remove('hidden');
+  },
+
+  abrirModalEditarUsuario(u) {
+    document.getElementById('modal-usuario-titulo').textContent = `Editar Usuario: @${u.username}`;
+    document.getElementById('usr-id').value = u.id;
+    document.getElementById('usr-documento').value = u.documento;
+    document.getElementById('usr-username').value = u.username;
+    document.getElementById('usr-nombres').value = u.nombres;
+    document.getElementById('usr-apellidos').value = u.apellidos;
+    document.getElementById('usr-telefono').value = u.telefono || '';
+    document.getElementById('usr-email').value = u.email || '';
+    document.getElementById('usr-rol').value = u.rol_id;
+    document.getElementById('usr-estado').value = u.estado;
+    document.getElementById('usr-password').value = '';
+    document.getElementById('usr-password').required = false;
+    document.getElementById('usr-pass-req').style.display = 'none';
+    document.getElementById('modal-nuevo-usuario').classList.remove('hidden');
+  },
+
+  async guardarUsuario(e) {
+    e.preventDefault();
+    const id = document.getElementById('usr-id').value;
+    const documento = document.getElementById('usr-documento').value.trim();
+    const username = document.getElementById('usr-username').value.trim();
+    const nombres = document.getElementById('usr-nombres').value.trim();
+    const apellidos = document.getElementById('usr-apellidos').value.trim();
+    const telefono = document.getElementById('usr-telefono').value.trim();
+    const email = document.getElementById('usr-email').value.trim();
+    const rol_id = parseInt(document.getElementById('usr-rol').value, 10);
+    const estado = document.getElementById('usr-estado').value;
+    const password = document.getElementById('usr-password').value;
+
+    try {
+      let endpoint = '/api/usuarios';
+      let payload = { documento, username, nombres, apellidos, telefono, email, rol_id, estado, password };
+
+      if (id) {
+        endpoint = '/api/usuarios/actualizar';
+        payload.id = parseInt(id, 10);
+      }
+
+      const res = await fetch(endpoint, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+
+      const data = await res.json();
+      if (data.success) {
+        alert(id ? '✅ Usuario actualizado exitosamente.' : '✅ Usuario creado exitosamente.');
+        this.cerrarModal('modal-nuevo-usuario');
+        this.cargarUsuarios();
+      } else {
+        alert('❌ Error: ' + data.error);
+      }
+    } catch (err) {
+      alert('Error de conexión al guardar usuario.');
+    }
+  },
+
+  async toggleEstadoUsuario(id, estadoActual) {
+    const nuevoEstado = estadoActual === 'ACTIVO' ? 'INACTIVO' : 'ACTIVO';
+    if (!confirm(`¿Está seguro de cambiar el estado del usuario a ${nuevoEstado}?`)) return;
+
+    try {
+      const res = await fetch('/api/usuarios/estado', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id, estado: nuevoEstado })
+      });
+      const data = await res.json();
+      if (data.success) {
+        this.cargarUsuarios();
+      } else {
+        alert('Error: ' + data.error);
+      }
+    } catch (err) {
+      alert('Error de red al actualizar estado de usuario');
+    }
+  },
+
+  // ====================================================================
+  // ITERACIÓN 2: GESTIÓN AVANZADA DE CELDAS
+  // ====================================================================
+  abrirModalNuevaCelda() {
+    document.getElementById('form-nueva-celda').reset();
+    document.getElementById('modal-nueva-celda').classList.remove('hidden');
+  },
+
+  async guardarCelda(e) {
+    e.preventDefault();
+    const codigo = document.getElementById('cel-codigo').value.trim().toUpperCase();
+    const piso_zona = document.getElementById('cel-piso').value.trim();
+    const tipo_vehiculo_id = parseInt(document.getElementById('cel-tipo').value, 10);
+    const estado = document.getElementById('cel-estado').value;
+
+    try {
+      const res = await fetch('/api/celdas/crear', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ codigo, piso_zona, tipo_vehiculo_id, estado })
+      });
+
+      const data = await res.json();
+      if (data.success) {
+        alert(`✅ Celda ${codigo} registrada correctamente.`);
+        this.cerrarModal('modal-nueva-celda');
+        this.cargarMapaCeldas();
+        this.cargarDashboard();
+      } else {
+        alert('❌ Error: ' + data.error);
+      }
+    } catch (err) {
+      alert('Error de red al guardar celda');
+    }
+  },
+
+  async abrirModalReasignarCelda() {
+    try {
+      const res = await fetch('/api/celdas');
+      const json = await res.json();
+      if (!json.success) return;
+
+      const ocupadas = json.data.filter(c => c.estado === 'OCUPADA');
+      const selectOrigen = document.getElementById('reasig-origen');
+      if (ocupadas.length === 0) {
+        alert('Actualmente no hay celdas ocupadas para reasignar.');
+        return;
+      }
+
+      selectOrigen.innerHTML = '<option value="">Seleccione celda ocupada...</option>' +
+        ocupadas.map(c => `<option value="${c.id}" data-tipo="${c.tipo_vehiculo_id}">${c.codigo} (${c.piso_zona}) - Vehículo: ${c.placa_ocupante || 'Estacionado'}</option>`).join('');
+
+      document.getElementById('reasig-destino').innerHTML = '<option value="">Seleccione primero celda origen...</option>';
+      document.getElementById('modal-reasignar-celda').classList.remove('hidden');
+    } catch (err) {
+      alert('Error al consultar celdas para reasignación');
+    }
+  },
+
+  async cargarCeldasDestinoDisponibles() {
+    const selectOrigen = document.getElementById('reasig-origen');
+    const celdaOrigenId = selectOrigen.value;
+    const selectDestino = document.getElementById('reasig-destino');
+
+    if (!celdaOrigenId) {
+      selectDestino.innerHTML = '<option value="">Seleccione primero celda origen...</option>';
+      return;
+    }
+
+    try {
+      const res = await fetch('/api/celdas');
+      const json = await res.json();
+      if (!json.success) return;
+
+      const celdaOrigen = json.data.find(c => c.id == celdaOrigenId);
+      const tipoId = celdaOrigen ? celdaOrigen.tipo_vehiculo_id : null;
+
+      const disponibles = json.data.filter(c => c.estado === 'DISPONIBLE' && (!tipoId || c.tipo_vehiculo_id === tipoId));
+
+      if (disponibles.length === 0) {
+        selectDestino.innerHTML = '<option value="">No hay celdas disponibles para este tipo de vehículo</option>';
+        return;
+      }
+
+      selectDestino.innerHTML = '<option value="">Seleccione celda de destino...</option>' +
+        disponibles.map(c => `<option value="${c.id}">${c.codigo} (${c.piso_zona}) - Libre</option>`).join('');
+    } catch (err) {
+      console.error(err);
+    }
+  },
+
+  async ejecutarReasignacionCelda(e) {
+    e.preventDefault();
+    const celdaOrigenId = parseInt(document.getElementById('reasig-origen').value, 10);
+    const celdaDestinoId = parseInt(document.getElementById('reasig-destino').value, 10);
+
+    if (!celdaOrigenId || !celdaDestinoId) {
+      alert('Debe seleccionar celda de origen y celda de destino.');
+      return;
+    }
+
+    try {
+      const res = await fetch('/api/celdas/reasignar', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ celdaOrigenId, celdaDestinoId })
+      });
+
+      const data = await res.json();
+      if (data.success) {
+        alert(`✅ Reasignación completada exitosamente.\nVehículo movido de ${data.celdaOrigen} a ${data.celdaDestino}.`);
+        this.cerrarModal('modal-reasignar-celda');
+        this.cargarMapaCeldas();
+        this.cargarDashboard();
+      } else {
+        alert('❌ Error: ' + data.error);
+      }
+    } catch (err) {
+      alert('Error de conexión al reasignar celda');
     }
   },
 
