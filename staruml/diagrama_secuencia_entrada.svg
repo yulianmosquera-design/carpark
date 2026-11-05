@@ -1,0 +1,128 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 680" width="100%" height="100%">
+  <defs>
+    <style>
+      .bg { fill: #0f172a; }
+      .title { font-family: 'Segoe UI', Arial, sans-serif; font-size: 16px; font-weight: 700; fill: #60a5fa; text-anchor: middle; }
+      .subtitle { font-family: 'Segoe UI', Arial, sans-serif; font-size: 12px; fill: #94a3b8; text-anchor: middle; }
+      .lifeline-box { fill: #1e293b; stroke: #38bdf8; stroke-width: 1.8; rx: 6; }
+      .lifeline-db { fill: #312e81; stroke: #818cf8; stroke-width: 1.8; rx: 6; }
+      .lifeline-text { font-family: 'Segoe UI', Arial, sans-serif; font-size: 11px; font-weight: 600; fill: #f8fafc; text-anchor: middle; }
+      .lifeline-line { stroke: #475569; stroke-width: 1.5; stroke-dasharray: 4,4; }
+      .activation-bar { fill: #0284c7; stroke: #38bdf8; stroke-width: 1.2; rx: 3; }
+      .msg-line { stroke: #38bdf8; stroke-width: 1.6; }
+      .reply-line { stroke: #a5b4fc; stroke-width: 1.4; stroke-dasharray: 4,3; }
+      .msg-text { font-family: 'Segoe UI', Arial, sans-serif; font-size: 10px; font-weight: 600; fill: #e2e8f0; }
+      .reply-text { font-family: 'Segoe UI', Arial, sans-serif; font-size: 9.5px; fill: #94a3b8; }
+      .alt-box { fill: rgba(234, 179, 8, 0.08); stroke: #eab308; stroke-width: 1.2; stroke-dasharray: 4,2; rx: 5; }
+      .alt-label { font-family: 'Segoe UI', Arial, sans-serif; font-size: 10px; font-weight: 700; fill: #facc15; }
+    </style>
+    <marker id="arrow-blue" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#38bdf8" />
+    </marker>
+    <marker id="arrow-reply" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#a5b4fc" />
+    </marker>
+  </defs>
+
+  <rect width="100%" height="100%" class="bg" />
+
+  <text x="500" y="32" class="title">Diagrama de Secuencia: Registro de Entrada y Asignación de Celda (Iteración 1)</text>
+  <text x="500" y="50" class="subtitle">Interacción entre Capas N-Tier conforme a UML 2.2 y StarUML</text>
+
+  <!-- LÍNEAS DE VIDA (5 PARTICIPANTES) -->
+  <!-- 1. OperadorUI (x=80) -->
+  <rect x="30" y="70" width="100" height="36" class="lifeline-box" />
+  <text x="80" y="93" class="lifeline-text">:OperadorUI</text>
+  <line x1="80" y1="106" x2="80" y2="650" class="lifeline-line" />
+
+  <!-- 2. Controller (x=270) -->
+  <rect x="200" y="70" width="140" height="36" class="lifeline-box" />
+  <text x="270" y="93" class="lifeline-text">:ParqueaderoController</text>
+  <line x1="270" y1="106" x2="270" y2="650" class="lifeline-line" />
+
+  <!-- 3. Service (x=480) -->
+  <rect x="410" y="70" width="140" height="36" class="lifeline-box" />
+  <text x="480" y="93" class="lifeline-text">:ParqueaderoService</text>
+  <line x1="480" y1="106" x2="480" y2="650" class="lifeline-line" />
+
+  <!-- 4. Repository (x=700) -->
+  <rect x="630" y="70" width="140" height="36" class="lifeline-box" />
+  <text x="700" y="93" class="lifeline-text">:ParqueaderoRepository</text>
+  <line x1="700" y1="106" x2="700" y2="650" class="lifeline-line" />
+
+  <!-- 5. SQLite DB (x=900) -->
+  <rect x="840" y="70" width="120" height="36" class="lifeline-db" />
+  <text x="900" y="93" class="lifeline-text">:SQLite Database</text>
+  <line x1="900" y1="106" x2="900" y2="650" class="lifeline-line" />
+
+  <!-- BARRAS DE ACTIVACIÓN -->
+  <rect x="74" y="125" width="12" height="495" class="activation-bar" />
+  <rect x="264" y="130" width="12" height="470" class="activation-bar" />
+  <rect x="474" y="145" width="12" height="440" class="activation-bar" />
+  <rect x="694" y="160" width="12" height="390" class="activation-bar" />
+
+  <!-- PASO 1: Ingreso de Placa y Verificación -->
+  <line x1="86" y1="135" x2="264" y2="135" class="msg-line" marker-end="url(#arrow-blue)" />
+  <text x="95" y="130" class="msg-text">1: POST /api/entrada {placa, tipo, celda_id, novedad}</text>
+
+  <!-- PASO 2: Invocación de Servicio -->
+  <line x1="276" y1="150" x2="474" y2="150" class="msg-line" marker-end="url(#arrow-blue)" />
+  <text x="285" y="145" class="msg-text">2: registrarEntrada(datosEntrada)</text>
+
+  <!-- PASO 3: Validación Regla Negocio - Vehículo Activo -->
+  <line x1="486" y1="170" x2="694" y2="170" class="msg-line" marker-end="url(#arrow-blue)" />
+  <text x="495" y="165" class="msg-text">3: findEstadiaActivaByPlaca(placa)</text>
+  <line x1="706" y1="185" x2="900" y2="185" class="msg-line" marker-end="url(#arrow-blue)" />
+  <text x="715" y="180" class="msg-text">4: SELECT * FROM registros_estadia WHERE placa = ? AND estado = 'ACTIVO'</text>
+  <line x1="900" y1="205" x2="706" y2="205" class="reply-line" marker-end="url(#arrow-reply)" />
+  <text x="750" y="200" class="reply-text">5: return null (No está dentro)</text>
+
+  <!-- PASO 4: Validar Mensualidad Activa -->
+  <line x1="486" y1="230" x2="694" y2="230" class="msg-line" marker-end="url(#arrow-blue)" />
+  <text x="495" y="225" class="msg-text">6: findMensualidadActivaByPlaca(placa)</text>
+  <line x1="694" y1="250" x2="486" y2="250" class="reply-line" marker-end="url(#arrow-reply)" />
+  <text x="510" y="245" class="reply-text">7: return contratoMensualidad (o null si es Turno/Horas)</text>
+
+  <!-- PASO 5: Bloque de Inserción y Transacción Atómica -->
+  <rect x="420" y="270" width="530" height="150" class="alt-box" />
+  <text x="430" y="287" class="alt-label">[Transacción Atómica BEGIN TRANSACTION]</text>
+
+  <!-- Upsert Vehículo -->
+  <line x1="486" y1="305" x2="694" y2="305" class="msg-line" marker-end="url(#arrow-blue)" />
+  <text x="495" y="300" class="msg-text">8: upsertVehiculo(placa, tipo_id, marca, color)</text>
+
+  <!-- Insert Registro Estadía + Código Ticket -->
+  <line x1="486" y1="340" x2="694" y2="340" class="msg-line" marker-end="url(#arrow-blue)" />
+  <text x="495" y="335" class="msg-text">9: createRegistroEstadia(vehiculo_id, celda_id, ticket_codigo, tipo_servicio)</text>
+
+  <!-- Update Celda a OCUPADA -->
+  <line x1="486" y1="375" x2="694" y2="375" class="msg-line" marker-end="url(#arrow-blue)" />
+  <text x="495" y="370" class="msg-text">10: updateCeldaEstado(celda_id, 'OCUPADA')</text>
+
+  <!-- Commit DB -->
+  <line x1="706" y1="400" x2="900" y2="400" class="msg-line" marker-end="url(#arrow-blue)" />
+  <text x="720" y="395" class="msg-text">11: COMMIT TRANSACTION</text>
+
+  <!-- Registro Opcional de Novedad -->
+  <line x1="486" y1="440" x2="694" y2="440" class="msg-line" marker-end="url(#arrow-blue)" />
+  <text x="495" y="435" class="msg-text">12: [Opcional] createNovedad(registro_id, descripcion, gravedad)</text>
+
+  <!-- Retorno hacia el Service -->
+  <line x1="694" y1="480" x2="486" y2="480" class="reply-line" marker-end="url(#arrow-reply)" />
+  <text x="510" y="475" class="reply-text">13: return {registro_id, ticket_codigo, celda_codigo}</text>
+
+  <!-- Retorno hacia el Controller -->
+  <line x1="474" y1="520" x2="276" y2="520" class="reply-line" marker-end="url(#arrow-reply)" />
+  <text x="290" y="515" class="reply-text">14: return {success: true, ticket: { ... }}</text>
+
+  <!-- Respuesta HTTP JSON a la UI -->
+  <line x1="264" y1="560" x2="86" y2="560" class="reply-line" marker-end="url(#arrow-reply)" />
+  <text x="95" y="555" class="reply-text">15: HTTP 201 Created JSON {success: true, ticketCodigo, celda}</text>
+
+  <!-- Despliegue de Ticket Térmico en Pantalla -->
+  <line x1="86" y1="600" x2="160" y2="600" class="msg-line" />
+  <line x1="160" y1="600" x2="160" y2="615" class="msg-line" />
+  <line x1="160" y1="615" x2="86" y2="615" class="msg-line" marker-end="url(#arrow-blue)" />
+  <text x="170" y="610" class="msg-text">16: mostrarTicketTermicoModal() &amp; refrescarDashboard()</text>
+
+</svg>
