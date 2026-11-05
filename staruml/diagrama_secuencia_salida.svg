@@ -1,0 +1,111 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 660" width="100%" height="100%">
+  <defs>
+    <style>
+      .bg { fill: #0f172a; }
+      .title { font-family: 'Segoe UI', Arial, sans-serif; font-size: 16px; font-weight: 700; fill: #60a5fa; text-anchor: middle; }
+      .subtitle { font-family: 'Segoe UI', Arial, sans-serif; font-size: 12px; fill: #94a3b8; text-anchor: middle; }
+      .lifeline-box { fill: #1e293b; stroke: #38bdf8; stroke-width: 1.8; rx: 6; }
+      .lifeline-db { fill: #312e81; stroke: #818cf8; stroke-width: 1.8; rx: 6; }
+      .lifeline-text { font-family: 'Segoe UI', Arial, sans-serif; font-size: 11px; font-weight: 600; fill: #f8fafc; text-anchor: middle; }
+      .lifeline-line { stroke: #475569; stroke-width: 1.5; stroke-dasharray: 4,4; }
+      .activation-bar { fill: #0284c7; stroke: #38bdf8; stroke-width: 1.2; rx: 3; }
+      .msg-line { stroke: #38bdf8; stroke-width: 1.6; }
+      .reply-line { stroke: #a5b4fc; stroke-width: 1.4; stroke-dasharray: 4,3; }
+      .msg-text { font-family: 'Segoe UI', Arial, sans-serif; font-size: 10px; font-weight: 600; fill: #e2e8f0; }
+      .reply-text { font-family: 'Segoe UI', Arial, sans-serif; font-size: 9.5px; fill: #94a3b8; }
+      .calc-box { fill: rgba(16, 185, 129, 0.08); stroke: #10b981; stroke-width: 1.2; stroke-dasharray: 4,2; rx: 5; }
+      .calc-label { font-family: 'Segoe UI', Arial, sans-serif; font-size: 10px; font-weight: 700; fill: #34d399; }
+    </style>
+    <marker id="arrow-blue2" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#38bdf8" />
+    </marker>
+    <marker id="arrow-reply2" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#a5b4fc" />
+    </marker>
+  </defs>
+
+  <rect width="100%" height="100%" class="bg" />
+
+  <text x="500" y="32" class="title">Diagrama de Secuencia: Liquidación, Salida y Liberación Atómica de Celda (Iteración 1)</text>
+  <text x="500" y="50" class="subtitle">Flujo Transaccional de Salida y Cobro en StarUML</text>
+
+  <!-- PARTICIPANTES -->
+  <rect x="30" y="70" width="100" height="36" class="lifeline-box" />
+  <text x="80" y="93" class="lifeline-text">:OperadorUI</text>
+  <line x1="80" y1="106" x2="80" y2="630" class="lifeline-line" />
+
+  <rect x="200" y="70" width="140" height="36" class="lifeline-box" />
+  <text x="270" y="93" class="lifeline-text">:ParqueaderoController</text>
+  <line x1="270" y1="106" x2="270" y2="630" class="lifeline-line" />
+
+  <rect x="410" y="70" width="140" height="36" class="lifeline-box" />
+  <text x="480" y="93" class="lifeline-text">:ParqueaderoService</text>
+  <line x1="480" y1="106" x2="480" y2="630" class="lifeline-line" />
+
+  <rect x="630" y="70" width="140" height="36" class="lifeline-box" />
+  <text x="700" y="93" class="lifeline-text">:ParqueaderoRepository</text>
+  <line x1="700" y1="106" x2="700" y2="630" class="lifeline-line" />
+
+  <rect x="840" y="70" width="120" height="36" class="lifeline-db" />
+  <text x="900" y="93" class="lifeline-text">:SQLite Database</text>
+  <line x1="900" y1="106" x2="900" y2="630" class="lifeline-line" />
+
+  <!-- BARRAS ACTIVAS -->
+  <rect x="74" y="125" width="12" height="480" class="activation-bar" />
+  <rect x="264" y="130" width="12" height="460" class="activation-bar" />
+  <rect x="474" y="145" width="12" height="430" class="activation-bar" />
+  <rect x="694" y="160" width="12" height="390" class="activation-bar" />
+
+  <!-- PASO 1: Consulta de Liquidación Previa -->
+  <line x1="86" y1="135" x2="264" y2="135" class="msg-line" marker-end="url(#arrow-blue2)" />
+  <text x="95" y="130" class="msg-text">1: GET /api/salida/liquidar?criterio=PLACA/TICKET</text>
+
+  <line x1="276" y1="150" x2="474" y2="150" class="msg-line" marker-end="url(#arrow-blue2)" />
+  <text x="285" y="145" class="msg-text">2: liquidarSalida(criterio)</text>
+
+  <line x1="486" y1="170" x2="694" y2="170" class="msg-line" marker-end="url(#arrow-blue2)" />
+  <text x="495" y="165" class="msg-text">3: findEstadiaActivaByCriterio(criterio)</text>
+
+  <line x1="694" y1="200" x2="486" y2="200" class="reply-line" marker-end="url(#arrow-reply2)" />
+  <text x="510" y="195" class="reply-text">4: return estadiaData (fecha_ingreso, tarifa_hora, tipo_servicio)</text>
+
+  <!-- CUADRO CÁLCULO DE TARIFA -->
+  <rect x="420" y="220" width="400" height="75" class="calc-box" />
+  <text x="430" y="238" class="calc-label">[Cálculo Dinámico de Minutos y Horas a Cobrar]</text>
+  <text x="430" y="255" class="reply-text">diffMin = (now - entrada) / 60000; horasCobrar = Math.ceil(diffMin / 60);</text>
+  <text x="430" y="272" class="reply-text">totalPagar = esMensualidad ? 0 : (horasCobrar * tarifaHora);</text>
+
+  <line x1="474" y1="310" x2="276" y2="310" class="reply-line" marker-end="url(#arrow-reply2)" />
+  <text x="290" y="305" class="reply-text">5: return {estadia, totalMinutos, horasACobrar, totalPagar}</text>
+
+  <line x1="264" y1="335" x2="86" y2="335" class="reply-line" marker-end="url(#arrow-reply2)" />
+  <text x="95" y="330" class="reply-text">6: HTTP 200 OK Liquidación en pantalla para confirmación</text>
+
+  <!-- PASO 2: Confirmación de Pago y Salida -->
+  <line x1="86" y1="375" x2="264" y2="375" class="msg-line" marker-end="url(#arrow-blue2)" />
+  <text x="95" y="370" class="msg-text">7: POST /api/salida {criterio, metodo_pago: 'EFECTIVO'}</text>
+
+  <line x1="276" y1="395" x2="474" y2="395" class="msg-line" marker-end="url(#arrow-blue2)" />
+  <text x="285" y="390" class="msg-text">8: registrarSalida(criterio, metodoPago)</text>
+
+  <!-- Transacción de Cierre y Liberación -->
+  <line x1="486" y1="420" x2="694" y2="420" class="msg-line" marker-end="url(#arrow-blue2)" />
+  <text x="495" y="415" class="msg-text">9: cerrarEstadia(estadia_id, fecha_salida, valor_total, metodo_pago)</text>
+
+  <!-- Liberar Celda a DISPONIBLE -->
+  <line x1="486" y1="455" x2="694" y2="455" class="msg-line" marker-end="url(#arrow-blue2)" />
+  <text x="495" y="450" class="msg-text">10: updateCeldaEstado(celda_id, 'DISPONIBLE')</text>
+
+  <line x1="706" y1="480" x2="900" y2="480" class="msg-line" marker-end="url(#arrow-blue2)" />
+  <text x="720" y="475" class="msg-text">11: UPDATE celdas SET estado = 'DISPONIBLE' WHERE id = ?</text>
+
+  <line x1="694" y1="510" x2="486" y2="510" class="reply-line" marker-end="url(#arrow-reply2)" />
+  <text x="510" y="505" class="reply-text">12: return {salidaConfirmada: true, celdaLiberada: 'A-01'}</text>
+
+  <line x1="474" y1="540" x2="276" y2="540" class="reply-line" marker-end="url(#arrow-reply2)" />
+  <text x="290" y="535" class="reply-text">13: return {success: true, placa, totalPagar, celdaLiberada}</text>
+
+  <line x1="264" y1="570" x2="86" y2="570" class="reply-line" marker-end="url(#arrow-reply2)" />
+  <text x="95" y="565" class="reply-text">14: HTTP 200 OK {success: true} -> Mostrar Alerta de Éxito</text>
+
+</svg>
