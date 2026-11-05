@@ -150,7 +150,8 @@ CREATE INDEX IF NOT EXISTS idx_mensualidades_vehiculo ON mensualidades(vehiculo_
 -- Roles
 INSERT OR IGNORE INTO roles (id, nombre, descripcion) VALUES 
 (1, 'Administrador', 'Control total de configuración, tarifas y reportes'),
-(2, 'Operador', 'Gestión de entradas, salidas, celdas y novedades');
+(2, 'Operador', 'Gestión de entradas, salidas, celdas y novedades'),
+(3, 'Auditor / Supervisor', 'Auditoría de celdas, reportes y revisión de novedades');
 
 -- Usuarios
 INSERT OR IGNORE INTO usuarios (id, documento, nombre, apellido, telefono, email, username, password_hash, rol_id, estado) VALUES
@@ -176,8 +177,8 @@ INSERT OR IGNORE INTO vehiculos (id, placa, tipo_vehiculo_id, marca, linea_model
 
 -- Mensualidades Vigentes
 INSERT OR IGNORE INTO mensualidades (id, cliente_id, vehiculo_id, fecha_inicio, fecha_fin, valor_mensualidad, estado) VALUES
-(1, 1, 1, '2026-10-01', '2026-11-01', 180000.00, 'ACTIVA'),
-(2, 2, 2, '2026-10-15', '2026-11-15', 95000.00, 'ACTIVA');
+(1, 1, 1, '2026-10-01', '2026-12-31', 180000.00, 'ACTIVA'),
+(2, 2, 2, '2026-10-15', '2026-12-31', 95000.00, 'ACTIVA');
 
 -- Celdas del Parqueadero
 INSERT OR IGNORE INTO celdas (id, codigo, piso_zona, tipo_permitido_id, estado, vehiculo_actual_id) VALUES
