@@ -1,0 +1,1375 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Evidencia de Aprendizaje 2 - Parqueadero Autos Colombia - IU Digital</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap');
+    
+    @page {
+      size: letter;
+      margin: 1.8cm 1.5cm;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      color: #1e293b;
+      line-height: 1.6;
+      background: #f1f5f9;
+      padding: 30px 15px;
+      margin: 0;
+    }
+
+    .doc-container {
+      max-width: 960px;
+      margin: 0 auto;
+      background: #ffffff;
+      padding: 50px 60px;
+      border-radius: 8px;
+      box-shadow: 0 4px 25px rgba(0,0,0,0.08);
+    }
+
+    .cover-page {
+      text-align: center;
+      padding: 40px 20px;
+      page-break-after: always;
+      border-bottom: 2px solid #e2e8f0;
+      margin-bottom: 40px;
+    }
+
+    .cover-institution {
+      font-size: 1.2rem;
+      font-weight: 800;
+      color: #1e3a8a;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 6px;
+    }
+
+    .cover-faculty {
+      font-size: 0.95rem;
+      color: #64748b;
+      margin-bottom: 24px;
+    }
+
+    .cover-badge {
+      display: inline-block;
+      padding: 6px 16px;
+      background: #fee2e2;
+      color: #dc2626;
+      font-weight: 700;
+      font-size: 0.85rem;
+      border-radius: 20px;
+      margin-bottom: 24px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .cover-title {
+      font-size: 2.1rem;
+      font-weight: 800;
+      color: #0f172a;
+      line-height: 1.25;
+      margin-bottom: 12px;
+    }
+
+    .cover-sub {
+      font-size: 1.25rem;
+      color: #b91c1c;
+      font-weight: 700;
+      margin-bottom: 30px;
+    }
+
+    .cover-meta-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      text-align: left;
+      background: #f8fafc;
+      padding: 24px;
+      border-radius: 8px;
+      border: 1px solid #e2e8f0;
+      margin-top: 40px;
+      font-size: 0.92rem;
+    }
+
+    .meta-item strong {
+      color: #0f172a;
+      display: block;
+      margin-bottom: 4px;
+      font-size: 0.82rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .meta-item span {
+      color: #334155;
+    }
+
+    h2 {
+      color: #0f172a;
+      font-size: 1.45rem;
+      font-weight: 800;
+      border-bottom: 2px solid #e2e8f0;
+      padding-bottom: 8px;
+      margin-top: 40px;
+      margin-bottom: 18px;
+    }
+
+    h3 {
+      color: #1e3a8a;
+      font-size: 1.15rem;
+      font-weight: 700;
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+
+    p, li {
+      font-size: 0.95rem;
+      color: #334155;
+      text-align: justify;
+    }
+
+    ul, ol {
+      padding-left: 24px;
+      margin-bottom: 16px;
+    }
+
+    li { margin-bottom: 6px; }
+
+    .figure-box {
+      margin: 28px 0;
+      padding: 16px;
+      background: #0f172a;
+      border-radius: 8px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+      page-break-inside: avoid;
+    }
+
+    .figure-box svg {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .figure-caption {
+      text-align: center;
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: #94a3b8;
+      margin-top: 10px;
+    }
+
+    .table-custom {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 20px 0;
+      font-size: 0.88rem;
+      page-break-inside: avoid;
+    }
+
+    .table-custom th, .table-custom td {
+      border: 1px solid #cbd5e1;
+      padding: 10px 12px;
+      text-align: left;
+    }
+
+    .table-custom th {
+      background: #f1f5f9;
+      color: #0f172a;
+      font-weight: 700;
+    }
+
+    .badge-status {
+      display: inline-block;
+      padding: 3px 8px;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    .badge-pass { background: #dcfce7; color: #166534; }
+    .badge-active { background: #dbeafe; color: #1e40af; }
+
+    pre {
+      background: #0f172a;
+      color: #e2e8f0;
+      padding: 14px 18px;
+      border-radius: 6px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.84rem;
+      overflow-x: auto;
+      margin: 16px 0;
+    }
+
+    .alert-callout {
+      background: #eff6ff;
+      border-left: 4px solid #3b82f6;
+      padding: 14px 18px;
+      border-radius: 0 6px 6px 0;
+      margin: 20px 0;
+      font-size: 0.92rem;
+    }
+
+    .print-btn-bar {
+      position: sticky;
+      top: 15px;
+      text-align: right;
+      margin-bottom: 20px;
+      z-index: 100;
+    }
+
+    .btn-print {
+      background: #dc2626;
+      color: #ffffff;
+      border: none;
+      padding: 10px 22px;
+      font-weight: 700;
+      border-radius: 6px;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(220, 38, 38, 0.3);
+      font-size: 0.9rem;
+    }
+
+    .btn-print:hover {
+      background: #b91c1c;
+    }
+
+    @media print {
+      .print-btn-bar { display: none; }
+      body { background: #ffffff; padding: 0; }
+      .doc-container { box-shadow: none; padding: 0; }
+      .figure-box { break-inside: avoid; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="print-btn-bar">
+    <button class="btn-print" onclick="window.print()">🖨️ Imprimir / Guardar en PDF</button>
+  </div>
+
+  <div class="doc-container">
+
+    <!-- PORTADA -->
+    <div class="cover-page">
+      <div class="cover-institution">Institución Universitaria Digital de Antioquia (IU Digital)</div>
+      <div class="cover-faculty">Facultad de Ingeniería • Programa de Ingeniería de Software y Sistemas</div>
+      
+      <div class="cover-badge">Evidencia de Aprendizaje 2 (EA2) • 100 Puntos</div>
+      
+      <h1 class="cover-title">DISEÑO SISTEMA DE INFORMACIÓN<br>PARQUEADERO "AUTOS COLOMBIA"</h1>
+      <div class="cover-sub">Iteración 2: Gestión de Usuarios y Gestión de Celdas (Integrada a Entrada y Salida)</div>
+
+      <div class="cover-meta-grid">
+        <div class="meta-item">
+          <strong>Asignatura:</strong>
+          <span>Electiva I – Diseño Sistema de Información</span>
+        </div>
+        <div class="meta-item">
+          <strong>Estudiante:</strong>
+          <span>Yulian Mosquera</span>
+        </div>
+        <div class="meta-item">
+          <strong>Nomenclatura Archivo:</strong>
+          <span>Mosquera_Yulian_EA2.pdf</span>
+        </div>
+        <div class="meta-item">
+          <strong>Repositorio GitHub:</strong>
+          <span>https://github.com/yulianmosquera-design/carpark</span>
+        </div>
+        <div class="meta-item">
+          <strong>Docente Asesor:</strong>
+          <span>Docente de Cátedra</span>
+        </div>
+        <div class="meta-item">
+          <strong>Fecha de Entrega:</strong>
+          <span>Noviembre de 2026</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- INTRODUCCIÓN -->
+    <h2>1. INTRODUCCIÓN</h2>
+    <p>
+      El sistema de información del parqueadero comercial <strong>"Autos Colombia"</strong> avanza en su ciclo de vida con la ejecución de la <strong>Iteración 2</strong>, centrada específicamente en la <strong>Gestión de Usuarios</strong> y la <strong>Gestión Avanzada de Celdas</strong>, manteniendo total cohesión y compatibilidad operativa con la <em>Iteración 1</em> (Gestión de la entrada y salida de vehículos).
+    </p>
+    <p>
+      La administración física y de seguridad de un parqueadero de alta rotación requiere mecanismos formales de control de acceso basados en roles (RBAC: Administrador, Operador y Auditor/Supervisor), así como herramientas interactivas de zonificación, parametrización de celdas por tipo de automotor, inhabilitación por mantenimiento y la capacidad crítica de <strong>reasignación atómica de celdas</strong>, la cual permite trasladar vehículos en estadía activa preservando la integridad del ticket y de las tarifas.
+    </p>
+
+    <!-- OBJETIVOS -->
+    <h2>2. OBJETIVOS DE LA ITERACIÓN 2</h2>
+    <h3>2.1 Objetivo General</h3>
+    <p>
+      Diseñar, modelar, validar e implementar los módulos de Gestión de Usuarios y Gestión de Celdas para el parqueadero "Autos Colombia", garantizando la integridad referencial, transaccionalidad ACID y trazabilidad de operaciones.
+    </p>
+    <h3>2.2 Objetivos Específicos</h3>
+    <ul>
+      <li>Levantar y documentar formalmente los Requerimientos Funcionales (RF) y No Funcionales (RNF) para usuarios y celdas.</li>
+      <li>Modelar los Diagramas de Casos de Uso, Diagramas de Secuencia transaccionales y el Diagrama de Componentes arquitectónico en StarUML (UML 2.2).</li>
+      <li>Definir las Historias de Usuario con criterios de aceptación Gherkin (Given-When-Then).</li>
+      <li>Diseñar mockups de alta fidelidad bajo el tema oscuro profesional CarPark con paleta de acentos Rojo (<code>#FF0000</code>) y Oro (<code>#D4AF37</code>).</li>
+      <li>Estructurar y diligenciar el Formato de Plan de Pruebas Resumido, respaldado por una suite automatizada de 21 pruebas con el 100% de éxito.</li>
+      <li>Sincronizar y evidenciar la actualización del código fuente en el repositorio GitHub oficial.</li>
+    </ul>
+
+    <!-- REQUERIMIENTOS -->
+    <h2>3. REQUERIMIENTOS FUNCIONALES Y NO FUNCIONALES</h2>
+    <h3>3.1 Requerimientos Funcionales de Gestión de Usuarios (RF-USU)</h3>
+    <ul>
+      <li><strong>RF-USU-01 (Registro de Usuarios):</strong> El sistema debe permitir registrar usuarios capturando documento, username único, contraseña encriptada, nombres, apellidos, teléfono, correo y rol del sistema.</li>
+      <li><strong>RF-USU-02 (Control de Acceso RBAC):</strong> El sistema debe diferenciar privilegios entre perfiles Administrador, Operador y Auditor/Supervisor.</li>
+      <li><strong>RF-USU-03 (Edición de Usuarios):</strong> El sistema debe permitir actualizar datos de contacto y roles sin comprometer el identificador primario.</li>
+      <li><strong>RF-USU-04 (Desactivación Lógica):</strong> El sistema debe permitir inhabilitar usuarios cambiando su estado a <code>INACTIVO</code>, preservando el histórico de auditoría sin borrado físico en base de datos.</li>
+      <li><strong>RF-USU-05 (Trazabilidad de Turnos):</strong> Cada transacción de entrada, salida, cobro o novedad debe registrar el operador responsable.</li>
+    </ul>
+
+    <h3>3.2 Requerimientos Funcionales de Gestión de Celdas (RF-CEL)</h3>
+    <ul>
+      <li><strong>RF-CEL-01 (Parametrización de Celdas):</strong> El sistema debe permitir crear celdas asignando código único, piso/zona física y tipo de vehículo admitido.</li>
+      <li><strong>RF-CEL-02 (Mapa Gráfico en Tiempo Real):</strong> El sistema debe renderizar el mapa de celdas por zonas con código cromático (Verde: Disponible, Rojo: Ocupada, Oro: Mantenimiento).</li>
+      <li><strong>RF-CEL-03 (Bloqueo por Mantenimiento):</strong> El sistema debe permitir inhabilitar celdas por reparaciones o aseo, impidiendo su asignación a nuevos vehículos.</li>
+      <li><strong>RF-CEL-04 (Reasignación Atómica de Celdas):</strong> El sistema debe transferir un vehículo estacionado de una celda ocupada a otra disponible mediante una transacción atómica que mantenga el ticket y la hora de entrada.</li>
+      <li><strong>RF-CEL-05 (Métricas de Distribución):</strong> El sistema debe calcular porcentajes de ocupación y balance de espacios libres en el Dashboard ejecutivo.</li>
+    </ul>
+
+    <h3>3.3 Requerimientos No Funcionales (RNF)</h3>
+    <ul>
+      <li><strong>RNF-01 (Rendimiento):</strong> El tiempo de consulta y renderizado del mapa de celdas y usuarios debe ser inferior a 800 ms (medición real obtenida: 1.41 ms).</li>
+      <li><strong>RNF-02 (Concurrencia ACID):</strong> Las reasignaciones deben ejecutarse bajo transacciones serializables en SQLite para evitar colisiones.</li>
+      <li><strong>RNF-03 (Seguridad):</strong> Contraseñas resguardadas con algoritmos de hashing seguro e inyección de datos prevenida mediante Prepared Statements.</li>
+    </ul>
+
+    <!-- DIAGRAMA DE CASOS DE USO -->
+    <h2>4. DIAGRAMAS DE CASOS DE USO EN STARUML (UML 2.2)</h2>
+    <p>
+      El diagrama modela la interacción entre los actores <em>Administrador del Sistema</em>, <em>Operador de Parqueadero</em> y <em>Auditor / Supervisor</em> con los paquetes de casos de uso de Gestión de Usuarios y Gestión de Celdas:
+    </p>
+
+    <div class="figure-box">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1050 720" width="100%" height="100%">
+  <defs>
+    <style>
+      .bg { fill: #0f172a; }
+      .system-box { fill: #1e293b; stroke: #3b82f6; stroke-width: 2.5; rx: 12; filter: drop-shadow(0 4px 10px rgba(0,0,0,0.5)); }
+      .system-title { font-family: 'Segoe UI', Arial, sans-serif; font-size: 16px; font-weight: 700; fill: #60a5fa; }
+      .system-subtitle { font-family: 'Segoe UI', Arial, sans-serif; font-size: 12px; fill: #94a3b8; }
+      .actor-text { font-family: 'Segoe UI', Arial, sans-serif; font-size: 12px; font-weight: 600; fill: #f8fafc; text-anchor: middle; }
+      .usecase-ellipse { fill: #1e3a5f; stroke: #38bdf8; stroke-width: 2; rx: 110; ry: 24; }
+      .usecase-ellipse-celda { fill: #312e81; stroke: #818cf8; stroke-width: 2; rx: 115; ry: 24; }
+      .usecase-text { font-family: 'Segoe UI', Arial, sans-serif; font-size: 11.5px; font-weight: 600; fill: #ffffff; text-anchor: middle; }
+      .link-line { stroke: #94a3b8; stroke-width: 1.6; }
+      .dashed-line { stroke: #eab308; stroke-width: 1.5; stroke-dasharray: 4,4; }
+      .dashed-line-pink { stroke: #ec4899; stroke-width: 1.5; stroke-dasharray: 4,4; }
+      .relation-label { font-family: 'Segoe UI', Arial, sans-serif; font-size: 10px; fill: #eab308; font-weight: 600; text-anchor: middle; }
+      .relation-label-pink { font-family: 'Segoe UI', Arial, sans-serif; font-size: 10px; fill: #f472b6; font-weight: 600; text-anchor: middle; }
+      .section-badge { font-family: 'Segoe UI', Arial, sans-serif; font-size: 11px; font-weight: 700; fill: #38bdf8; }
+      .section-badge-celda { font-family: 'Segoe UI', Arial, sans-serif; font-size: 11px; font-weight: 700; fill: #a5b4fc; }
+    </style>
+    <marker id="arrow-gold" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#eab308" />
+    </marker>
+    <marker id="arrow-pink" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#ec4899" />
+    </marker>
+  </defs>
+
+  <rect width="100%" height="100%" class="bg" />
+
+  <!-- Límite del Sistema -->
+  <rect x="240" y="30" width="570" height="660" class="system-box" />
+  <text x="525" y="62" text-anchor="middle" class="system-title">Sistema Parqueadero Autos Colombia - Iteración 2</text>
+  <text x="525" y="80" text-anchor="middle" class="system-subtitle">Casos de Uso: Gestión de Usuarios y Gestión de Celdas (StarUML - UML 2.2)</text>
+
+  <!-- SECTOR USUARIOS -->
+  <rect x="255" y="95" width="540" height="275" fill="#0f172a" stroke="#0284c7" stroke-width="1.2" stroke-dasharray="6,4" rx="8" />
+  <text x="270" y="115" class="section-badge">MÓDULO: GESTIÓN DE USUARIOS Y ROLES (CU-USU)</text>
+
+  <!-- SECTOR CELDAS -->
+  <rect x="255" y="385" width="540" height="290" fill="#0f172a" stroke="#6366f1" stroke-width="1.2" stroke-dasharray="6,4" rx="8" />
+  <text x="270" y="405" class="section-badge-celda">MÓDULO: GESTIÓN Y REASIGNACIÓN DE CELDAS (CU-CEL)</text>
+
+  <!-- ACTORES -->
+  <!-- 1. Administrador (Izquierda Superior) -->
+  <g transform="translate(110, 180)">
+    <circle cx="0" cy="0" r="16" fill="#fef08a" stroke="#ca8a04" stroke-width="2.2" />
+    <line x1="0" y1="16" x2="0" y2="52" stroke="#ca8a04" stroke-width="2.5" />
+    <line x1="-22" y1="30" x2="22" y2="30" stroke="#ca8a04" stroke-width="2.5" />
+    <line x1="0" y1="52" x2="-18" y2="92" stroke="#ca8a04" stroke-width="2.5" />
+    <line x1="0" y1="52" x2="18" y2="92" stroke="#ca8a04" stroke-width="2.5" />
+    <text x="0" y="112" class="actor-text">Administrador</text>
+    <text x="0" y="127" class="actor-text">del Sistema</text>
+  </g>
+
+  <!-- 2. Operador de Parqueadero (Izquierda Inferior) -->
+  <g transform="translate(110, 480)">
+    <circle cx="0" cy="0" r="16" fill="#bae6fd" stroke="#0284c7" stroke-width="2.2" />
+    <line x1="0" y1="16" x2="0" y2="52" stroke="#0284c7" stroke-width="2.5" />
+    <line x1="-22" y1="30" x2="22" y2="30" stroke="#0284c7" stroke-width="2.5" />
+    <line x1="0" y1="52" x2="-18" y2="92" stroke="#0284c7" stroke-width="2.5" />
+    <line x1="0" y1="52" x2="18" y2="92" stroke="#0284c7" stroke-width="2.5" />
+    <text x="0" y="112" class="actor-text">Operador de</text>
+    <text x="0" y="127" class="actor-text">Parqueadero</text>
+  </g>
+
+  <!-- 3. Auditor / Supervisor (Derecha) -->
+  <g transform="translate(930, 340)">
+    <circle cx="0" cy="0" r="16" fill="#fed7aa" stroke="#ea580c" stroke-width="2.2" />
+    <line x1="0" y1="16" x2="0" y2="52" stroke="#ea580c" stroke-width="2.5" />
+    <line x1="-22" y1="30" x2="22" y2="30" stroke="#ea580c" stroke-width="2.5" />
+    <line x1="0" y1="52" x2="-18" y2="92" stroke="#ea580c" stroke-width="2.5" />
+    <line x1="0" y1="52" x2="18" y2="92" stroke="#ea580c" stroke-width="2.5" />
+    <text x="0" y="112" class="actor-text">Auditor /</text>
+    <text x="0" y="127" class="actor-text">Supervisor</text>
+  </g>
+
+  <!-- CASOS DE USO: USUARIOS -->
+  <!-- CU-01: Autenticación -->
+  <g transform="translate(390, 150)">
+    <ellipse cx="0" cy="0" rx="115" ry="22" class="usecase-ellipse" />
+    <text x="0" y="4" class="usecase-text">CU-USU-01: Autenticar Usuario y Control de Acceso</text>
+  </g>
+
+  <!-- CU-02: Registrar Usuario -->
+  <g transform="translate(390, 220)">
+    <ellipse cx="0" cy="0" rx="115" ry="22" class="usecase-ellipse" />
+    <text x="0" y="4" class="usecase-text">CU-USU-02: Registrar Nuevo Usuario Operador/Admin</text>
+  </g>
+
+  <!-- CU-03: Modificar y Asignar Rol -->
+  <g transform="translate(390, 290)">
+    <ellipse cx="0" cy="0" rx="115" ry="22" class="usecase-ellipse" />
+    <text x="0" y="4" class="usecase-text">CU-USU-03: Modificar Datos y Asignar Rol</text>
+  </g>
+
+  <!-- CU-04: Activar / Inactivar -->
+  <g transform="translate(670, 220)">
+    <ellipse cx="0" cy="0" rx="100" ry="22" class="usecase-ellipse" />
+    <text x="0" y="4" class="usecase-text">CU-USU-04: Activar / Inactivar Acceso</text>
+  </g>
+
+  <!-- CASOS DE USO: CELDAS -->
+  <!-- CU-CEL-01: Parametrizar y Crear Celda -->
+  <g transform="translate(390, 440)">
+    <ellipse cx="0" cy="0" rx="115" ry="22" class="usecase-ellipse-celda" />
+    <text x="0" y="4" class="usecase-text">CU-CEL-01: Parametrizar y Crear Nueva Celda</text>
+  </g>
+
+  <!-- CU-CEL-02: Monitorear Celdas en Tiempo Real -->
+  <g transform="translate(390, 510)">
+    <ellipse cx="0" cy="0" rx="115" ry="22" class="usecase-ellipse-celda" />
+    <text x="0" y="4" class="usecase-text">CU-CEL-02: Monitorear Ocupación en Tiempo Real</text>
+  </g>
+
+  <!-- CU-CEL-03: Reasignar Vehículo de Celda -->
+  <g transform="translate(390, 580)">
+    <ellipse cx="0" cy="0" rx="115" ry="22" class="usecase-ellipse-celda" />
+    <text x="0" y="4" class="usecase-text">CU-CEL-03: Reasignar Vehículo entre Celdas</text>
+  </g>
+
+  <!-- CU-CEL-04: Cambiar Estado a Mantenimiento -->
+  <g transform="translate(670, 510)">
+    <ellipse cx="0" cy="0" rx="105" ry="22" class="usecase-ellipse-celda" />
+    <text x="0" y="4" class="usecase-text">CU-CEL-04: Inhabilitar por Mantenimiento</text>
+  </g>
+
+  <!-- CU-CEL-05: Auditoría de Historial de Celdas -->
+  <g transform="translate(670, 620)">
+    <ellipse cx="0" cy="0" rx="105" ry="22" class="usecase-ellipse-celda" />
+    <text x="0" y="4" class="usecase-text">CU-CEL-05: Auditar Celdas y Estadías</text>
+  </g>
+
+  <!-- ENLACES DE ACTORES A CASOS DE USO -->
+  <!-- Admin a CU-USU-01, 02, 03, CU-CEL-01, 02 -->
+  <line x1="140" y1="200" x2="275" y2="155" class="link-line" />
+  <line x1="140" y1="210" x2="275" y2="220" class="link-line" />
+  <line x1="140" y1="220" x2="275" y2="285" class="link-line" />
+  <line x1="140" y1="230" x2="285" y2="435" class="link-line" />
+
+  <!-- Operador a CU-USU-01, CU-CEL-02, CU-CEL-03 -->
+  <line x1="140" y1="460" x2="285" y2="160" class="link-line" />
+  <line x1="140" y1="490" x2="275" y2="510" class="link-line" />
+  <line x1="140" y1="510" x2="275" y2="580" class="link-line" />
+
+  <!-- Auditor a CU-CEL-02, CU-CEL-05, CU-USU-01 -->
+  <line x1="900" y1="340" x2="505" y2="510" class="link-line" />
+  <line x1="900" y1="360" x2="775" y2="620" class="link-line" />
+  <line x1="900" y1="330" x2="505" y2="155" class="link-line" />
+
+  <!-- RELACIONES INCLUDE / EXTEND -->
+  <!-- Modificar -> Activar/Inactivar (extend) -->
+  <line x1="505" y1="280" x2="600" y2="240" class="dashed-line" marker-end="url(#arrow-gold)" />
+  <text x="560" y="250" class="relation-label">&lt;&lt;extend&gt;&gt;</text>
+
+  <!-- CU-02 Registrar -> Autenticar (include) -->
+  <line x1="390" y1="198" x2="390" y2="172" class="dashed-line-pink" marker-end="url(#arrow-pink)" />
+  <text x="430" y="190" class="relation-label-pink">&lt;&lt;include&gt;&gt;</text>
+
+  <!-- Reasignar -> Inhabilitar por mantenimiento (extend) -->
+  <line x1="500" y1="570" x2="605" y2="530" class="dashed-line" marker-end="url(#arrow-gold)" />
+  <text x="565" y="545" class="relation-label">&lt;&lt;extend&gt;&gt;</text>
+
+  <!-- Reasignar -> Monitorear ocupación (include) -->
+  <line x1="390" y1="558" x2="390" y2="532" class="dashed-line-pink" marker-end="url(#arrow-pink)" />
+  <text x="430" y="550" class="relation-label-pink">&lt;&lt;include&gt;&gt;</text>
+
+</svg>
+      <div class="figure-caption">Figura 1. Diagrama de Casos de Uso - Iteración 2: Gestión de Usuarios y Celdas (StarUML - UML 2.2)</div>
+    </div>
+
+    <!-- HISTORIAS DE USUARIO -->
+    <h2>5. HISTORIAS DE USUARIO CON CRITERIOS GHERKIN</h2>
+    
+    <h3>Historia de Usuario HU-USU-01: Alta de Nuevo Operador</h3>
+    <pre><code>Como: Administrador del parqueadero Autos Colombia
+Quiero: Registrar a un nuevo empleado con sus datos y perfil operativo
+Para: Concederle acceso al sistema y asignar responsabilidades trazables en los turnos.
+
+Escenario: Registro exitoso de operador con datos válidos
+  Dado que el Administrador ha ingresado al módulo de usuarios
+  Cuando completa el documento "1098765432", username "carlos_turnoa", rol "Operador" y contraseña válida
+  Y presiona "Guardar Usuario"
+  Entonces el sistema registra al usuario con estado "ACTIVO"
+  Y muestra el mensaje "Usuario creado exitosamente"
+  Y el nuevo operador aparece en el listado general.
+
+Escenario: Intento de registro con username duplicado
+  Dado que ya existe un usuario con el nombre de usuario "carlos_turnoa"
+  Cuando el Administrador intenta crear otro usuario con el mismo username "carlos_turnoa"
+  Entonces el sistema bloquea la inserción
+  Y responde con el error "El nombre de usuario ya se encuentra en uso".</code></pre>
+
+    <h3>Historia de Usuario HU-CEL-02: Reasignación Atómica de Celdas</h3>
+    <pre><code>Como: Operador de parqueadero
+Quiero: Cambiar la celda asignada a un vehículo estacionado sin alterar su cobro ni su ticket
+Para: Reubicar el carro por reorganización interna o ingreso de celda a mantenimiento.
+
+Escenario: Reasignación exitosa de celda compatible
+  Dado un automóvil con placa "ABC123" ubicado en la celda "A-04" (OCUPADA)
+  Y una celda "A-03" en estado "DISPONIBLE" para tipo Automóvil
+  Cuando el Operador ejecuta la reasignación de "A-04" hacia "A-03"
+  Entonces la celda "A-04" cambia a estado "DISPONIBLE"
+  Y la celda "A-03" pasa a estado "OCUPADA" con la placa "ABC123"
+  Y el registro de estadía conserva intacto el ticket, la hora de entrada y el cálculo de tarifa.</code></pre>
+
+    <!-- MOCKUPS -->
+    <h2>6. MOCKUPS DE INTERFAZ DE USUARIO (FIGMA / DARK THEME)</h2>
+    <p>
+      El diseño de interfaz implementa la identidad visual solicitada <strong>CarPark Dark Theme</strong> con contraste optimizado:
+    </p>
+    <ul>
+      <li><strong>Fondo Oscuro:</strong> <code>#0b0f19</code> y <code>#121824</code> para descanso visual continuo en jornadas nocturnas y diurnas.</li>
+      <li><strong>Acento Rojo (<code>#FF0000</code>):</strong> Aplicado a elementos críticos, celdas ocupadas y acciones de confirmación decisivas.</li>
+      <li><strong>Acento Oro (<code>#D4AF37</code>):</strong> Aplicado a celdas en mantenimiento, métricas de facturación y perfil de auditoría.</li>
+    </ul>
+    <div class="alert-callout">
+      <strong>Vistas Funcionales Disponibles en la Aplicación:</strong>
+      <ol>
+        <li><strong>Pestaña Usuarios (<code>#tab-usuarios</code>):</strong> Tabla de administración con badges de rol, estado y botones de edición y activación/desactivación.</li>
+        <li><strong>Pestaña Celdas (<code>#tab-celdas</code>):</strong> Grilla interactiva de celdas por piso, modal de creación de celda y modal de reasignación atómica.</li>
+      </ol>
+    </div>
+
+    <!-- DIAGRAMAS DE SECUENCIA -->
+    <h2>7. DIAGRAMAS DE SECUENCIA ASOCIADOS (ITERACIONES 1 Y 2)</h2>
+
+    <h3>7.1 Secuencia 1: Registro de Entrada y Asignación de Celda (Iteración 1)</h3>
+    <div class="figure-box">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 680" width="100%" height="100%">
+  <defs>
+    <style>
+      .bg { fill: #0f172a; }
+      .title { font-family: 'Segoe UI', Arial, sans-serif; font-size: 16px; font-weight: 700; fill: #60a5fa; text-anchor: middle; }
+      .subtitle { font-family: 'Segoe UI', Arial, sans-serif; font-size: 12px; fill: #94a3b8; text-anchor: middle; }
+      .lifeline-box { fill: #1e293b; stroke: #38bdf8; stroke-width: 1.8; rx: 6; }
+      .lifeline-db { fill: #312e81; stroke: #818cf8; stroke-width: 1.8; rx: 6; }
+      .lifeline-text { font-family: 'Segoe UI', Arial, sans-serif; font-size: 11px; font-weight: 600; fill: #f8fafc; text-anchor: middle; }
+      .lifeline-line { stroke: #475569; stroke-width: 1.5; stroke-dasharray: 4,4; }
+      .activation-bar { fill: #0284c7; stroke: #38bdf8; stroke-width: 1.2; rx: 3; }
+      .msg-line { stroke: #38bdf8; stroke-width: 1.6; }
+      .reply-line { stroke: #a5b4fc; stroke-width: 1.4; stroke-dasharray: 4,3; }
+      .msg-text { font-family: 'Segoe UI', Arial, sans-serif; font-size: 10px; font-weight: 600; fill: #e2e8f0; }
+      .reply-text { font-family: 'Segoe UI', Arial, sans-serif; font-size: 9.5px; fill: #94a3b8; }
+      .alt-box { fill: rgba(234, 179, 8, 0.08); stroke: #eab308; stroke-width: 1.2; stroke-dasharray: 4,2; rx: 5; }
+      .alt-label { font-family: 'Segoe UI', Arial, sans-serif; font-size: 10px; font-weight: 700; fill: #facc15; }
+    </style>
+    <marker id="arrow-blue" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#38bdf8" />
+    </marker>
+    <marker id="arrow-reply" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#a5b4fc" />
+    </marker>
+  </defs>
+
+  <rect width="100%" height="100%" class="bg" />
+
+  <text x="500" y="32" class="title">Diagrama de Secuencia: Registro de Entrada y Asignación de Celda (Iteración 1)</text>
+  <text x="500" y="50" class="subtitle">Interacción entre Capas N-Tier conforme a UML 2.2 y StarUML</text>
+
+  <!-- LÍNEAS DE VIDA (5 PARTICIPANTES) -->
+  <!-- 1. OperadorUI (x=80) -->
+  <rect x="30" y="70" width="100" height="36" class="lifeline-box" />
+  <text x="80" y="93" class="lifeline-text">:OperadorUI</text>
+  <line x1="80" y1="106" x2="80" y2="650" class="lifeline-line" />
+
+  <!-- 2. Controller (x=270) -->
+  <rect x="200" y="70" width="140" height="36" class="lifeline-box" />
+  <text x="270" y="93" class="lifeline-text">:ParqueaderoController</text>
+  <line x1="270" y1="106" x2="270" y2="650" class="lifeline-line" />
+
+  <!-- 3. Service (x=480) -->
+  <rect x="410" y="70" width="140" height="36" class="lifeline-box" />
+  <text x="480" y="93" class="lifeline-text">:ParqueaderoService</text>
+  <line x1="480" y1="106" x2="480" y2="650" class="lifeline-line" />
+
+  <!-- 4. Repository (x=700) -->
+  <rect x="630" y="70" width="140" height="36" class="lifeline-box" />
+  <text x="700" y="93" class="lifeline-text">:ParqueaderoRepository</text>
+  <line x1="700" y1="106" x2="700" y2="650" class="lifeline-line" />
+
+  <!-- 5. SQLite DB (x=900) -->
+  <rect x="840" y="70" width="120" height="36" class="lifeline-db" />
+  <text x="900" y="93" class="lifeline-text">:SQLite Database</text>
+  <line x1="900" y1="106" x2="900" y2="650" class="lifeline-line" />
+
+  <!-- BARRAS DE ACTIVACIÓN -->
+  <rect x="74" y="125" width="12" height="495" class="activation-bar" />
+  <rect x="264" y="130" width="12" height="470" class="activation-bar" />
+  <rect x="474" y="145" width="12" height="440" class="activation-bar" />
+  <rect x="694" y="160" width="12" height="390" class="activation-bar" />
+
+  <!-- PASO 1: Ingreso de Placa y Verificación -->
+  <line x1="86" y1="135" x2="264" y2="135" class="msg-line" marker-end="url(#arrow-blue)" />
+  <text x="95" y="130" class="msg-text">1: POST /api/entrada {placa, tipo, celda_id, novedad}</text>
+
+  <!-- PASO 2: Invocación de Servicio -->
+  <line x1="276" y1="150" x2="474" y2="150" class="msg-line" marker-end="url(#arrow-blue)" />
+  <text x="285" y="145" class="msg-text">2: registrarEntrada(datosEntrada)</text>
+
+  <!-- PASO 3: Validación Regla Negocio - Vehículo Activo -->
+  <line x1="486" y1="170" x2="694" y2="170" class="msg-line" marker-end="url(#arrow-blue)" />
+  <text x="495" y="165" class="msg-text">3: findEstadiaActivaByPlaca(placa)</text>
+  <line x1="706" y1="185" x2="900" y2="185" class="msg-line" marker-end="url(#arrow-blue)" />
+  <text x="715" y="180" class="msg-text">4: SELECT * FROM registros_estadia WHERE placa = ? AND estado = 'ACTIVO'</text>
+  <line x1="900" y1="205" x2="706" y2="205" class="reply-line" marker-end="url(#arrow-reply)" />
+  <text x="750" y="200" class="reply-text">5: return null (No está dentro)</text>
+
+  <!-- PASO 4: Validar Mensualidad Activa -->
+  <line x1="486" y1="230" x2="694" y2="230" class="msg-line" marker-end="url(#arrow-blue)" />
+  <text x="495" y="225" class="msg-text">6: findMensualidadActivaByPlaca(placa)</text>
+  <line x1="694" y1="250" x2="486" y2="250" class="reply-line" marker-end="url(#arrow-reply)" />
+  <text x="510" y="245" class="reply-text">7: return contratoMensualidad (o null si es Turno/Horas)</text>
+
+  <!-- PASO 5: Bloque de Inserción y Transacción Atómica -->
+  <rect x="420" y="270" width="530" height="150" class="alt-box" />
+  <text x="430" y="287" class="alt-label">[Transacción Atómica BEGIN TRANSACTION]</text>
+
+  <!-- Upsert Vehículo -->
+  <line x1="486" y1="305" x2="694" y2="305" class="msg-line" marker-end="url(#arrow-blue)" />
+  <text x="495" y="300" class="msg-text">8: upsertVehiculo(placa, tipo_id, marca, color)</text>
+
+  <!-- Insert Registro Estadía + Código Ticket -->
+  <line x1="486" y1="340" x2="694" y2="340" class="msg-line" marker-end="url(#arrow-blue)" />
+  <text x="495" y="335" class="msg-text">9: createRegistroEstadia(vehiculo_id, celda_id, ticket_codigo, tipo_servicio)</text>
+
+  <!-- Update Celda a OCUPADA -->
+  <line x1="486" y1="375" x2="694" y2="375" class="msg-line" marker-end="url(#arrow-blue)" />
+  <text x="495" y="370" class="msg-text">10: updateCeldaEstado(celda_id, 'OCUPADA')</text>
+
+  <!-- Commit DB -->
+  <line x1="706" y1="400" x2="900" y2="400" class="msg-line" marker-end="url(#arrow-blue)" />
+  <text x="720" y="395" class="msg-text">11: COMMIT TRANSACTION</text>
+
+  <!-- Registro Opcional de Novedad -->
+  <line x1="486" y1="440" x2="694" y2="440" class="msg-line" marker-end="url(#arrow-blue)" />
+  <text x="495" y="435" class="msg-text">12: [Opcional] createNovedad(registro_id, descripcion, gravedad)</text>
+
+  <!-- Retorno hacia el Service -->
+  <line x1="694" y1="480" x2="486" y2="480" class="reply-line" marker-end="url(#arrow-reply)" />
+  <text x="510" y="475" class="reply-text">13: return {registro_id, ticket_codigo, celda_codigo}</text>
+
+  <!-- Retorno hacia el Controller -->
+  <line x1="474" y1="520" x2="276" y2="520" class="reply-line" marker-end="url(#arrow-reply)" />
+  <text x="290" y="515" class="reply-text">14: return {success: true, ticket: { ... }}</text>
+
+  <!-- Respuesta HTTP JSON a la UI -->
+  <line x1="264" y1="560" x2="86" y2="560" class="reply-line" marker-end="url(#arrow-reply)" />
+  <text x="95" y="555" class="reply-text">15: HTTP 201 Created JSON {success: true, ticketCodigo, celda}</text>
+
+  <!-- Despliegue de Ticket Térmico en Pantalla -->
+  <line x1="86" y1="600" x2="160" y2="600" class="msg-line" />
+  <line x1="160" y1="600" x2="160" y2="615" class="msg-line" />
+  <line x1="160" y1="615" x2="86" y2="615" class="msg-line" marker-end="url(#arrow-blue)" />
+  <text x="170" y="610" class="msg-text">16: mostrarTicketTermicoModal() &amp; refrescarDashboard()</text>
+
+</svg>
+      <div class="figure-caption">Figura 2. Diagrama de Secuencia: Registro de Entrada y Asignación de Celda (Iteración 1 - StarUML)</div>
+    </div>
+
+    <h3>7.2 Secuencia 2: Liquidación de Salida, Cobro y Liberación de Celda (Iteración 1)</h3>
+    <div class="figure-box">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 660" width="100%" height="100%">
+  <defs>
+    <style>
+      .bg { fill: #0f172a; }
+      .title { font-family: 'Segoe UI', Arial, sans-serif; font-size: 16px; font-weight: 700; fill: #60a5fa; text-anchor: middle; }
+      .subtitle { font-family: 'Segoe UI', Arial, sans-serif; font-size: 12px; fill: #94a3b8; text-anchor: middle; }
+      .lifeline-box { fill: #1e293b; stroke: #38bdf8; stroke-width: 1.8; rx: 6; }
+      .lifeline-db { fill: #312e81; stroke: #818cf8; stroke-width: 1.8; rx: 6; }
+      .lifeline-text { font-family: 'Segoe UI', Arial, sans-serif; font-size: 11px; font-weight: 600; fill: #f8fafc; text-anchor: middle; }
+      .lifeline-line { stroke: #475569; stroke-width: 1.5; stroke-dasharray: 4,4; }
+      .activation-bar { fill: #0284c7; stroke: #38bdf8; stroke-width: 1.2; rx: 3; }
+      .msg-line { stroke: #38bdf8; stroke-width: 1.6; }
+      .reply-line { stroke: #a5b4fc; stroke-width: 1.4; stroke-dasharray: 4,3; }
+      .msg-text { font-family: 'Segoe UI', Arial, sans-serif; font-size: 10px; font-weight: 600; fill: #e2e8f0; }
+      .reply-text { font-family: 'Segoe UI', Arial, sans-serif; font-size: 9.5px; fill: #94a3b8; }
+      .calc-box { fill: rgba(16, 185, 129, 0.08); stroke: #10b981; stroke-width: 1.2; stroke-dasharray: 4,2; rx: 5; }
+      .calc-label { font-family: 'Segoe UI', Arial, sans-serif; font-size: 10px; font-weight: 700; fill: #34d399; }
+    </style>
+    <marker id="arrow-blue2" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#38bdf8" />
+    </marker>
+    <marker id="arrow-reply2" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#a5b4fc" />
+    </marker>
+  </defs>
+
+  <rect width="100%" height="100%" class="bg" />
+
+  <text x="500" y="32" class="title">Diagrama de Secuencia: Liquidación, Salida y Liberación Atómica de Celda (Iteración 1)</text>
+  <text x="500" y="50" class="subtitle">Flujo Transaccional de Salida y Cobro en StarUML</text>
+
+  <!-- PARTICIPANTES -->
+  <rect x="30" y="70" width="100" height="36" class="lifeline-box" />
+  <text x="80" y="93" class="lifeline-text">:OperadorUI</text>
+  <line x1="80" y1="106" x2="80" y2="630" class="lifeline-line" />
+
+  <rect x="200" y="70" width="140" height="36" class="lifeline-box" />
+  <text x="270" y="93" class="lifeline-text">:ParqueaderoController</text>
+  <line x1="270" y1="106" x2="270" y2="630" class="lifeline-line" />
+
+  <rect x="410" y="70" width="140" height="36" class="lifeline-box" />
+  <text x="480" y="93" class="lifeline-text">:ParqueaderoService</text>
+  <line x1="480" y1="106" x2="480" y2="630" class="lifeline-line" />
+
+  <rect x="630" y="70" width="140" height="36" class="lifeline-box" />
+  <text x="700" y="93" class="lifeline-text">:ParqueaderoRepository</text>
+  <line x1="700" y1="106" x2="700" y2="630" class="lifeline-line" />
+
+  <rect x="840" y="70" width="120" height="36" class="lifeline-db" />
+  <text x="900" y="93" class="lifeline-text">:SQLite Database</text>
+  <line x1="900" y1="106" x2="900" y2="630" class="lifeline-line" />
+
+  <!-- BARRAS ACTIVAS -->
+  <rect x="74" y="125" width="12" height="480" class="activation-bar" />
+  <rect x="264" y="130" width="12" height="460" class="activation-bar" />
+  <rect x="474" y="145" width="12" height="430" class="activation-bar" />
+  <rect x="694" y="160" width="12" height="390" class="activation-bar" />
+
+  <!-- PASO 1: Consulta de Liquidación Previa -->
+  <line x1="86" y1="135" x2="264" y2="135" class="msg-line" marker-end="url(#arrow-blue2)" />
+  <text x="95" y="130" class="msg-text">1: GET /api/salida/liquidar?criterio=PLACA/TICKET</text>
+
+  <line x1="276" y1="150" x2="474" y2="150" class="msg-line" marker-end="url(#arrow-blue2)" />
+  <text x="285" y="145" class="msg-text">2: liquidarSalida(criterio)</text>
+
+  <line x1="486" y1="170" x2="694" y2="170" class="msg-line" marker-end="url(#arrow-blue2)" />
+  <text x="495" y="165" class="msg-text">3: findEstadiaActivaByCriterio(criterio)</text>
+
+  <line x1="694" y1="200" x2="486" y2="200" class="reply-line" marker-end="url(#arrow-reply2)" />
+  <text x="510" y="195" class="reply-text">4: return estadiaData (fecha_ingreso, tarifa_hora, tipo_servicio)</text>
+
+  <!-- CUADRO CÁLCULO DE TARIFA -->
+  <rect x="420" y="220" width="400" height="75" class="calc-box" />
+  <text x="430" y="238" class="calc-label">[Cálculo Dinámico de Minutos y Horas a Cobrar]</text>
+  <text x="430" y="255" class="reply-text">diffMin = (now - entrada) / 60000; horasCobrar = Math.ceil(diffMin / 60);</text>
+  <text x="430" y="272" class="reply-text">totalPagar = esMensualidad ? 0 : (horasCobrar * tarifaHora);</text>
+
+  <line x1="474" y1="310" x2="276" y2="310" class="reply-line" marker-end="url(#arrow-reply2)" />
+  <text x="290" y="305" class="reply-text">5: return {estadia, totalMinutos, horasACobrar, totalPagar}</text>
+
+  <line x1="264" y1="335" x2="86" y2="335" class="reply-line" marker-end="url(#arrow-reply2)" />
+  <text x="95" y="330" class="reply-text">6: HTTP 200 OK Liquidación en pantalla para confirmación</text>
+
+  <!-- PASO 2: Confirmación de Pago y Salida -->
+  <line x1="86" y1="375" x2="264" y2="375" class="msg-line" marker-end="url(#arrow-blue2)" />
+  <text x="95" y="370" class="msg-text">7: POST /api/salida {criterio, metodo_pago: 'EFECTIVO'}</text>
+
+  <line x1="276" y1="395" x2="474" y2="395" class="msg-line" marker-end="url(#arrow-blue2)" />
+  <text x="285" y="390" class="msg-text">8: registrarSalida(criterio, metodoPago)</text>
+
+  <!-- Transacción de Cierre y Liberación -->
+  <line x1="486" y1="420" x2="694" y2="420" class="msg-line" marker-end="url(#arrow-blue2)" />
+  <text x="495" y="415" class="msg-text">9: cerrarEstadia(estadia_id, fecha_salida, valor_total, metodo_pago)</text>
+
+  <!-- Liberar Celda a DISPONIBLE -->
+  <line x1="486" y1="455" x2="694" y2="455" class="msg-line" marker-end="url(#arrow-blue2)" />
+  <text x="495" y="450" class="msg-text">10: updateCeldaEstado(celda_id, 'DISPONIBLE')</text>
+
+  <line x1="706" y1="480" x2="900" y2="480" class="msg-line" marker-end="url(#arrow-blue2)" />
+  <text x="720" y="475" class="msg-text">11: UPDATE celdas SET estado = 'DISPONIBLE' WHERE id = ?</text>
+
+  <line x1="694" y1="510" x2="486" y2="510" class="reply-line" marker-end="url(#arrow-reply2)" />
+  <text x="510" y="505" class="reply-text">12: return {salidaConfirmada: true, celdaLiberada: 'A-01'}</text>
+
+  <line x1="474" y1="540" x2="276" y2="540" class="reply-line" marker-end="url(#arrow-reply2)" />
+  <text x="290" y="535" class="reply-text">13: return {success: true, placa, totalPagar, celdaLiberada}</text>
+
+  <line x1="264" y1="570" x2="86" y2="570" class="reply-line" marker-end="url(#arrow-reply2)" />
+  <text x="95" y="565" class="reply-text">14: HTTP 200 OK {success: true} -> Mostrar Alerta de Éxito</text>
+
+</svg>
+      <div class="figure-caption">Figura 3. Diagrama de Secuencia: Liquidación, Salida y Liberación Atómica de Celda (Iteración 1 - StarUML)</div>
+    </div>
+
+    <h3>7.3 Secuencia 3: Creación y Asignación de Roles a Usuarios (Iteración 2)</h3>
+    <div class="figure-box">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 660" width="100%" height="100%">
+  <defs>
+    <style>
+      .bg { fill: #0f172a; }
+      .title { font-family: 'Segoe UI', Arial, sans-serif; font-size: 16px; font-weight: 700; fill: #60a5fa; text-anchor: middle; }
+      .subtitle { font-family: 'Segoe UI', Arial, sans-serif; font-size: 12px; fill: #94a3b8; text-anchor: middle; }
+      .lifeline-box { fill: #1e293b; stroke: #38bdf8; stroke-width: 1.8; rx: 6; }
+      .lifeline-db { fill: #312e81; stroke: #818cf8; stroke-width: 1.8; rx: 6; }
+      .lifeline-text { font-family: 'Segoe UI', Arial, sans-serif; font-size: 11px; font-weight: 600; fill: #f8fafc; text-anchor: middle; }
+      .lifeline-line { stroke: #475569; stroke-width: 1.5; stroke-dasharray: 4,4; }
+      .activation-bar { fill: #0284c7; stroke: #38bdf8; stroke-width: 1.2; rx: 3; }
+      .msg-line { stroke: #38bdf8; stroke-width: 1.6; }
+      .reply-line { stroke: #a5b4fc; stroke-width: 1.4; stroke-dasharray: 4,3; }
+      .msg-text { font-family: 'Segoe UI', Arial, sans-serif; font-size: 10px; font-weight: 600; fill: #e2e8f0; }
+      .reply-text { font-family: 'Segoe UI', Arial, sans-serif; font-size: 9.5px; fill: #94a3b8; }
+      .valid-box { fill: rgba(234, 179, 8, 0.08); stroke: #eab308; stroke-width: 1.2; stroke-dasharray: 4,2; rx: 5; }
+      .valid-label { font-family: 'Segoe UI', Arial, sans-serif; font-size: 10px; font-weight: 700; fill: #facc15; }
+    </style>
+    <marker id="arrow-blue3" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#38bdf8" />
+    </marker>
+    <marker id="arrow-reply3" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#a5b4fc" />
+    </marker>
+  </defs>
+
+  <rect width="100%" height="100%" class="bg" />
+
+  <text x="500" y="32" class="title">Diagrama de Secuencia: Registro y Asignación de Roles a Usuarios (Iteración 2)</text>
+  <text x="500" y="50" class="subtitle">Validación de Username Único, Encriptación y Control de Estados en StarUML</text>
+
+  <!-- PARTICIPANTES -->
+  <rect x="30" y="70" width="100" height="36" class="lifeline-box" />
+  <text x="80" y="93" class="lifeline-text">:AdminUI</text>
+  <line x1="80" y1="106" x2="80" y2="630" class="lifeline-line" />
+
+  <rect x="200" y="70" width="140" height="36" class="lifeline-box" />
+  <text x="270" y="93" class="lifeline-text">:ParqueaderoController</text>
+  <line x1="270" y1="106" x2="270" y2="630" class="lifeline-line" />
+
+  <rect x="410" y="70" width="140" height="36" class="lifeline-box" />
+  <text x="480" y="93" class="lifeline-text">:ParqueaderoService</text>
+  <line x1="480" y1="106" x2="480" y2="630" class="lifeline-line" />
+
+  <rect x="630" y="70" width="140" height="36" class="lifeline-box" />
+  <text x="700" y="93" class="lifeline-text">:ParqueaderoRepository</text>
+  <line x1="700" y1="106" x2="700" y2="630" class="lifeline-line" />
+
+  <rect x="840" y="70" width="120" height="36" class="lifeline-db" />
+  <text x="900" y="93" class="lifeline-text">:SQLite Database</text>
+  <line x1="900" y1="106" x2="900" y2="630" class="lifeline-line" />
+
+  <!-- BARRAS ACTIVAS -->
+  <rect x="74" y="125" width="12" height="480" class="activation-bar" />
+  <rect x="264" y="130" width="12" height="460" class="activation-bar" />
+  <rect x="474" y="145" width="12" height="430" class="activation-bar" />
+  <rect x="694" y="160" width="12" height="390" class="activation-bar" />
+
+  <!-- PASO 1: Envío de Formulario Nuevo Usuario -->
+  <line x1="86" y1="135" x2="264" y2="135" class="msg-line" marker-end="url(#arrow-blue3)" />
+  <text x="95" y="130" class="msg-text">1: POST /api/usuarios {documento, username, rol_id, password, ...}</text>
+
+  <line x1="276" y1="150" x2="474" y2="150" class="msg-line" marker-end="url(#arrow-blue3)" />
+  <text x="285" y="145" class="msg-text">2: crearUsuario(datosUsuario)</text>
+
+  <!-- PASO 2: Validación de Existencia de Username -->
+  <line x1="486" y1="170" x2="694" y2="170" class="msg-line" marker-end="url(#arrow-blue3)" />
+  <text x="495" y="165" class="msg-text">3: findUsuarioByUsername(username)</text>
+
+  <line x1="706" y1="190" x2="900" y2="190" class="msg-line" marker-end="url(#arrow-blue3)" />
+  <text x="715" y="185" class="msg-text">4: SELECT * FROM usuarios WHERE username = ?</text>
+
+  <line x1="900" y1="210" x2="706" y2="210" class="reply-line" marker-end="url(#arrow-reply3)" />
+  <text x="740" y="205" class="reply-text">5: return null (Username disponible)</text>
+
+  <line x1="694" y1="230" x2="486" y2="230" class="reply-line" marker-end="url(#arrow-reply3)" />
+  <text x="510" y="225" class="reply-text">6: return null</text>
+
+  <!-- CUADRO VALIDACIONES Y HASH -->
+  <rect x="420" y="250" width="370" height="60" class="valid-box" />
+  <text x="430" y="268" class="valid-label">[Criptografía y Reglas de Negocio]</text>
+  <text x="430" y="285" class="reply-text">Hash seguro SHA-256 / PBKDF2 del password;</text>
+  <text x="430" y="300" class="reply-text">Validación formato correo y rol_id existente;</text>
+
+  <!-- Inserción en Repositorio -->
+  <line x1="486" y1="335" x2="694" y2="335" class="msg-line" marker-end="url(#arrow-blue3)" />
+  <text x="495" y="330" class="msg-text">7: insertUsuario(doc, username, hash, nombres, apellidos, rol_id, estado)</text>
+
+  <line x1="706" y1="360" x2="900" y2="360" class="msg-line" marker-end="url(#arrow-blue3)" />
+  <text x="720" y="355" class="msg-text">8: INSERT INTO usuarios (...) VALUES (...)</text>
+
+  <line x1="900" y1="390" x2="706" y2="390" class="reply-line" marker-end="url(#arrow-reply3)" />
+  <text x="740" y="385" class="reply-text">9: return {lastInsertRowid: 4}</text>
+
+  <line x1="694" y1="420" x2="486" y2="420" class="reply-line" marker-end="url(#arrow-reply3)" />
+  <text x="510" y="415" class="reply-text">10: return nuevoUsuarioCreado</text>
+
+  <line x1="474" y1="460" x2="276" y2="460" class="reply-line" marker-end="url(#arrow-reply3)" />
+  <text x="290" y="455" class="reply-text">11: return {success: true, usuario: {...}}</text>
+
+  <line x1="264" y1="500" x2="86" y2="500" class="reply-line" marker-end="url(#arrow-reply3)" />
+  <text x="95" y="495" class="reply-text">12: HTTP 201 Created {success: true, message: 'Usuario registrado'}</text>
+
+  <!-- Actualización en Pantalla -->
+  <line x1="86" y1="540" x2="160" y2="540" class="msg-line" />
+  <line x1="160" y1="540" x2="160" y2="555" class="msg-line" />
+  <line x1="160" y1="555" x2="86" y2="555" class="msg-line" marker-end="url(#arrow-blue3)" />
+  <text x="170" y="550" class="msg-text">13: app.cargarUsuarios() &amp; cerrarModal()</text>
+
+</svg>
+      <div class="figure-caption">Figura 4. Diagrama de Secuencia: Registro y Asignación de Roles de Usuarios (Iteración 2 - StarUML)</div>
+    </div>
+
+    <h3>7.4 Secuencia 4: Reasignación Atómica de Celda de Parqueo (Iteración 2)</h3>
+    <div class="figure-box">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 660" width="100%" height="100%">
+  <defs>
+    <style>
+      .bg { fill: #0f172a; }
+      .title { font-family: 'Segoe UI', Arial, sans-serif; font-size: 16px; font-weight: 700; fill: #60a5fa; text-anchor: middle; }
+      .subtitle { font-family: 'Segoe UI', Arial, sans-serif; font-size: 12px; fill: #94a3b8; text-anchor: middle; }
+      .lifeline-box { fill: #1e293b; stroke: #38bdf8; stroke-width: 1.8; rx: 6; }
+      .lifeline-db { fill: #312e81; stroke: #818cf8; stroke-width: 1.8; rx: 6; }
+      .lifeline-text { font-family: 'Segoe UI', Arial, sans-serif; font-size: 11px; font-weight: 600; fill: #f8fafc; text-anchor: middle; }
+      .lifeline-line { stroke: #475569; stroke-width: 1.5; stroke-dasharray: 4,4; }
+      .activation-bar { fill: #0284c7; stroke: #38bdf8; stroke-width: 1.2; rx: 3; }
+      .msg-line { stroke: #38bdf8; stroke-width: 1.6; }
+      .reply-line { stroke: #a5b4fc; stroke-width: 1.4; stroke-dasharray: 4,3; }
+      .msg-text { font-family: 'Segoe UI', Arial, sans-serif; font-size: 10px; font-weight: 600; fill: #e2e8f0; }
+      .reply-text { font-family: 'Segoe UI', Arial, sans-serif; font-size: 9.5px; fill: #94a3b8; }
+      .trans-box { fill: rgba(59, 130, 246, 0.08); stroke: #3b82f6; stroke-width: 1.2; stroke-dasharray: 4,2; rx: 5; }
+      .trans-label { font-family: 'Segoe UI', Arial, sans-serif; font-size: 10px; font-weight: 700; fill: #60a5fa; }
+    </style>
+    <marker id="arrow-blue4" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#38bdf8" />
+    </marker>
+    <marker id="arrow-reply4" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#a5b4fc" />
+    </marker>
+  </defs>
+
+  <rect width="100%" height="100%" class="bg" />
+
+  <text x="500" y="32" class="title">Diagrama de Secuencia: Reasignación Atómica de Celda de Parqueo (Iteración 2)</text>
+  <text x="500" y="50" class="subtitle">Transferencia Consistente de Celda Ocupada a Celda Disponible en StarUML</text>
+
+  <!-- PARTICIPANTES -->
+  <rect x="30" y="70" width="100" height="36" class="lifeline-box" />
+  <text x="80" y="93" class="lifeline-text">:OperadorUI</text>
+  <line x1="80" y1="106" x2="80" y2="630" class="lifeline-line" />
+
+  <rect x="200" y="70" width="140" height="36" class="lifeline-box" />
+  <text x="270" y="93" class="lifeline-text">:ParqueaderoController</text>
+  <line x1="270" y1="106" x2="270" y2="630" class="lifeline-line" />
+
+  <rect x="410" y="70" width="140" height="36" class="lifeline-box" />
+  <text x="480" y="93" class="lifeline-text">:ParqueaderoService</text>
+  <line x1="480" y1="106" x2="480" y2="630" class="lifeline-line" />
+
+  <rect x="630" y="70" width="140" height="36" class="lifeline-box" />
+  <text x="700" y="93" class="lifeline-text">:ParqueaderoRepository</text>
+  <line x1="700" y1="106" x2="700" y2="630" class="lifeline-line" />
+
+  <rect x="840" y="70" width="120" height="36" class="lifeline-db" />
+  <text x="900" y="93" class="lifeline-text">:SQLite Database</text>
+  <line x1="900" y1="106" x2="900" y2="630" class="lifeline-line" />
+
+  <!-- BARRAS ACTIVAS -->
+  <rect x="74" y="125" width="12" height="480" class="activation-bar" />
+  <rect x="264" y="130" width="12" height="460" class="activation-bar" />
+  <rect x="474" y="145" width="12" height="430" class="activation-bar" />
+  <rect x="694" y="160" width="12" height="390" class="activation-bar" />
+
+  <!-- PASO 1: Selección y Envío de Reasignación -->
+  <line x1="86" y1="135" x2="264" y2="135" class="msg-line" marker-end="url(#arrow-blue4)" />
+  <text x="95" y="130" class="msg-text">1: POST /api/celdas/reasignar {celdaOrigenId, celdaDestinoId}</text>
+
+  <line x1="276" y1="150" x2="474" y2="150" class="msg-line" marker-end="url(#arrow-blue4)" />
+  <text x="285" y="145" class="msg-text">2: reasignarCelda(celdaOrigenId, celdaDestinoId)</text>
+
+  <!-- PASO 2: Validar Estados Actuales de Celdas -->
+  <line x1="486" y1="170" x2="694" y2="170" class="msg-line" marker-end="url(#arrow-blue4)" />
+  <text x="495" y="165" class="msg-text">3: findCeldaById(celdaOrigenId) &amp; findCeldaById(celdaDestinoId)</text>
+
+  <line x1="694" y1="200" x2="486" y2="200" class="reply-line" marker-end="url(#arrow-reply4)" />
+  <text x="510" y="195" class="reply-text">4: return {origen: 'OCUPADA', destino: 'DISPONIBLE', tipoCompatible: true}</text>
+
+  <!-- CUADRO TRANSACCIONAL ATÓMICO -->
+  <rect x="420" y="225" width="530" height="180" class="trans-box" />
+  <text x="430" y="243" class="trans-label">[BEGIN TRANSACTION - Atomic Cell Transfer]</text>
+
+  <!-- 1. Actualizar Registro Estadía al nuevo celda_id -->
+  <line x1="486" y1="265" x2="694" y2="265" class="msg-line" marker-end="url(#arrow-blue4)" />
+  <text x="495" y="260" class="msg-text">5: updateEstadiaCelda(estadiaActiva.id, celdaDestinoId)</text>
+
+  <!-- 2. Liberar celda origen -->
+  <line x1="486" y1="300" x2="694" y2="300" class="msg-line" marker-end="url(#arrow-blue4)" />
+  <text x="495" y="295" class="msg-text">6: updateCeldaEstado(celdaOrigenId, 'DISPONIBLE')</text>
+
+  <!-- 3. Ocupar celda destino -->
+  <line x1="486" y1="335" x2="694" y2="335" class="msg-line" marker-end="url(#arrow-blue4)" />
+  <text x="495" y="330" class="msg-text">7: updateCeldaEstado(celdaDestinoId, 'OCUPADA')</text>
+
+  <!-- Commit DB -->
+  <line x1="706" y1="370" x2="900" y2="370" class="msg-line" marker-end="url(#arrow-blue4)" />
+  <text x="720" y="365" class="msg-text">8: COMMIT TRANSACTION</text>
+
+  <line x1="694" y1="420" x2="486" y2="420" class="reply-line" marker-end="url(#arrow-reply4)" />
+  <text x="510" y="415" class="reply-text">9: return {reasignacionExitosa: true, vehiculo: 'ABC123'}</text>
+
+  <line x1="474" y1="460" x2="276" y2="460" class="reply-line" marker-end="url(#arrow-reply4)" />
+  <text x="290" y="455" class="reply-text">10: return {success: true, celdaOrigen, celdaDestino}</text>
+
+  <line x1="264" y1="500" x2="86" y2="500" class="reply-line" marker-end="url(#arrow-reply4)" />
+  <text x="95" y="495" class="reply-text">11: HTTP 200 OK {success: true, message: 'Celda reasignada'}</text>
+
+  <!-- Actualización del Mapa Visual -->
+  <line x1="86" y1="540" x2="160" y2="540" class="msg-line" />
+  <line x1="160" y1="540" x2="160" y2="555" class="msg-line" />
+  <line x1="160" y1="555" x2="86" y2="555" class="msg-line" marker-end="url(#arrow-blue4)" />
+  <text x="170" y="550" class="msg-text">12: app.cargarMapaCeldas() &amp; app.cargarDashboard()</text>
+
+</svg>
+      <div class="figure-caption">Figura 5. Diagrama de Secuencia: Reasignación Atómica de Celdas (Iteración 2 - StarUML)</div>
+    </div>
+
+    <!-- DIAGRAMA DE COMPONENTES -->
+    <h2>8. DIAGRAMA DE COMPONENTES ASOCIADO (ITERACIONES 1 Y 2)</h2>
+    <p>
+      El diagrama de componentes de software evidencia la arquitectura N-Tier integrada de las Iteraciones 1 y 2:
+    </p>
+
+    <div class="figure-box">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 780" width="100%" height="100%">
+  <defs>
+    <style>
+      .bg { fill: #0f172a; }
+      .main-title { font-family: 'Segoe UI', Arial, sans-serif; font-size: 17px; font-weight: 700; fill: #60a5fa; text-anchor: middle; }
+      .main-subtitle { font-family: 'Segoe UI', Arial, sans-serif; font-size: 12px; fill: #94a3b8; text-anchor: middle; }
+      
+      .package-box { fill: #1e293b; stroke: #334155; stroke-width: 1.8; rx: 8; }
+      .package-tab { fill: #334155; rx: 4; }
+      .package-title { font-family: 'Segoe UI', Arial, sans-serif; font-size: 12px; font-weight: 700; fill: #f8fafc; }
+      
+      .component-box { fill: #0f172a; stroke: #38bdf8; stroke-width: 1.8; rx: 6; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3)); }
+      .component-box-db { fill: #1e1b4b; stroke: #818cf8; stroke-width: 1.8; rx: 6; }
+      .component-tab { fill: #38bdf8; rx: 2; }
+      .component-title { font-family: 'Segoe UI', Arial, sans-serif; font-size: 11px; font-weight: 700; fill: #ffffff; text-anchor: middle; }
+      .component-detail { font-family: 'Segoe UI', Arial, sans-serif; font-size: 9.5px; fill: #94a3b8; text-anchor: middle; }
+
+      .interface-circle { fill: #ffffff; stroke: #38bdf8; stroke-width: 2; }
+      .interface-text { font-family: 'Segoe UI', Arial, sans-serif; font-size: 9.5px; font-weight: 600; fill: #38bdf8; }
+      
+      .connector-line { stroke: #38bdf8; stroke-width: 1.6; }
+      .dep-line { stroke: #94a3b8; stroke-width: 1.4; stroke-dasharray: 4,3; }
+    </style>
+    <marker id="dep-arrow" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#94a3b8" />
+    </marker>
+  </defs>
+
+  <rect width="100%" height="100%" class="bg" />
+
+  <text x="550" y="32" class="main-title">Diagrama de Componentes del Sistema: Parqueadero Autos Colombia</text>
+  <text x="550" y="52" class="main-subtitle">Arquitectura de Componentes de Software Integrada (Iteraciones 1 y 2 - StarUML)</text>
+
+  <!-- CAPA 1: CLIENTE / PRESENTACIÓN -->
+  <g transform="translate(30, 80)">
+    <rect x="0" y="0" width="130" height="22" class="package-tab" />
+    <text x="10" y="16" class="package-title">Capa Presentación</text>
+    <rect x="0" y="20" width="1040" height="150" class="package-box" />
+
+    <!-- Componente 1: Web Browser UI -->
+    <g transform="translate(30, 45)">
+      <rect x="0" y="0" width="280" height="95" class="component-box" />
+      <rect x="-8" y="15" width="16" height="12" class="component-tab" />
+      <rect x="-8" y="45" width="16" height="12" class="component-tab" />
+      <text x="140" y="35" class="component-title">&lt;&lt;component&gt;&gt;</text>
+      <text x="140" y="55" class="component-title">SPA Dashboard UI</text>
+      <text x="140" y="75" class="component-detail">HTML5, CSS3 CarPark Dark Theme, app.js</text>
+    </g>
+
+    <!-- Componente 2: Módulo Ticket Térmico -->
+    <g transform="translate(380, 45)">
+      <rect x="0" y="0" width="280" height="95" class="component-box" />
+      <rect x="-8" y="15" width="16" height="12" class="component-tab" />
+      <rect x="-8" y="45" width="16" height="12" class="component-tab" />
+      <text x="140" y="35" class="component-title">&lt;&lt;component&gt;&gt;</text>
+      <text x="140" y="55" class="component-title">Ticket &amp; Liquidación Manager</text>
+      <text x="140" y="75" class="component-detail">Impresión Térmica, Modal de Cobro</text>
+    </g>
+
+    <!-- Componente 3: Módulo Celdas & Usuarios UI -->
+    <g transform="translate(730, 45)">
+      <rect x="0" y="0" width="280" height="95" class="component-box" />
+      <rect x="-8" y="15" width="16" height="12" class="component-tab" />
+      <rect x="-8" y="45" width="16" height="12" class="component-tab" />
+      <text x="140" y="35" class="component-title">&lt;&lt;component&gt;&gt;</text>
+      <text x="140" y="55" class="component-title">CellMap &amp; UserMgmt UI</text>
+      <text x="140" y="75" class="component-detail">Mapa Visual, Reasignación y CRUD Operadores</text>
+    </g>
+  </g>
+
+  <!-- INTERFAZ HTTP / REST API GATEWAY -->
+  <circle cx="550" cy="270" r="10" class="interface-circle" />
+  <text x="570" y="274" class="interface-text">REST / JSON HTTP API Interface</text>
+  <line x1="550" y1="230" x2="550" y2="260" class="connector-line" />
+  <line x1="550" y1="280" x2="550" y2="310" class="connector-line" />
+
+  <!-- CAPA 2: APLICACIÓN / BACKEND (NODE.JS + EXPRESS) -->
+  <g transform="translate(30, 310)">
+    <rect x="0" y="0" width="160" height="22" class="package-tab" />
+    <text x="10" y="16" class="package-title">Capa Lógica de Negocio</text>
+    <rect x="0" y="20" width="1040" height="240" class="package-box" />
+
+    <!-- Componente 4: API Controller -->
+    <g transform="translate(30, 45)">
+      <rect x="0" y="0" width="280" height="85" class="component-box" />
+      <rect x="-8" y="15" width="16" height="12" class="component-tab" />
+      <rect x="-8" y="45" width="16" height="12" class="component-tab" />
+      <text x="140" y="30" class="component-title">&lt;&lt;component&gt;&gt;</text>
+      <text x="140" y="50" class="component-title">ParqueaderoController</text>
+      <text x="140" y="70" class="component-detail">Routing HTTP, Validaciones de Entrada</text>
+    </g>
+
+    <!-- Componente 5: ParqueaderoService (Iteración 1) -->
+    <g transform="translate(380, 45)">
+      <rect x="0" y="0" width="280" height="85" class="component-box" />
+      <rect x="-8" y="15" width="16" height="12" class="component-tab" />
+      <rect x="-8" y="45" width="16" height="12" class="component-tab" />
+      <text x="140" y="30" class="component-title">&lt;&lt;component&gt;&gt;</text>
+      <text x="140" y="50" class="component-title">ParqueaderoService</text>
+      <text x="140" y="70" class="component-detail">Reglas de Negocio, Tarifas, Mensualidades</text>
+    </g>
+
+    <!-- Componente 6: User & Cell Service (Iteración 2) -->
+    <g transform="translate(730, 45)">
+      <rect x="0" y="0" width="280" height="85" class="component-box" />
+      <rect x="-8" y="15" width="16" height="12" class="component-tab" />
+      <rect x="-8" y="45" width="16" height="12" class="component-tab" />
+      <text x="140" y="30" class="component-title">&lt;&lt;component&gt;&gt;</text>
+      <text x="140" y="50" class="component-title">User &amp; Cell Manager Service</text>
+      <text x="140" y="70" class="component-detail">Gestión de Celdas, Reasignación, Roles</text>
+    </g>
+
+    <!-- Componente 7: Data Access Repository -->
+    <g transform="translate(380, 155)">
+      <rect x="0" y="0" width="280" height="85" class="component-box" />
+      <rect x="-8" y="15" width="16" height="12" class="component-tab" />
+      <rect x="-8" y="45" width="16" height="12" class="component-tab" />
+      <text x="140" y="30" class="component-title">&lt;&lt;component&gt;&gt;</text>
+      <text x="140" y="50" class="component-title">ParqueaderoRepository</text>
+      <text x="140" y="70" class="component-detail">Prepared Statements, Sentencias SQL ACID</text>
+    </g>
+
+    <!-- Conexiones internas -->
+    <line x1="310" y1="87" x2="380" y2="87" class="dep-line" marker-end="url(#dep-arrow)" />
+    <line x1="660" y1="87" x2="730" y2="87" class="dep-line" marker-end="url(#dep-arrow)" />
+    <line x1="520" y1="130" x2="520" y2="155" class="dep-line" marker-end="url(#dep-arrow)" />
+    <line x1="870" y1="130" x2="660" y2="180" class="dep-line" marker-end="url(#dep-arrow)" />
+  </g>
+
+  <!-- INTERFAZ SQLITE DRIVER -->
+  <circle cx="550" cy="590" r="10" class="interface-circle" style="stroke: #818cf8;" />
+  <text x="570" y="594" class="interface-text" style="fill: #818cf8;">Native SQLite / Node C++ Addon Interface</text>
+  <line x1="550" y1="550" x2="550" y2="580" class="connector-line" style="stroke: #818cf8;" />
+  <line x1="550" y1="600" x2="550" y2="630" class="connector-line" style="stroke: #818cf8;" />
+
+  <!-- CAPA 3: PERSISTENCIA Y BASE DE DATOS -->
+  <g transform="translate(30, 630)">
+    <rect x="0" y="0" width="140" height="22" class="package-tab" />
+    <text x="10" y="16" class="package-title">Capa Persistencia</text>
+    <rect x="0" y="20" width="1040" height="110" class="package-box" />
+
+    <!-- Componente 8: autos_colombia.db -->
+    <g transform="translate(230, 35)">
+      <rect x="0" y="0" width="640" height="75" class="component-box-db" />
+      <rect x="-8" y="15" width="16" height="12" class="component-tab" style="fill: #818cf8;" />
+      <rect x="-8" y="45" width="16" height="12" class="component-tab" style="fill: #818cf8;" />
+      <text x="320" y="28" class="component-title">&lt;&lt;database engine&gt;&gt; SQLite3 3FN</text>
+      <text x="320" y="46" class="component-title">autos_colombia.db</text>
+      <text x="320" y="64" class="componentdetail" style="fill: #a5b4fc; font-size: 9.5px; text-anchor: middle;">Tablas: usuarios, roles, celdas, vehiculos, mensualidades, registros_estadia, novedades, pagos</text>
+    </g>
+  </g>
+
+</svg>
+      <div class="figure-caption">Figura 6. Diagrama de Componentes de Software Integrado (Iteraciones 1 y 2 - StarUML)</div>
+    </div>
+
+    <!-- PLAN DE PRUEBAS -->
+    <h2>9. FORMATO DE PLAN DE PRUEBAS RESUMIDO</h2>
+    <p>
+      Estructura formal según directrices de la Unidad 2 (Pruebas de Software e IEEE 829 adaptado) para los módulos de Gestión de Usuarios y Gestión de Celdas:
+    </p>
+
+    <table class="table-custom">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Módulo</th>
+          <th>Objetivo / Escenario</th>
+          <th>Datos de Entrada</th>
+          <th>Resultado Esperado</th>
+          <th>Resultado Obtenido</th>
+          <th>Estado</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>CP-01</strong></td>
+          <td>Usuarios</td>
+          <td>Creación exitosa de nuevo usuario operador</td>
+          <td>Doc: "1098765432", User: "carlos_test", Rol: 2, Clave: "Pass123"</td>
+          <td>Usuario guardado con ID autogenerado y estado ACTIVO</td>
+          <td>Creado exitosamente con ID 4</td>
+          <td><span class="badge-status badge-pass">APROBADO</span></td>
+        </tr>
+        <tr>
+          <td><strong>CP-02</strong></td>
+          <td>Usuarios</td>
+          <td>Rechazo estricto de username duplicado</td>
+          <td>Doc: "1098765433", User: "admin", Rol: 1</td>
+          <td>Rechazo por restricción UNIQUE de username</td>
+          <td>Error capturado: "El nombre de usuario ya está registrado"</td>
+          <td><span class="badge-status badge-pass">APROBADO</span></td>
+        </tr>
+        <tr>
+          <td><strong>CP-03</strong></td>
+          <td>Usuarios</td>
+          <td>Desactivación lógica de credenciales</td>
+          <td>ID: 2 (operador1), Estado: "INACTIVO"</td>
+          <td>Estado pasa a INACTIVO; acceso revocado</td>
+          <td>Estado actualizado a INACTIVO</td>
+          <td><span class="badge-status badge-pass">APROBADO</span></td>
+        </tr>
+        <tr>
+          <td><strong>CP-04</strong></td>
+          <td>Celdas</td>
+          <td>Creación de nueva celda de parqueo</td>
+          <td>Código: "B-05", Piso: "Piso 2", Tipo: 1 (Auto), Estado: DISPONIBLE</td>
+          <td>Celda registrada en inventario con estado DISPONIBLE</td>
+          <td>Celda creada y consultable en mapa</td>
+          <td><span class="badge-status badge-pass">APROBADO</span></td>
+        </tr>
+        <tr>
+          <td><strong>CP-05</strong></td>
+          <td>Celdas</td>
+          <td>Bloqueo por Mantenimiento de celda libre</td>
+          <td>Celda "A-05", Nuevo Estado: "MANTENIMIENTO"</td>
+          <td>Estado cambia a MANTENIMIENTO; excluida de entrada</td>
+          <td>Estado cambiado; no listada en celdas disponibles</td>
+          <td><span class="badge-status badge-pass">APROBADO</span></td>
+        </tr>
+        <tr>
+          <td><strong>CP-06</strong></td>
+          <td>Celdas</td>
+          <td>Reasignación atómica de vehículo activo</td>
+          <td>Origen: Celda A-04 (Ocupada con ABC123), Destino: Celda A-03 (Libre)</td>
+          <td>A-04 pasa a DISPONIBLE; A-03 a OCUPADA; Estadía actualizada</td>
+          <td>Reasignación atómica ejecutada sin discrepancias</td>
+          <td><span class="badge-status badge-pass">APROBADO</span></td>
+        </tr>
+        <tr>
+          <td><strong>CP-07</strong></td>
+          <td>Integración</td>
+          <td>Registro de entrada asignando celda libre</td>
+          <td>Placa: "XYZ789", Tipo: 1, Celda: "A-01"</td>
+          <td>Ticket generado, celda A-01 marcada como OCUPADA</td>
+          <td>Ticket emitido y celda ocupada</td>
+          <td><span class="badge-status badge-pass">APROBADO</span></td>
+        </tr>
+        <tr>
+          <td><strong>CP-08</strong></td>
+          <td>Integración</td>
+          <td>Bloqueo de reingreso de carro ya presente</td>
+          <td>Placa: "XYZ789" (repetida)</td>
+          <td>Error: "El vehículo ya se encuentra dentro del parqueadero"</td>
+          <td>Bloqueado con mensaje de regla de negocio</td>
+          <td><span class="badge-status badge-pass">APROBADO</span></td>
+        </tr>
+        <tr>
+          <td><strong>CP-09</strong></td>
+          <td>Integración</td>
+          <td>Salida, cobro y liberación atómica</td>
+          <td>Criterio: "XYZ789", Método: "EFECTIVO"</td>
+          <td>Cobro liquidado según minutos; Celda vuelve a DISPONIBLE</td>
+          <td>Cobro generado y celda liberada a DISPONIBLE</td>
+          <td><span class="badge-status badge-pass">APROBADO</span></td>
+        </tr>
+        <tr>
+          <td><strong>CP-10</strong></td>
+          <td>Rendimiento</td>
+          <td>Tiempo de respuesta de consulta Dashboard</td>
+          <td>Petición GET /api/dashboard</td>
+          <td>Tiempo inferior a umbral RNF (800 ms)</td>
+          <td>Ejecutado en 1.41 ms (supera estándar ampliamente)</td>
+          <td><span class="badge-status badge-pass">APROBADO</span></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="alert-callout">
+      <strong>Evidencia de Ejecución Automatizada (Suite Completa):</strong>
+      <pre><code>node test/pruebas_software.js
+====================================================================
+RESULTADO FINAL DE LA SUITE DE PRUEBAS:
+  Pruebas Totales Ejecutadas: 21
+  Pruebas Exitosas (PASSED): 21
+  Pruebas Fallidas (FAILED): 0
+  Tasa de Éxito: 100.0%
+====================================================================</code></pre>
+    </div>
+
+    <!-- ENLACE GITHUB -->
+    <h2>10. ANEXO: URL DEL REPOSITORIO GITHUB</h2>
+    <div class="alert-callout">
+      <strong>Repositorio Oficial del Proyecto:</strong><br>
+      <a href="https://github.com/yulianmosquera-design/carpark" target="_blank" style="color: #2563eb; font-weight: 700; font-size: 1.05rem;">https://github.com/yulianmosquera-design/carpark</a>
+      <p style="margin-top: 8px; font-size: 0.9rem;">
+        Contiene todo el código fuente operativo y actualizado: base de datos SQLite con script DDL, backend en Node.js/Express organizado en capas MVC/Repository, frontend reactivo SPA con tema CarPark, suite de 21 pruebas automatizadas y modelos StarUML (archivos .MDJ y diagramas .SVG).
+      </p>
+    </div>
+
+    <!-- CONCLUSIONES -->
+    <h2>11. CONCLUSIONES</h2>
+    <ol>
+      <li><strong>Arquitectura Escalable y Mantenible:</strong> La estructuración modular por capas permitió incorporar la gestión de usuarios y celdas sin regresiones en las funcionalidades previas de entrada y salida de vehículos.</li>
+      <li><strong>Integridad y Control Operativo:</strong> La reasignación atómica de celdas y la desactivación lógica de usuarios resuelven contingencias cotidianas del parqueadero sin vulnerar la trazabilidad financiera ni histórica.</li>
+      <li><strong>Confiabilidad Respaldada en Pruebas:</strong> La suite de pruebas de software automatizadas certificó un 100% de efectividad en los 21 casos evaluados, asegurando tiempos de respuesta óptimos (1.41 ms) y resistencia ante datos duplicados o inconsistentes.</li>
+    </ol>
+
+    <!-- REFERENCIAS -->
+    <h2>12. REFERENCIAS BIBLIOGRÁFICAS</h2>
+    <ul>
+      <li>Pressman, R. S., & Maxim, B. R. (2020). <em>Ingeniería del Software: Un enfoque práctico</em> (9.ª ed.). McGraw-Hill Education.</li>
+      <li>Sommerville, I. (2019). <em>Ingeniería del Software</em> (10.ª ed.). Pearson Educación.</li>
+      <li>Object Management Group (OMG). (2017). <em>OMG Unified Modeling Language (OMG UML) Superstructure Specification, Version 2.2</em>.</li>
+      <li>IEEE Computer Society. (2008). <em>IEEE Standard for Software and System Test Documentation (IEEE Std 829-2008)</em>. IEEE.</li>
+      <li>Cohn, M. (2004). <em>User Stories Applied: For Agile Software Development</em>. Addison-Wesley Professional.</li>
+    </ul>
+
+  </div>
+
+</body>
+</html>
